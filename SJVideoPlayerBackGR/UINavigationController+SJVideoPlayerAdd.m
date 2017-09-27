@@ -78,7 +78,7 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshortImagesM;
 }
 
 - (void)SJVideoPlayer_dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion {
-    NSLog(@"%zd - %s", __LINE__, __func__);
+    
     if ( !self.navigationController ) {
         // call origin method
         [self SJVideoPlayer_dismissViewControllerAnimated:flag completion:completion];
@@ -101,8 +101,11 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshortImagesM;
 
 + (UIImageView *)SJVideoPlayer_screenshortImageView {
     if ( SJVideoPlayer_screenshortImageView ) return SJVideoPlayer_screenshortImageView;
-    SJVideoPlayer_screenshortImageView = [[UIImageView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    SJVideoPlayer_screenshortImageView.image = [UIImage imageNamed:@"test.png"];
+    SJVideoPlayer_screenshortImageView = [UIImageView new];
+    CGRect bounds = [UIScreen mainScreen].bounds;
+    CGFloat width = MIN(bounds.size.width, bounds.size.height);
+    CGFloat height = MAX(bounds.size.width, bounds.size.height);
+    SJVideoPlayer_screenshortImageView.frame = CGRectMake(0, 0, width, height);
     return SJVideoPlayer_screenshortImageView;
 }
 
@@ -185,7 +188,6 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshortImagesM;
 
 // Push
 - (void)SJVideoPlayer_pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    NSLog(@"%zd - %s", __LINE__, __func__);
     
     // get scrrenshort
     id appDelegate = [UIApplication sharedApplication].delegate;
@@ -207,8 +209,6 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshortImagesM;
 
 // Pop
 - (UIViewController *)SJVideoPlayer_popViewControllerAnimated:(BOOL)animated {
-    
-    NSLog(@"%zd - %s", __LINE__, __func__);
     
     // reset image
     [self SJVideoPlayer_resetScreenshortImage];
@@ -240,7 +240,7 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshortImagesM;
     if ( self.childViewControllers.count <= 1 ) return;
     
     CGFloat offset = [pan translationInView:self.view].x;
-
+    
     switch (pan.state) {
         case UIGestureRecognizerStateBegan: {
             [self SJVideoPlayer_ViewWillBeginDragging];
