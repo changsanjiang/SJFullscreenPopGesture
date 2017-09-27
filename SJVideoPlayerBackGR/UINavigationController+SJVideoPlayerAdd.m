@@ -236,7 +236,26 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshortImagesM;
     return pan;
 }
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
+
+- (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)gestureRecognizer {
+    if (gestureRecognizer.view != self.view) return NO;
+    CGPoint translate = [gestureRecognizer translationInView:self.view];
+    BOOL possible = translate.x != 0 && fabs(translate.y) == 0;
+    if ( possible ) return YES;
+    else return NO;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    if ([otherGestureRecognizer isKindOfClass:NSClassFromString(@"UIScrollViewPanGestureRecognizer")] || [otherGestureRecognizer isKindOfClass:NSClassFromString(@"UIPanGestureRecognizer")]|| [otherGestureRecognizer isKindOfClass:NSClassFromString(@"UIScrollViewPagingSwipeGestureRecognizer")]) {
+        // 冲突要有两个，二者不可兼得
+        UIView *aView = otherGestureRecognizer.view;
+        if ( [aView isKindOfClass:[UIScrollView class]] ) {
+            UIScrollView *sv = (UIScrollView *)aView;
+            if (sv.contentOffset.x == 0 ) return YES;
+        }
+        return NO;
+    }
+    
     return YES;
 }
 
