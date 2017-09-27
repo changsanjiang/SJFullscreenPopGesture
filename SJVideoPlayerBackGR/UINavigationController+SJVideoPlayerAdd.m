@@ -79,7 +79,11 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshortImagesM;
 
 - (void)SJVideoPlayer_dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion {
     NSLog(@"%zd - %s", __LINE__, __func__);
-    if ( !self.navigationController ) return;
+    if ( !self.navigationController ) {
+        // call origin method
+        [self SJVideoPlayer_dismissViewControllerAnimated:flag completion:completion];
+        return;
+    }
     
     // rest image
     [self SJVideoPlayer_resetScreenshortImage];
