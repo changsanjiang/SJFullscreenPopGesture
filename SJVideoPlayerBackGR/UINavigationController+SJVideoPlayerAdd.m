@@ -9,7 +9,7 @@
 #import "UINavigationController+SJVideoPlayerAdd.h"
 #import <objc/message.h>
 #import "AppDelegate.h"
-
+#import "UIViewController+SJVideoPlayerAdd.h"
 
 
 #pragma mark - Timer
@@ -187,41 +187,56 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshortImagesM;
 
     switch (pan.state) {
         case UIGestureRecognizerStateBegan: {
-            NSLog(@"begin");
+            [self SJVideoPlayer_ViewWillBeginDragging];
         }
             break;
         case UIGestureRecognizerStateChanged: {
             // 如果从右往左滑
             if ( offset < 0 ) return;
-            self.view.transform = CGAffineTransformMakeTranslation(offset, 0);
+            [self SJVideoPlayer_ViewDidDrag:offset];
         }
             break;
         case UIGestureRecognizerStatePossible:
         case UIGestureRecognizerStateEnded:
         case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateFailed: {
-            NSLog(@"end");
-            CGFloat rate = offset / self.view.frame.size.width;
-            if ( rate < 0.35 ) {
-                [UIView animateWithDuration:0.25 animations:^{
-                    self.view.transform = CGAffineTransformIdentity;
-                }];
-            }
-            else {
-                [UIView animateWithDuration:0.25 animations:^{
-                    self.view.transform = CGAffineTransformMakeTranslation(self.view.frame.size.width, 0);
-                } completion:^(BOOL finished) {
-                    [self popViewControllerAnimated:NO];
-                    self.view.transform = CGAffineTransformIdentity;
-                }];
-            }
-
-            return;
+            [self SJVideoPlayer_ViewDidEndDragging:offset];
         }
             break;
     }
 }
 
+- (void)SJVideoPlayer_ViewWillBeginDragging {
+    // call block
+    if ( self.topViewController.sj_viewWillBeginDragging ) self.topViewController.sj_viewWillBeginDragging(self.topViewController);
+}
+
+- (void)SJVideoPlayer_ViewDidDrag:(CGFloat)offset {
+    self.view.transform = CGAffineTransformMakeTranslation(offset, 0);
+    
+    // call block
+    if ( self.topViewController.sj_viewDidDrag ) self.topViewController.sj_viewDidDrag(self.topViewController);
+}
+
+- (void)SJVideoPlayer_ViewDidEndDragging:(CGFloat)offset {
+    CGFloat rate = offset / self.view.frame.size.width;
+    if ( rate < 0.35 ) {
+        [UIView animateWithDuration:0.25 animations:^{
+            self.view.transform = CGAffineTransformIdentity;
+        }];
+    }
+    else {
+        [UIView animateWithDuration:0.25 animations:^{
+            self.view.transform = CGAffineTransformMakeTranslation(self.view.frame.size.width, 0);
+        } completion:^(BOOL finished) {
+            [self popViewControllerAnimated:NO];
+            self.view.transform = CGAffineTransformIdentity;
+        }];
+    }
+    
+    // call block
+    if ( self.topViewController.sj_viewDidEndDragging ) self.topViewController.sj_viewDidEndDragging(self.topViewController);
+}
 
 @end
 

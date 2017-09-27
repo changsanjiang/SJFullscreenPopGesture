@@ -8,6 +8,7 @@
 
 #import "NextViewController.h"
 #import "UINavigationController+SJVideoPlayerAdd.h"
+#import "UIViewController+SJVideoPlayerAdd.h"
 
 @interface NextViewController ()
 
@@ -33,7 +34,19 @@
     [self.view addSubview:_pushBtn];
     _pushBtn.bounds = CGRectMake(0, 0, 100, 50);
     _pushBtn.center = self.view.center;
+ 
     
+    self.sj_viewWillBeginDragging = ^(UIViewController *vc) {
+        NSLog(@"begin");
+    };
+    
+    self.sj_viewDidDrag = ^(UIViewController *vc) {
+        NSLog(@"dragging");
+    };
+    
+    self.sj_viewDidEndDragging = ^(UIViewController *vc) {
+        NSLog(@"end");
+    };
 }
 
 

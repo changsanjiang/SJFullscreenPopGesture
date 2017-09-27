@@ -17,6 +17,7 @@
 		7766E2031F7A7F1900165DD2 /* NavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7766E2021F7A7F1900165DD2 /* NavViewController.m */; };
 		7766E20B1F7A867200165DD2 /* test.png in Resources */ = {isa = PBXBuildFile; fileRef = 7766E20A1F7A856600165DD2 /* test.png */; };
 		779F06501F7B94490000D940 /* UINavigationController+SJVideoPlayerAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 779F064F1F7B943A0000D940 /* UINavigationController+SJVideoPlayerAdd.m */; };
+		779F06531F7B9FBF0000D940 /* UIViewController+SJVideoPlayerAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 779F06521F7B9FBF0000D940 /* UIViewController+SJVideoPlayerAdd.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,8 @@
 		7766E20A1F7A856600165DD2 /* test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test.png; sourceTree = "<group>"; };
 		779F064E1F7B943A0000D940 /* UINavigationController+SJVideoPlayerAdd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+SJVideoPlayerAdd.h"; sourceTree = "<group>"; };
 		779F064F1F7B943A0000D940 /* UINavigationController+SJVideoPlayerAdd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+SJVideoPlayerAdd.m"; sourceTree = "<group>"; };
+		779F06511F7B9FBF0000D940 /* UIViewController+SJVideoPlayerAdd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SJVideoPlayerAdd.h"; sourceTree = "<group>"; };
+		779F06521F7B9FBF0000D940 /* UIViewController+SJVideoPlayerAdd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SJVideoPlayerAdd.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,8 +78,8 @@
 				7766E1EB1F7A7A5600165DD2 /* ViewController.m */,
 				7766E2011F7A7F1900165DD2 /* NavViewController.h */,
 				7766E2021F7A7F1900165DD2 /* NavViewController.m */,
-				779F064D1F7B943A0000D940 /* SJVideoPlayerBackGR */,
 				7766E1FD1F7A7A9F00165DD2 /* Test */,
+				779F064D1F7B943A0000D940 /* SJVideoPlayerBackGR */,
 				7766E1ED1F7A7A5600165DD2 /* Main.storyboard */,
 				7766E1F01F7A7A5600165DD2 /* Assets.xcassets */,
 				7766E1F21F7A7A5600165DD2 /* LaunchScreen.storyboard */,
@@ -99,6 +102,8 @@
 		779F064D1F7B943A0000D940 /* SJVideoPlayerBackGR */ = {
 			isa = PBXGroup;
 			children = (
+				779F06511F7B9FBF0000D940 /* UIViewController+SJVideoPlayerAdd.h */,
+				779F06521F7B9FBF0000D940 /* UIViewController+SJVideoPlayerAdd.m */,
 				779F064E1F7B943A0000D940 /* UINavigationController+SJVideoPlayerAdd.h */,
 				779F064F1F7B943A0000D940 /* UINavigationController+SJVideoPlayerAdd.m */,
 			);
@@ -183,6 +188,7 @@
 				7766E1F71F7A7A5600165DD2 /* main.m in Sources */,
 				779F06501F7B94490000D940 /* UINavigationController+SJVideoPlayerAdd.m in Sources */,
 				7766E1E91F7A7A5600165DD2 /* AppDelegate.m in Sources */,
+				779F06531F7B9FBF0000D940 /* UIViewController+SJVideoPlayerAdd.m in Sources */,
 				7766E2031F7A7F1900165DD2 /* NavViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
