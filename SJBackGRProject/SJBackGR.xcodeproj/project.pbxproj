@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7728ECFA1F7BC97D00E19EDC /* NoNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7728ECF91F7BC97D00E19EDC /* NoNavViewController.m */; };
+		7728ED161F7BE95500E19EDC /* SJScreenshotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7728ED151F7BE95500E19EDC /* SJScreenshotView.m */; };
 		7766E1E91F7A7A5600165DD2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7766E1E81F7A7A5600165DD2 /* AppDelegate.m */; };
 		7766E1EC1F7A7A5600165DD2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7766E1EB1F7A7A5600165DD2 /* ViewController.m */; };
 		7766E1EF1F7A7A5600165DD2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7766E1ED1F7A7A5600165DD2 /* Main.storyboard */; };
@@ -23,6 +24,8 @@
 /* Begin PBXFileReference section */
 		7728ECF81F7BC97D00E19EDC /* NoNavViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoNavViewController.h; sourceTree = "<group>"; };
 		7728ECF91F7BC97D00E19EDC /* NoNavViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoNavViewController.m; sourceTree = "<group>"; };
+		7728ED141F7BE95500E19EDC /* SJScreenshotView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SJScreenshotView.h; sourceTree = "<group>"; };
+		7728ED151F7BE95500E19EDC /* SJScreenshotView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SJScreenshotView.m; sourceTree = "<group>"; };
 		7766E1E41F7A7A5600165DD2 /* SJBackGR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SJBackGR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7766E1E71F7A7A5600165DD2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7766E1E81F7A7A5600165DD2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -106,6 +109,8 @@
 				779F06521F7B9FBF0000D940 /* UIViewController+SJVideoPlayerAdd.m */,
 				779F064E1F7B943A0000D940 /* UINavigationController+SJVideoPlayerAdd.h */,
 				779F064F1F7B943A0000D940 /* UINavigationController+SJVideoPlayerAdd.m */,
+				7728ED141F7BE95500E19EDC /* SJScreenshotView.h */,
+				7728ED151F7BE95500E19EDC /* SJScreenshotView.m */,
 			);
 			name = SJVideoPlayerBackGR;
 			path = ../../SJVideoPlayerBackGR;
@@ -186,6 +191,7 @@
 				7766E1EC1F7A7A5600165DD2 /* ViewController.m in Sources */,
 				7728ECFA1F7BC97D00E19EDC /* NoNavViewController.m in Sources */,
 				7766E2001F7A7AA800165DD2 /* NextViewController.m in Sources */,
+				7728ED161F7BE95500E19EDC /* SJScreenshotView.m in Sources */,
 				7766E1F71F7A7A5600165DD2 /* main.m in Sources */,
 				779F06501F7B94490000D940 /* UINavigationController+SJVideoPlayerAdd.m in Sources */,
 				7766E1E91F7A7A5600165DD2 /* AppDelegate.m in Sources */,

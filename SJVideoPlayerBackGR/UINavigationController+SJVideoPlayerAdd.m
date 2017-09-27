@@ -9,7 +9,7 @@
 #import "UINavigationController+SJVideoPlayerAdd.h"
 #import <objc/message.h>
 #import "UIViewController+SJVideoPlayerAdd.h"
-
+#import "SJScreenshotView.h"
 
 #pragma mark - Timer
 
@@ -47,8 +47,8 @@
 
 #pragma mark -
 
-static UIImageView *SJVideoPlayer_screenshortImageView;
-static NSMutableArray<UIImage *> * SJVideoPlayer_screenshortImagesM;
+static SJScreenshotView *SJVideoPlayer_screenshotView;
+static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
 
 
 
@@ -58,8 +58,8 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshortImagesM;
 
 @interface UIViewController (SJVideoPlayerExtension)
 
-@property (class, nonatomic, strong, readonly) UIImageView *SJVideoPlayer_screenshortImageView;
-@property (class, nonatomic, strong, readonly) NSMutableArray<UIImage *> * SJVideoPlayer_screenshortImagesM;
+@property (class, nonatomic, strong, readonly) UIImageView *SJVideoPlayer_screenshotView;
+@property (class, nonatomic, strong, readonly) NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
 
 @end
 
@@ -67,7 +67,6 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshortImagesM;
 
 + (void)load {
     Class vc = [self class];
-    
     
     
     // dismiss
@@ -86,33 +85,33 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshortImagesM;
     }
     
     // rest image
-    [self SJVideoPlayer_resetScreenshortImage];
+    [self SJVideoPlayer_resetScreenshotImage];
     
     // call origin method
     [self SJVideoPlayer_dismissViewControllerAnimated:flag completion:completion];
 }
 
-- (void)SJVideoPlayer_resetScreenshortImage {
-    // remove last screenshort
-    [[[self class] SJVideoPlayer_screenshortImagesM] removeLastObject];
-    // update screenshortImage
-    [[[self class] SJVideoPlayer_screenshortImageView] setImage:[[[self class] SJVideoPlayer_screenshortImagesM] lastObject]];
+- (void)SJVideoPlayer_resetScreenshotImage {
+    // remove last screenshot
+    [[[self class] SJVideoPlayer_screenshotImagesM] removeLastObject];
+    // update screenshotImage
+    [[[self class] SJVideoPlayer_screenshotView] setImage:[[[self class] SJVideoPlayer_screenshotImagesM] lastObject]];
 }
 
-+ (UIImageView *)SJVideoPlayer_screenshortImageView {
-    if ( SJVideoPlayer_screenshortImageView ) return SJVideoPlayer_screenshortImageView;
-    SJVideoPlayer_screenshortImageView = [UIImageView new];
++ (SJScreenshotView *)SJVideoPlayer_screenshotView {
+    if ( SJVideoPlayer_screenshotView ) return SJVideoPlayer_screenshotView;
+    SJVideoPlayer_screenshotView = [SJScreenshotView new];
     CGRect bounds = [UIScreen mainScreen].bounds;
     CGFloat width = MIN(bounds.size.width, bounds.size.height);
     CGFloat height = MAX(bounds.size.width, bounds.size.height);
-    SJVideoPlayer_screenshortImageView.frame = CGRectMake(0, 0, width, height);
-    return SJVideoPlayer_screenshortImageView;
+    SJVideoPlayer_screenshotView.frame = CGRectMake(0, 0, width, height);
+    return SJVideoPlayer_screenshotView;
 }
 
-+ (NSMutableArray<UIImage *> *)SJVideoPlayer_screenshortImagesM {
-    if ( SJVideoPlayer_screenshortImagesM ) return SJVideoPlayer_screenshortImagesM;
-    SJVideoPlayer_screenshortImagesM = [NSMutableArray array];
-    return SJVideoPlayer_screenshortImagesM;
++ (NSMutableArray<UIImage *> *)SJVideoPlayer_screenshotImagesM {
+    if ( SJVideoPlayer_screenshotImagesM ) return SJVideoPlayer_screenshotImagesM;
+    SJVideoPlayer_screenshotImagesM = [NSMutableArray array];
+    return SJVideoPlayer_screenshotImagesM;
 }
 
 @end
@@ -133,7 +132,7 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshortImagesM;
 + (void)load {
     
     // App launching
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(SJVideoPlayer_addscreenshortImageViewToWindow) name:UIApplicationDidFinishLaunchingNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(SJVideoPlayer_addscreenshotImageViewToWindow) name:UIApplicationDidFinishLaunchingNotification object:nil];
     
     Class nav = [self class];
     
@@ -155,9 +154,9 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshortImagesM;
 }
 
 // App launching
-+ (void)SJVideoPlayer_addscreenshortImageViewToWindow {
++ (void)SJVideoPlayer_addscreenshotImageViewToWindow {
     UIWindow *window = [(id)[UIApplication sharedApplication].delegate valueForKey:@"window"];
-    [window insertSubview:self.SJVideoPlayer_screenshortImageView atIndex:0];
+    [window insertSubview:self.SJVideoPlayer_screenshotView atIndex:0];
 }
 
 
@@ -198,9 +197,9 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshortImagesM;
     UIGraphicsEndImageContext();
     
     // add to container
-    [[self class].SJVideoPlayer_screenshortImagesM addObject:viewImage];
-    // change screenshortImage
-    [[self class].SJVideoPlayer_screenshortImageView setImage:viewImage];
+    [[self class].SJVideoPlayer_screenshotImagesM addObject:viewImage];
+    // change screenshotImage
+    [[self class].SJVideoPlayer_screenshotView setImage:viewImage];
     
     // call origin method
     [self SJVideoPlayer_pushViewController:viewController animated:animated];
@@ -210,7 +209,7 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshortImagesM;
 - (UIViewController *)SJVideoPlayer_popViewControllerAnimated:(BOOL)animated {
     
     // reset image
-    [self SJVideoPlayer_resetScreenshortImage];
+    [self SJVideoPlayer_resetScreenshotImage];
     
     // call origin method
     return [self SJVideoPlayer_popViewControllerAnimated:animated];
@@ -247,16 +246,31 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshortImagesM;
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     if ([otherGestureRecognizer isKindOfClass:NSClassFromString(@"UIScrollViewPanGestureRecognizer")] || [otherGestureRecognizer isKindOfClass:NSClassFromString(@"UIPanGestureRecognizer")]|| [otherGestureRecognizer isKindOfClass:NSClassFromString(@"UIScrollViewPagingSwipeGestureRecognizer")]) {
-        // 冲突要有两个，二者不可兼得
         UIView *aView = otherGestureRecognizer.view;
         if ( [aView isKindOfClass:[UIScrollView class]] ) {
             UIScrollView *sv = (UIScrollView *)aView;
-            if (sv.contentOffset.x == 0 ) return YES;
+            if ( [sv isKindOfClass:[UICollectionView class]] ) {
+                return [self SJVideoPlayer_considerScrollView:(UIScrollView *)aView];
+            }
+            if ( sv.contentOffset.x == 0 ) return YES;
         }
         return NO;
     }
-    
     return YES;
+}
+
+- (BOOL)SJVideoPlayer_considerScrollView:(UIScrollView *)sv {
+    if ( [sv isKindOfClass:[UICollectionView class]] ) {
+        UIView *sup = sv.superview;
+        if ( [sup isKindOfClass:[UITableViewCell class]] ) return NO;
+        // 如果是 TableView 嵌套 CollectionView, 尽量不同时识别.
+        for ( int i = 0 ; i < 4; ++ i ) {
+            sup = sup.superview;
+            if ( [sup isKindOfClass:[UITableViewCell class]] ) return NO;
+        }
+    }
+    if ( sv.contentOffset.x == 0 ) return YES;
+    return NO;
 }
 
 - (void)SJVideoPlayer_handlePanGR:(UIPanGestureRecognizer *)pan {
@@ -286,6 +300,8 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshortImagesM;
 }
 
 - (void)SJVideoPlayer_ViewWillBeginDragging {
+    [self.view endEditing:YES];
+    
     // call block
     if ( self.topViewController.sj_viewWillBeginDragging ) self.topViewController.sj_viewWillBeginDragging(self.topViewController);
 }
@@ -312,7 +328,7 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshortImagesM;
             self.view.transform = CGAffineTransformIdentity;
         }];
     }
-    
+
     // call block
     if ( self.topViewController.sj_viewDidEndDragging ) self.topViewController.sj_viewDidEndDragging(self.topViewController);
 }

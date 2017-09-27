@@ -13,5 +13,3 @@
 @property (nonatomic, strong, readonly) UIPanGestureRecognizer *pan;
 
 @end
-
-

@@ -12,6 +12,8 @@
 
 @interface NextViewController ()
 
+@property (nonatomic, strong) UILabel *label;
+
 @property (nonatomic, strong) UIButton *pushBtn;
 
 @property (nonatomic, strong) UIButton *modalBtn;
@@ -27,6 +29,12 @@
                                                 green:1.0 * (arc4random() % 256 / 255.0)
                                                  blue:1.0 * (arc4random() % 256 / 255.0)
                                                 alpha:1];
+    
+    self.label = [UILabel new];
+    _label.text = @"人生若只如初见，何事秋风悲画扇。";
+    [_label sizeToFit];
+    _label.center = CGPointMake(self.view.frame.size.width * 0.5, 100);
+    [self.view addSubview:_label];
     
     self.pushBtn = [UIButton new];
     [_pushBtn setTitle:@"Push" forState:UIControlStateNormal];
