@@ -7,6 +7,7 @@
 //
 
 #import "NextViewController.h"
+#import "NavViewController.h"
 #import "UINavigationController+SJVideoPlayerAdd.h"
 #import "UIViewController+SJVideoPlayerAdd.h"
 
@@ -14,13 +15,14 @@
 
 @property (nonatomic, strong) UIButton *pushBtn;
 
+@property (nonatomic, strong) UIButton *modalBtn;
+
 @end
 
 @implementation NextViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     
     self.view.backgroundColor = [UIColor colorWithRed:1.0 * (arc4random() % 256 / 255.0)
                                                 green:1.0 * (arc4random() % 256 / 255.0)
@@ -47,11 +49,34 @@
     self.sj_viewDidEndDragging = ^(UIViewController *vc) {
         NSLog(@"end");
     };
+    
+    self.modalBtn = [UIButton new];
+    [_modalBtn setTitle:@"Modal" forState:UIControlStateNormal];
+    [_modalBtn addTarget:self action:@selector(presentNextVC) forControlEvents:UIControlEventTouchUpInside];
+    [_modalBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [self.view addSubview:_modalBtn];
+    _modalBtn.bounds = CGRectMake(0, 0, 100, 50);
+    CGRect frame = _pushBtn.frame;
+    frame.origin.y += 100;
+    _modalBtn.frame = frame;
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"close" style:UIBarButtonItemStyleDone target:self action:@selector(clickedCloseItem)];
 }
-
 
 - (IBAction)pushNextVC:(id)sender {
     NextViewController * vc = [NextViewController new];
     [self.navigationController pushViewController:vc animated:YES];
 }
+
+- (void)presentNextVC {
+    NextViewController *vc = [NextViewController new];
+    NavViewController *nav = [[NavViewController alloc] initWithRootViewController:vc];
+    [self presentViewController:nav animated:YES completion:nil];
+}
+
+- (void)clickedCloseItem {
+    NSLog(@"仅对 modal 有效");
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 @end
