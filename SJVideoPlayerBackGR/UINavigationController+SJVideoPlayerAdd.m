@@ -119,6 +119,12 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshortImagesM;
         nav.interactivePopGestureRecognizer.enabled = NO;
         // 添加自定义手势
         [nav.view addGestureRecognizer:nav.pan];
+        // 添加阴影
+        self.view.layer.shadowOffset = CGSizeMake(-1, 0);
+        self.view.layer.shadowColor = [UIColor colorWithWhite:0 alpha:0.5].CGColor;
+        self.view.layer.shadowRadius = 1;
+        self.view.layer.shadowOpacity = 1;
+        
     } repeats:YES] fire];
     return [self SJVideoPlayer_initWithRootViewController:rootViewController];
 }
@@ -187,7 +193,6 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshortImagesM;
         case UIGestureRecognizerStateChanged: {
             // 如果从右往左滑
             if ( offset < 0 ) return;
-            NSLog(@"%f", offset);
             self.view.transform = CGAffineTransformMakeTranslation(offset, 0);
         }
             break;
