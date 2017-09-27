@@ -8,7 +8,6 @@
 
 #import "UINavigationController+SJVideoPlayerAdd.h"
 #import <objc/message.h>
-#import "AppDelegate.h"
 #import "UIViewController+SJVideoPlayerAdd.h"
 
 
@@ -52,10 +51,73 @@ static UIImageView *SJVideoPlayer_screenshortImageView;
 static NSMutableArray<UIImage *> * SJVideoPlayer_screenshortImagesM;
 
 
-@interface UINavigationController (SJVideoPlayerExtension)
+
+
+
+#pragma mark -
+
+@interface UIViewController (SJVideoPlayerExtension)
 
 @property (class, nonatomic, strong, readonly) UIImageView *SJVideoPlayer_screenshortImageView;
 @property (class, nonatomic, strong, readonly) NSMutableArray<UIImage *> * SJVideoPlayer_screenshortImagesM;
+
+@end
+
+@implementation UIViewController (SJVideoPlayerExtension)
+
++ (void)load {
+    Class vc = [self class];
+    
+    
+    
+    // dismiss
+    Method dismissViewControllerAnimatedCompletion = class_getInstanceMethod(vc, @selector(dismissViewControllerAnimated:completion:));
+    Method SJVideoPlayer_dismissViewControllerAnimatedCompletion = class_getInstanceMethod(vc, @selector(SJVideoPlayer_dismissViewControllerAnimated:completion:));
+    
+    method_exchangeImplementations(SJVideoPlayer_dismissViewControllerAnimatedCompletion, dismissViewControllerAnimatedCompletion);
+}
+
+- (void)SJVideoPlayer_dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion {
+    NSLog(@"%zd - %s", __LINE__, __func__);
+    if ( !self.navigationController ) return;
+    
+    // rest image
+    [self SJVideoPlayer_resetScreenshortImage];
+    
+    // call origin method
+    [self SJVideoPlayer_dismissViewControllerAnimated:flag completion:completion];
+}
+
+- (void)SJVideoPlayer_resetScreenshortImage {
+    // remove last screenshort
+    [[[self class] SJVideoPlayer_screenshortImagesM] removeLastObject];
+    // update screenshortImage
+    [[[self class] SJVideoPlayer_screenshortImageView] setImage:[[[self class] SJVideoPlayer_screenshortImagesM] lastObject]];
+}
+
++ (UIImageView *)SJVideoPlayer_screenshortImageView {
+    if ( SJVideoPlayer_screenshortImageView ) return SJVideoPlayer_screenshortImageView;
+    SJVideoPlayer_screenshortImageView = [[UIImageView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    SJVideoPlayer_screenshortImageView.image = [UIImage imageNamed:@"test.png"];
+    return SJVideoPlayer_screenshortImageView;
+}
+
++ (NSMutableArray<UIImage *> *)SJVideoPlayer_screenshortImagesM {
+    if ( SJVideoPlayer_screenshortImagesM ) return SJVideoPlayer_screenshortImagesM;
+    SJVideoPlayer_screenshortImagesM = [NSMutableArray array];
+    return SJVideoPlayer_screenshortImagesM;
+}
+
+@end
+
+
+
+#pragma mark -
+
+
+
+
+@interface UINavigationController (SJVideoPlayerExtension)
 
 @end
 
@@ -83,19 +145,6 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshortImagesM;
     Method popViewControllerAnimated = class_getInstanceMethod(nav, @selector(popViewControllerAnimated:));
     Method SJVideoPlayer_popViewControllerAnimated = class_getInstanceMethod(nav, @selector(SJVideoPlayer_popViewControllerAnimated:));
     method_exchangeImplementations(popViewControllerAnimated, SJVideoPlayer_popViewControllerAnimated);
-}
-
-+ (UIImageView *)SJVideoPlayer_screenshortImageView {
-    if ( SJVideoPlayer_screenshortImageView ) return SJVideoPlayer_screenshortImageView;
-    SJVideoPlayer_screenshortImageView = [[UIImageView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    SJVideoPlayer_screenshortImageView.image = [UIImage imageNamed:@"test.png"];
-    return SJVideoPlayer_screenshortImageView;
-}
-
-+ (NSMutableArray<UIImage *> *)SJVideoPlayer_screenshortImagesM {
-    if ( SJVideoPlayer_screenshortImagesM ) return SJVideoPlayer_screenshortImagesM;
-    SJVideoPlayer_screenshortImagesM = [NSMutableArray array];
-    return SJVideoPlayer_screenshortImagesM;
 }
 
 // App launching
@@ -132,10 +181,13 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshortImagesM;
 
 // Push
 - (void)SJVideoPlayer_pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    NSLog(@"%zd - %s", __LINE__, __func__);
+    
     // get scrrenshort
-    AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    UIGraphicsBeginImageContextWithOptions(CGSizeMake(appdelegate.window.frame.size.width, appdelegate.window.frame.size.height), YES, 0);
-    [appdelegate.window.layer renderInContext:UIGraphicsGetCurrentContext()];
+    id appDelegate = [UIApplication sharedApplication].delegate;
+    UIWindow *window = [appDelegate valueForKey:@"window"];
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(window.frame.size.width, window.frame.size.height), YES, 0);
+    [window.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
@@ -152,10 +204,10 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshortImagesM;
 // Pop
 - (UIViewController *)SJVideoPlayer_popViewControllerAnimated:(BOOL)animated {
     
-    // remove last screenshort
-    [[[self class] SJVideoPlayer_screenshortImagesM] removeLastObject];
-    // update screenshortImage
-    [[[self class] SJVideoPlayer_screenshortImageView] setImage:[[[self class] SJVideoPlayer_screenshortImagesM] lastObject]];
+    NSLog(@"%zd - %s", __LINE__, __func__);
+    
+    // reset image
+    [self SJVideoPlayer_resetScreenshortImage];
     
     // call origin method
     return [self SJVideoPlayer_popViewControllerAnimated:animated];
