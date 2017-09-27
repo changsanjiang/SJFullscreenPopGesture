@@ -4,3 +4,5 @@ Custom back gestures. Available for App with video player.
 
 ### Use
 pod 'SJVideoPlayerBackGR' ($ pod update --no-repo-update )
+
+如果好用, 兄弟给个 Star.
