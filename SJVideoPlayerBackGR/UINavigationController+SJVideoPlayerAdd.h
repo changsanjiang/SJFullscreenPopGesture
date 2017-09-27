@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UINavigationController (SJVideoPlayerAdd)
+@interface UINavigationController (SJVideoPlayerAdd)<UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong, readonly) UIPanGestureRecognizer *pan;
 

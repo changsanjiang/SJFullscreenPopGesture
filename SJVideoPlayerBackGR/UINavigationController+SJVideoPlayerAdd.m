@@ -202,7 +202,6 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshortImagesM;
     // change screenshortImage
     [[self class].SJVideoPlayer_screenshortImageView setImage:viewImage];
     
-    
     // call origin method
     [self SJVideoPlayer_pushViewController:viewController animated:animated];
 }
@@ -232,8 +231,13 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshortImagesM;
     UIPanGestureRecognizer *pan = objc_getAssociatedObject(self, _cmd);
     if ( pan ) return pan;
     pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(SJVideoPlayer_handlePanGR:)];
+    pan.delegate = self;
     objc_setAssociatedObject(self, _cmd, pan, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     return pan;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
+    return YES;
 }
 
 - (void)SJVideoPlayer_handlePanGR:(UIPanGestureRecognizer *)pan {
