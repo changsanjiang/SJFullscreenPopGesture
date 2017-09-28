@@ -248,11 +248,7 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
     if ([otherGestureRecognizer isKindOfClass:NSClassFromString(@"UIScrollViewPanGestureRecognizer")] || [otherGestureRecognizer isKindOfClass:NSClassFromString(@"UIPanGestureRecognizer")]|| [otherGestureRecognizer isKindOfClass:NSClassFromString(@"UIScrollViewPagingSwipeGestureRecognizer")]) {
         UIView *aView = otherGestureRecognizer.view;
         if ( [aView isKindOfClass:[UIScrollView class]] ) {
-            UIScrollView *sv = (UIScrollView *)aView;
-            if ( [sv isKindOfClass:[UICollectionView class]] ) {
-                return [self SJVideoPlayer_considerScrollView:(UIScrollView *)aView];
-            }
-            if ( sv.contentOffset.x == 0 ) return YES;
+            return [self SJVideoPlayer_considerScrollView:(UIScrollView *)aView];
         }
         return NO;
     }
