@@ -84,7 +84,7 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
         return;
     }
     
-    // rest image
+    // reset image
     [self SJVideoPlayer_resetScreenshotImage];
     
     // call origin method
@@ -175,10 +175,10 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
         // 添加自定义手势
         [nav.view addGestureRecognizer:nav.pan];
         // 添加阴影
-        self.view.layer.shadowOffset = CGSizeMake(-1, 0);
-        self.view.layer.shadowColor = [UIColor colorWithWhite:0 alpha:0.5].CGColor;
-        self.view.layer.shadowRadius = 1;
-        self.view.layer.shadowOpacity = 1;
+        nav.view.layer.shadowOffset = CGSizeMake(-1, 0);
+        nav.view.layer.shadowColor = [UIColor colorWithWhite:0 alpha:0.5].CGColor;
+        nav.view.layer.shadowRadius = 1;
+        nav.view.layer.shadowOpacity = 1;
         
     } repeats:YES] fire];
     return [self SJVideoPlayer_initWithRootViewController:rootViewController];
