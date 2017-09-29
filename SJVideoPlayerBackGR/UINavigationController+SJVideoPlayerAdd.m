@@ -300,6 +300,10 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
     
     // call block
     if ( self.topViewController.sj_viewWillBeginDragging ) self.topViewController.sj_viewWillBeginDragging(self.topViewController);
+    
+    
+    // begin animation
+    
 }
 
 - (void)SJVideoPlayer_ViewDidDrag:(CGFloat)offset {
@@ -307,11 +311,14 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
     
     // call block
     if ( self.topViewController.sj_viewDidDrag ) self.topViewController.sj_viewDidDrag(self.topViewController);
+    
+    // continuous animation
+    
 }
 
 - (void)SJVideoPlayer_ViewDidEndDragging:(CGFloat)offset {
     CGFloat rate = offset / self.view.frame.size.width;
-    if ( rate < 0.35 ) {
+    if ( rate < self.scMaxOffset ) {
         [UIView animateWithDuration:0.25 animations:^{
             self.view.transform = CGAffineTransformIdentity;
         }];
@@ -327,6 +334,10 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
 
     // call block
     if ( self.topViewController.sj_viewDidEndDragging ) self.topViewController.sj_viewDidEndDragging(self.topViewController);
+    
+    
+    // finished animation
+    
 }
 
 @end
@@ -337,7 +348,21 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
 
 
 
+#pragma mark - Settings
 
+@implementation UINavigationController (Settings)
+
+- (void)setScMaxOffset:(float)scMaxOffset {
+    objc_setAssociatedObject(self, _cmd, @(scMaxOffset), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (float)scMaxOffset {
+    float offset = [objc_getAssociatedObject(self, _cmd) floatValue];
+    if ( 0 == offset ) return 0.35;
+    return offset;
+}
+
+@end
 
 
 
