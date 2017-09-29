@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>SJBackGR.xcscheme</key>
+		<key>SJBackGRProject.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -12,7 +12,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>7766E1E31F7A7A5600165DD2</key>
+		<key>77D9B7621F7E941A00E35746</key>
 		<dict>
 			<key>primary</key>
 			<true/>
