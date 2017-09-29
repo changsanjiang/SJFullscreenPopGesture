@@ -11,6 +11,7 @@
 #import "UIViewController+SJVideoPlayerAdd.h"
 #import "SJScreenshotView.h"
 
+
 #pragma mark - Timer
 
 
@@ -85,7 +86,7 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
     }
     
     // reset image
-    [self SJVideoPlayer_resetScreenshotImage];
+    if ( self.presentingViewController ) [self SJVideoPlayer_resetScreenshotImage];
     
     // call origin method
     [self SJVideoPlayer_dismissViewControllerAnimated:flag completion:completion];

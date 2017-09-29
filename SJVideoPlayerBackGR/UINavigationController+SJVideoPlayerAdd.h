@@ -22,7 +22,7 @@
 @interface UINavigationController (Settings)
 
 /*!
- *  default is 0.35
+ *  default is 0.35.
  *  0.0 .. 1.0
  */
 @property (nonatomic, assign, readwrite) float scMaxOffset;

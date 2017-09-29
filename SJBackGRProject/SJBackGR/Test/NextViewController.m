@@ -69,6 +69,7 @@
     _modalBtn.frame = frame;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"modal_close" style:UIBarButtonItemStyleDone target:self action:@selector(clickedCloseItem)];
+    
 }
 
 - (IBAction)pushNextVC:(id)sender {
@@ -83,6 +84,7 @@
 }
 
 - (void)clickedCloseItem {
+    NSLog(@"-------");
     NSLog(@"仅对 modal 有效");
     [self dismissViewControllerAnimated:YES completion:nil];
 }
