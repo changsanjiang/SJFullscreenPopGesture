@@ -319,7 +319,7 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
     
     // continuous animation
     CGFloat rate = offset / self.view.frame.size.width;
-    [[self class] SJVideoPlayer_screenshotView].transform = CGAffineTransformMakeTranslation(SJ_Shift + abs(SJ_Shift) * rate, 0);
+    [[self class] SJVideoPlayer_screenshotView].transform = CGAffineTransformMakeTranslation(SJ_Shift - SJ_Shift * rate, 0);
 }
 
 - (void)SJVideoPlayer_ViewDidEndDragging:(CGFloat)offset {
