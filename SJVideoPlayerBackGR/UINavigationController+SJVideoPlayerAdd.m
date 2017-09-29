@@ -353,7 +353,7 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
 @implementation UINavigationController (Settings)
 
 - (void)setScMaxOffset:(float)scMaxOffset {
-    objc_setAssociatedObject(self, _cmd, @(scMaxOffset), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(scMaxOffset), @(scMaxOffset), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (float)scMaxOffset {

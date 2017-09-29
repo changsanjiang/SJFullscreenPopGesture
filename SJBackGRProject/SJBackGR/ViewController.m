@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "NextViewController.h"
 #import "NoNavViewController.h"
+#import "UINavigationController+SJVideoPlayerAdd.h"
 
 @interface ViewController ()
 
@@ -45,6 +46,7 @@
     CGRect frame = _pushBtn.frame;
     frame.origin.y += 100;
     _testBtn.frame = frame;
+    
     
     // Do any additional setup after loading the view, typically from a nib.
 }

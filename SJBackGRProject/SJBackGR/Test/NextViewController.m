@@ -51,6 +51,7 @@
     
     self.sj_viewDidDrag = ^(UIViewController *vc) {
         NSLog(@"dragging");
+        NSLog(@"scMaxOffset = %f", vc.navigationController.scMaxOffset);
     };
     
     self.sj_viewDidEndDragging = ^(UIViewController *vc) {
