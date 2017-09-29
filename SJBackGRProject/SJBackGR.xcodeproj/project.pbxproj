@@ -15,6 +15,7 @@
 		7766E1F71F7A7A5600165DD2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7766E1F61F7A7A5600165DD2 /* main.m */; };
 		7766E2001F7A7AA800165DD2 /* NextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7766E1FF1F7A7AA800165DD2 /* NextViewController.m */; };
 		7766E20B1F7A867200165DD2 /* test.png in Resources */ = {isa = PBXBuildFile; fileRef = 7766E20A1F7A856600165DD2 /* test.png */; };
+		779C1BB81F7E92D10017E845 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 779C1BB71F7E92D10017E845 /* Default-568h@2x.png */; };
 		779F06501F7B94490000D940 /* UINavigationController+SJVideoPlayerAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 779F064F1F7B943A0000D940 /* UINavigationController+SJVideoPlayerAdd.m */; };
 		779F06531F7B9FBF0000D940 /* UIViewController+SJVideoPlayerAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 779F06521F7B9FBF0000D940 /* UIViewController+SJVideoPlayerAdd.m */; };
 /* End PBXBuildFile section */
@@ -35,6 +36,7 @@
 		7766E1FE1F7A7AA800165DD2 /* NextViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NextViewController.h; sourceTree = "<group>"; };
 		7766E1FF1F7A7AA800165DD2 /* NextViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NextViewController.m; sourceTree = "<group>"; };
 		7766E20A1F7A856600165DD2 /* test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test.png; sourceTree = "<group>"; };
+		779C1BB71F7E92D10017E845 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		779F064E1F7B943A0000D940 /* UINavigationController+SJVideoPlayerAdd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+SJVideoPlayerAdd.h"; sourceTree = "<group>"; };
 		779F064F1F7B943A0000D940 /* UINavigationController+SJVideoPlayerAdd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+SJVideoPlayerAdd.m"; sourceTree = "<group>"; };
 		779F06511F7B9FBF0000D940 /* UIViewController+SJVideoPlayerAdd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SJVideoPlayerAdd.h"; sourceTree = "<group>"; };
@@ -55,6 +57,7 @@
 		7766E1DB1F7A7A5600165DD2 = {
 			isa = PBXGroup;
 			children = (
+				779C1BB71F7E92D10017E845 /* Default-568h@2x.png */,
 				7766E1E61F7A7A5600165DD2 /* SJBackGR */,
 				7766E1E51F7A7A5600165DD2 /* Products */,
 			);
@@ -170,6 +173,7 @@
 			files = (
 				7766E1F11F7A7A5600165DD2 /* Assets.xcassets in Resources */,
 				7766E20B1F7A867200165DD2 /* test.png in Resources */,
+				779C1BB81F7E92D10017E845 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
