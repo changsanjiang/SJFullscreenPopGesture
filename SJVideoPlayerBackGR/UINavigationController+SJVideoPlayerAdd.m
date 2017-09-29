@@ -62,7 +62,7 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
 
 @interface UIViewController (SJVideoPlayerExtension)
 
-@property (class, nonatomic, strong, readonly) UIImageView *SJVideoPlayer_screenshotView;
+@property (class, nonatomic, strong, readonly) SJScreenshotView *SJVideoPlayer_screenshotView;
 @property (class, nonatomic, strong, readonly) NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
 
 @end
@@ -320,6 +320,7 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
     // continuous animation
     CGFloat rate = offset / self.view.frame.size.width;
     [[self class] SJVideoPlayer_screenshotView].transform = CGAffineTransformMakeTranslation(SJ_Shift - SJ_Shift * rate, 0);
+    [[[self class] SJVideoPlayer_screenshotView] setShadeAlpha:1 - rate];
 }
 
 - (void)SJVideoPlayer_ViewDidEndDragging:(CGFloat)offset {
@@ -327,8 +328,10 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
     if ( rate < self.scMaxOffset ) {
         [UIView animateWithDuration:0.25 animations:^{
             self.view.transform = CGAffineTransformIdentity;
-            // reset
+            
+            // reset status
             [[self class] SJVideoPlayer_screenshotView].transform = CGAffineTransformMakeTranslation(SJ_Shift, 0);
+            [[[self class] SJVideoPlayer_screenshotView] setShadeAlpha:1];
         }];
     }
     else {
@@ -337,6 +340,7 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
             
             // finished animation
             [[self class] SJVideoPlayer_screenshotView].transform = CGAffineTransformMakeTranslation(0, 0);
+            [[[self class] SJVideoPlayer_screenshotView] setShadeAlpha:0.001];
         } completion:^(BOOL finished) {
             [self popViewControllerAnimated:NO];
             self.view.transform = CGAffineTransformIdentity;

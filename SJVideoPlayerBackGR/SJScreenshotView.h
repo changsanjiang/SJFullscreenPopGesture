@@ -12,4 +12,6 @@
 
 @property (nonatomic, strong) UIImage *image;
 
+- (void)setShadeAlpha:(CGFloat)alpha;
+
 @end
