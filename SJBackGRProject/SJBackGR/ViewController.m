@@ -9,7 +9,6 @@
 #import "ViewController.h"
 #import "NextViewController.h"
 #import "NoNavViewController.h"
-#import "UINavigationController+SJVideoPlayerAdd.h"
 
 @interface ViewController ()
 

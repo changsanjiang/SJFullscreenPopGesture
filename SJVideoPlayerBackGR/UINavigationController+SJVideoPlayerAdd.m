@@ -12,6 +12,9 @@
 #import "SJScreenshotView.h"
 
 
+#define SJ_Shift        (-100)
+
+
 #pragma mark - Timer
 
 
@@ -106,6 +109,7 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
     CGFloat width = MIN(bounds.size.width, bounds.size.height);
     CGFloat height = MAX(bounds.size.width, bounds.size.height);
     SJVideoPlayer_screenshotView.frame = CGRectMake(0, 0, width, height);
+    SJVideoPlayer_screenshotView.transform = CGAffineTransformMakeTranslation(SJ_Shift, 0);
     return SJVideoPlayer_screenshotView;
 }
 
@@ -314,7 +318,8 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
     if ( self.topViewController.sj_viewDidDrag ) self.topViewController.sj_viewDidDrag(self.topViewController);
     
     // continuous animation
-    
+    CGFloat rate = offset / self.view.frame.size.width;
+    [[self class] SJVideoPlayer_screenshotView].transform = CGAffineTransformMakeTranslation(SJ_Shift + abs(SJ_Shift) * rate, 0);
 }
 
 - (void)SJVideoPlayer_ViewDidEndDragging:(CGFloat)offset {
@@ -322,11 +327,16 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
     if ( rate < self.scMaxOffset ) {
         [UIView animateWithDuration:0.25 animations:^{
             self.view.transform = CGAffineTransformIdentity;
+            // reset
+            [[self class] SJVideoPlayer_screenshotView].transform = CGAffineTransformMakeTranslation(SJ_Shift, 0);
         }];
     }
     else {
         [UIView animateWithDuration:0.25 animations:^{
             self.view.transform = CGAffineTransformMakeTranslation(self.view.frame.size.width, 0);
+            
+            // finished animation
+            [[self class] SJVideoPlayer_screenshotView].transform = CGAffineTransformMakeTranslation(0, 0);
         } completion:^(BOOL finished) {
             [self popViewControllerAnimated:NO];
             self.view.transform = CGAffineTransformIdentity;
@@ -335,9 +345,6 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
 
     // call block
     if ( self.topViewController.sj_viewDidEndDragging ) self.topViewController.sj_viewDidEndDragging(self.topViewController);
-    
-    
-    // finished animation
     
 }
 
