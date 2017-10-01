@@ -22,6 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.view.backgroundColor = [UIColor colorWithRed:1.0 * (arc4random() % 256 / 255.0)
                                                 green:1.0 * (arc4random() % 256 / 255.0)
                                                  blue:1.0 * (arc4random() % 256 / 255.0)

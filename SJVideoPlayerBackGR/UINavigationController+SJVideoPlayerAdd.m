@@ -175,10 +175,8 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
         [timer invalidate];
         // get nav
         UINavigationController *nav = _rootViewController.navigationController;
-        // 禁用原生手势
-        nav.interactivePopGestureRecognizer.enabled = NO;
-        // 添加自定义手势
-        [nav.view addGestureRecognizer:nav.pan];
+        // use custom gesture
+        nav.useNativeGesture = NO;
         // 添加阴影
         nav.view.layer.shadowOffset = CGSizeMake(-1, 0);
         nav.view.layer.shadowColor = [UIColor colorWithWhite:0 alpha:0.5].CGColor;
@@ -231,13 +229,14 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
 
 @implementation UINavigationController (SJVideoPlayerAdd)
 
-- (UIPanGestureRecognizer *)pan {
-    UIPanGestureRecognizer *pan = objc_getAssociatedObject(self, _cmd);
-    if ( pan ) return pan;
-    pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(SJVideoPlayer_handlePanGR:)];
-    pan.delegate = self;
-    objc_setAssociatedObject(self, _cmd, pan, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    return pan;
+- (UIPanGestureRecognizer *)sj_pan {
+    UIPanGestureRecognizer *sj_pan = objc_getAssociatedObject(self, _cmd);
+    if ( sj_pan ) return sj_pan;
+    sj_pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(SJVideoPlayer_handlePanGR:)];
+    [self.view addGestureRecognizer:sj_pan];
+    sj_pan.delegate = self;
+    objc_setAssociatedObject(self, _cmd, sj_pan, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    return sj_pan;
 }
 
 
@@ -372,6 +371,16 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
     float offset = [objc_getAssociatedObject(self, _cmd) floatValue];
     if ( 0 == offset ) return 0.35;
     return offset;
+}
+
+- (void)setUseNativeGesture:(BOOL)useNativeGesture {
+    objc_setAssociatedObject(self, @selector(useNativeGesture), @(useNativeGesture), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    self.interactivePopGestureRecognizer.enabled = useNativeGesture;
+    self.sj_pan.enabled = !useNativeGesture;
+}
+
+- (BOOL)useNativeGesture {
+    return [objc_getAssociatedObject(self, _cmd) boolValue];
 }
 
 @end
