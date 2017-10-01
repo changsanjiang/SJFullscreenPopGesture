@@ -109,7 +109,6 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
     CGFloat width = MIN(bounds.size.width, bounds.size.height);
     CGFloat height = MAX(bounds.size.width, bounds.size.height);
     SJVideoPlayer_screenshotView.frame = CGRectMake(0, 0, width, height);
-    SJVideoPlayer_screenshotView.transform = CGAffineTransformMakeTranslation(SJ_Shift, 0);
     return SJVideoPlayer_screenshotView;
 }
 
@@ -307,7 +306,7 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
     
     
     // begin animation
-    
+    [[self class] SJVideoPlayer_screenshotView].transform = CGAffineTransformMakeTranslation(SJ_Shift, 0);
 }
 
 - (void)SJVideoPlayer_ViewDidDrag:(CGFloat)offset {
@@ -345,7 +344,7 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
             self.view.transform = CGAffineTransformIdentity;
         }];
     }
-
+    
     // call block
     if ( self.topViewController.sj_viewDidEndDragging ) self.topViewController.sj_viewDidEndDragging(self.topViewController);
     
