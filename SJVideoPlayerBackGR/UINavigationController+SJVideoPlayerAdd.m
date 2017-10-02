@@ -53,7 +53,7 @@
 
 static SJScreenshotView *SJVideoPlayer_screenshotView;
 static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
-
+static NSMutableDictionary<UIViewController *, UIImage *> *SJVideoPlayer_screenshotImagesDictM;
 
 
 
@@ -81,7 +81,6 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
 }
 
 - (void)SJVideoPlayer_dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion {
-    
     if ( !self.navigationController ) {
         // call origin method
         [self SJVideoPlayer_dismissViewControllerAnimated:flag completion:completion];
@@ -100,6 +99,22 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
     [[[self class] SJVideoPlayer_screenshotImagesM] removeLastObject];
     // update screenshotImage
     [[[self class] SJVideoPlayer_screenshotView] setImage:[[[self class] SJVideoPlayer_screenshotImagesM] lastObject]];
+}
+
+- (void)SJVideoPlayer_updateScreenshot {
+    // get scrrenshort
+    id appDelegate = [UIApplication sharedApplication].delegate;
+    UIWindow *window = [appDelegate valueForKey:@"window"];
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(window.frame.size.width, window.frame.size.height), YES, 0);
+    [window.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    // add to container
+    [[self class].SJVideoPlayer_screenshotImagesM addObject:viewImage];
+    
+    // change screenshotImage
+    [[self class].SJVideoPlayer_screenshotView setImage:viewImage];
 }
 
 + (SJScreenshotView *)SJVideoPlayer_screenshotView {
@@ -127,7 +142,7 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
 
 
 
-@interface UINavigationController (SJVideoPlayerExtension)
+@interface UINavigationController (SJVideoPlayerExtension)<UINavigationControllerDelegate>
 
 @end
 
@@ -155,6 +170,7 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
     Method popViewControllerAnimated = class_getInstanceMethod(nav, @selector(popViewControllerAnimated:));
     Method SJVideoPlayer_popViewControllerAnimated = class_getInstanceMethod(nav, @selector(SJVideoPlayer_popViewControllerAnimated:));
     method_exchangeImplementations(popViewControllerAnimated, SJVideoPlayer_popViewControllerAnimated);
+    
 }
 
 // App launching
@@ -181,40 +197,45 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
         nav.view.layer.shadowColor = [UIColor colorWithWhite:0 alpha:0.5].CGColor;
         nav.view.layer.shadowRadius = 1;
         nav.view.layer.shadowOpacity = 1;
-        
+        // delegate
+        nav.delegate = self;
     } repeats:YES] fire];
     return [self SJVideoPlayer_initWithRootViewController:rootViewController];
 }
 
 
 // Push
+static UINavigationControllerOperation _navOperation;
 - (void)SJVideoPlayer_pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    
-    // get scrrenshort
-    id appDelegate = [UIApplication sharedApplication].delegate;
-    UIWindow *window = [appDelegate valueForKey:@"window"];
-    UIGraphicsBeginImageContextWithOptions(CGSizeMake(window.frame.size.width, window.frame.size.height), YES, 0);
-    [window.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    // add to container
-    [[self class].SJVideoPlayer_screenshotImagesM addObject:viewImage];
-    // change screenshotImage
-    [[self class].SJVideoPlayer_screenshotView setImage:viewImage];
-    
+    _navOperation = UINavigationControllerOperationPush;
+    // push update screenshot
+    [self SJVideoPlayer_updateScreenshot];
     // call origin method
     [self SJVideoPlayer_pushViewController:viewController animated:animated];
 }
 
 // Pop
 - (UIViewController *)SJVideoPlayer_popViewControllerAnimated:(BOOL)animated {
-    
-    // reset image
-    [self SJVideoPlayer_resetScreenshotImage];
-    
+    _navOperation = UINavigationControllerOperationPop;
     // call origin method
     return [self SJVideoPlayer_popViewControllerAnimated:animated];
+}
+
+// navController delegate
+static __weak UIViewController *_tmpShowViewController;
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    if ( _navOperation == UINavigationControllerOperationPush ) { return;}
+    _tmpShowViewController = viewController;
+}
+
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    if ( _navOperation != UINavigationControllerOperationPop ) return;
+    if ( _tmpShowViewController != viewController ) return;
+    
+    // reset
+    [self SJVideoPlayer_resetScreenshotImage];
+    _tmpShowViewController = nil;
+    _navOperation = UINavigationControllerOperationNone;
 }
 
 @end

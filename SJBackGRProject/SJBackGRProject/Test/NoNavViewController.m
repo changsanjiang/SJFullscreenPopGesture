@@ -23,6 +23,10 @@
 
 @implementation NoNavViewController
 
+- (void)dealloc {
+    NSLog(@"%s - %zd", __func__, __LINE__);
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     

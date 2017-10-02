@@ -42,6 +42,7 @@
 		77D9B7811F7E944100E35746 /* UINavigationController+SJVideoPlayerAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+SJVideoPlayerAdd.m"; sourceTree = "<group>"; };
 		77D9B7821F7E944100E35746 /* UIViewController+SJVideoPlayerAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SJVideoPlayerAdd.h"; sourceTree = "<group>"; };
 		77D9B7831F7E944100E35746 /* UIViewController+SJVideoPlayerAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SJVideoPlayerAdd.m"; sourceTree = "<group>"; };
+		A6CE27271F813AA800E4A544 /* GestrueSample.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = GestrueSample.gif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +93,7 @@
 				77D9B77D1F7E944100E35746 /* SJVideoPlayerBackGR */,
 				77D9B76C1F7E941A00E35746 /* ViewController.h */,
 				77D9B76D1F7E941A00E35746 /* ViewController.m */,
+				A6CE27271F813AA800E4A544 /* GestrueSample.gif */,
 				77D9B76F1F7E941A00E35746 /* Main.storyboard */,
 				77D9B7721F7E941A00E35746 /* Assets.xcassets */,
 				77D9B7741F7E941A00E35746 /* LaunchScreen.storyboard */,

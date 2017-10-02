@@ -18,9 +18,20 @@
 
 @property (nonatomic, strong) UIButton *modalBtn;
 
+@property (nonatomic, strong, readonly) UIButton *nativeModeBtn;
+
+@property (nonatomic, strong, readonly) UIButton *customModeBtn;
+
 @end
 
 @implementation NextViewController
+
+@synthesize nativeModeBtn = _nativeModeBtn;
+@synthesize customModeBtn = _customModeBtn;
+
+- (void)dealloc {
+    NSLog(@"%s - %zd", __func__, __LINE__);
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -43,19 +54,24 @@
     [self.view addSubview:_pushBtn];
     _pushBtn.bounds = CGRectMake(0, 0, 100, 50);
     _pushBtn.center = self.view.center;
- 
+    
+    [self.view addSubview:self.nativeModeBtn];
+    self.nativeModeBtn.center = CGPointMake(self.view.frame.size.width * 0.5, 150);
+    [self.view addSubview:self.customModeBtn];
+    self.customModeBtn.center = CGPointMake(self.view.frame.size.width * 0.5, 200);
+    
     
     self.sj_viewWillBeginDragging = ^(UIViewController *vc) {
-        NSLog(@"begin");
+//        NSLog(@"begin");
     };
     
     self.sj_viewDidDrag = ^(UIViewController *vc) {
-        NSLog(@"dragging");
-        NSLog(@"scMaxOffset = %f", vc.navigationController.scMaxOffset);
+//        NSLog(@"dragging");
+//        NSLog(@"scMaxOffset = %f", vc.navigationController.scMaxOffset);
     };
     
     self.sj_viewDidEndDragging = ^(UIViewController *vc) {
-        NSLog(@"end");
+//        NSLog(@"end");
     };
     
     self.modalBtn = [UIButton new];
@@ -87,6 +103,37 @@
     NSLog(@"-------");
     NSLog(@"仅对 modal 有效");
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+#pragma mark - Mode
+
+- (void)clickednativeModeBtn:(UIButton *)btn {
+    self.navigationController.useNativeGesture = YES;
+}
+
+- (UIButton *)nativeModeBtn {
+    if ( _nativeModeBtn ) return _nativeModeBtn;
+    _nativeModeBtn = [UIButton new];
+    [_nativeModeBtn setTitle:@"use native" forState:UIControlStateNormal];
+    [_nativeModeBtn sizeToFit];
+    [_nativeModeBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [_nativeModeBtn addTarget:self action:@selector(clickednativeModeBtn:) forControlEvents:UIControlEventTouchUpInside];
+    return _nativeModeBtn;
+}
+
+- (void)clickedCustomModeBtn:(UIButton *)btn {
+    self.navigationController.useNativeGesture = NO;
+}
+
+- (UIButton *)customModeBtn {
+    if ( _customModeBtn ) return _customModeBtn;
+    _customModeBtn = [UIButton new];
+    [_customModeBtn setTitle:@"use Custom" forState:UIControlStateNormal];
+    [_customModeBtn sizeToFit];
+    [_customModeBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [_customModeBtn addTarget:self action:@selector(clickedCustomModeBtn:) forControlEvents:UIControlEventTouchUpInside];
+    return _customModeBtn;
 }
 
 @end
