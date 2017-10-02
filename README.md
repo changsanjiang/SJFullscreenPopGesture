@@ -6,4 +6,7 @@ pod 'SJVideoPlayerBackGR' ($ pod update --no-repo-update )
 
 如果好用, 兄弟, 给个 Star 吧.
 
+### Example
+<img src="https://github.com/changsanjiang/SJVideoPlayerBackGR/blob/master/SJBackGRProject/SJBackGRProject/GestrueSample.gif" width="40%">
+
 
