@@ -12,7 +12,7 @@
 #import "SJScreenshotView.h"
 
 
-#define SJ_Shift        (-100)
+#define SJ_Shift        (-[UIScreen mainScreen].bounds.size.width * 0.382)
 
 
 #pragma mark - Timer
@@ -53,8 +53,6 @@
 
 static SJScreenshotView *SJVideoPlayer_screenshotView;
 static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
-static NSMutableDictionary<UIViewController *, UIImage *> *SJVideoPlayer_screenshotImagesDictM;
-
 
 
 
@@ -71,7 +69,6 @@ static NSMutableDictionary<UIViewController *, UIImage *> *SJVideoPlayer_screens
 
 + (void)load {
     Class vc = [self class];
-    
     
     // dismiss
     Method dismissViewControllerAnimatedCompletion = class_getInstanceMethod(vc, @selector(dismissViewControllerAnimated:completion:));

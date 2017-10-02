@@ -17,14 +17,14 @@ Pod::Spec.new do |s|
 
   s.name         = "SJVideoPlayerBackGR"
   s.version      = "1.0.0"
-  s.summary      = "自定义返回手势. 系统原生手势和自定义手势随意切换. 适用于带有视频播放器的App. Customize return gestures. System native gestures and custom gestures are free to switch. App for App with video player."
+  s.summary      = "Customize return gestures."
 
   # This description is used to generate tags and improve search results.
   #   * Think: What does it do? Why did you write it? What is the focus?
   #   * Try to keep it short, snappy and to the point.
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
-  s.description  = 'https://github.com/changsanjiang/SJVideoPlayerBackGR/blob/master/README.md'
+  s.description  = 'Customize return gestures. System native gestures and custom gestures are free to switch.'
 
 
   s.homepage     = "https://github.com/changsanjiang/SJVideoPlayerBackGR"
