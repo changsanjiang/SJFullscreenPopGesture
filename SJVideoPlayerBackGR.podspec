@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "SJVideoPlayerBackGR"
-  s.version      = "0.0.9"
+  s.version      = "1.0.0"
   s.summary      = "自定义返回手势. 系统原生手势和自定义手势随意切换. 适用于带有视频播放器的App. Customize return gestures. System native gestures and custom gestures are free to switch. App for App with video player."
 
   # This description is used to generate tags and improve search results.
