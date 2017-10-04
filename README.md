@@ -11,15 +11,7 @@ pod 'SJVideoPlayerBackGR' ($ pod update --no-repo-update )
 ```
 // 如果想使用系统手势，可以像下面那样. 
 // If you want to use the system gestures, you can do the same as below.
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
     self.navigationController.useNativeGesture = YES;
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    self.navigationController.useNativeGesture = NO;
-}
 ```
 ### Example
 <img src="https://github.com/changsanjiang/SJVideoPlayerBackGR/blob/master/SJBackGRProject/SJBackGRProject/GestrueSample.gif" width="40%">    
