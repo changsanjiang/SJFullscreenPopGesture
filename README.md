@@ -13,11 +13,13 @@ pod 'SJVideoPlayerBackGR' ($ pod update --no-repo-update )
 // If you want to use the system gestures, you can do the same as below.
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    // use system 
     self.navigationController.useNativeGesture = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    // use custom 
     self.navigationController.useNativeGesture = NO;
 }
 ```
