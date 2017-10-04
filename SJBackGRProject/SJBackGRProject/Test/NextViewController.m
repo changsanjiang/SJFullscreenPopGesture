@@ -24,7 +24,10 @@
 
 @end
 
-@implementation NextViewController
+@implementation NextViewController {
+    UISegmentedControl *_segmented;
+}
+
 
 @synthesize nativeModeBtn = _nativeModeBtn;
 @synthesize customModeBtn = _customModeBtn;
@@ -55,10 +58,10 @@
     _pushBtn.bounds = CGRectMake(0, 0, 100, 50);
     _pushBtn.center = self.view.center;
     
-    [self.view addSubview:self.nativeModeBtn];
-    self.nativeModeBtn.center = CGPointMake(self.view.frame.size.width * 0.5, 150);
-    [self.view addSubview:self.customModeBtn];
-    self.customModeBtn.center = CGPointMake(self.view.frame.size.width * 0.5, 200);
+    _segmented = [[UISegmentedControl alloc] initWithItems:@[@"Use Custom", @"Use Native"]];
+    self.navigationItem.titleView = _segmented;
+    
+    [_segmented addTarget:self action:@selector(clickedSegmented:) forControlEvents:UIControlEventValueChanged];
     
     
     self.sj_viewWillBeginDragging = ^(UIViewController *vc) {
@@ -84,8 +87,19 @@
     frame.origin.y += 100;
     _modalBtn.frame = frame;
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"modal_close" style:UIBarButtonItemStyleDone target:self action:@selector(clickedCloseItem)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"modalClose" style:UIBarButtonItemStyleDone target:self action:@selector(clickedCloseItem)];
     
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    // update selected index
+    _segmented.selectedSegmentIndex = self.navigationController.useNativeGesture;
+}
+
+- (void)clickedSegmented:(UISegmentedControl *)control {
+    self.navigationController.useNativeGesture = control.selectedSegmentIndex;
 }
 
 - (IBAction)pushNextVC:(id)sender {

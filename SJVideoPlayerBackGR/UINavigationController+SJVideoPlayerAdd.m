@@ -187,8 +187,11 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
         [timer invalidate];
         // get nav
         UINavigationController *nav = _rootViewController.navigationController;
+        [nav.interactivePopGestureRecognizer addObserver:(id)[self class] forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:(void *)nav];
+        
         // use custom gesture
         nav.useNativeGesture = NO;
+        
         // 添加阴影
         nav.view.layer.shadowOffset = CGSizeMake(-1, 0);
         nav.view.layer.shadowColor = [UIColor colorWithWhite:0 alpha:0.5].CGColor;
@@ -196,6 +199,7 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
         nav.view.layer.shadowOpacity = 1;
         // delegate
         nav.delegate = self;
+        
     } repeats:YES] fire];
     return [self SJVideoPlayer_initWithRootViewController:rootViewController];
 }
@@ -233,6 +237,21 @@ static __weak UIViewController *_tmpShowViewController;
     [self SJVideoPlayer_resetScreenshotImage];
     _tmpShowViewController = nil;
     _navOperation = UINavigationControllerOperationNone;
+}
+
+
+// observer
++ (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(UIScreenEdgePanGestureRecognizer *)gesture change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(UINavigationController *)nav {
+    switch (gesture.state) {
+        case UIGestureRecognizerStateBegan:
+        case UIGestureRecognizerStateChanged:
+            break;
+        default: {
+            // update
+            nav.useNativeGesture = nav.useNativeGesture;
+        }
+            break;
+    }
 }
 
 @end
@@ -392,8 +411,15 @@ static __weak UIViewController *_tmpShowViewController;
 
 - (void)setUseNativeGesture:(BOOL)useNativeGesture {
     objc_setAssociatedObject(self, @selector(useNativeGesture), @(useNativeGesture), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    self.interactivePopGestureRecognizer.enabled = useNativeGesture;
-    self.sj_pan.enabled = !useNativeGesture;
+    switch (self.interactivePopGestureRecognizer.state) {
+        case UIGestureRecognizerStateBegan:
+        case UIGestureRecognizerStateChanged:  break;
+        default: {
+            self.interactivePopGestureRecognizer.enabled = useNativeGesture;
+            self.sj_pan.enabled = !useNativeGesture;
+        }
+            break;
+    }
 }
 
 - (BOOL)useNativeGesture {
