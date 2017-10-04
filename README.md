@@ -21,6 +21,7 @@ pod 'SJVideoPlayerBackGR' ($ pod update --no-repo-update )
 }
 ```
 ### Example
-<img src="https://github.com/changsanjiang/SJVideoPlayerBackGR/blob/master/SJBackGRProject/SJBackGRProject/GestrueSample.gif" width="40%">
+<img src="https://github.com/changsanjiang/SJVideoPlayerBackGR/blob/master/SJBackGRProject/SJBackGRProject/GestrueSample.gif" width="40%">    
+
 
 
