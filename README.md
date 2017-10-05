@@ -3,7 +3,9 @@
 Customize full-screen return gestures. System native gestures and custom gestures are free to switch. App for App with video player.
    
 ### Use
-pod 'SJVideoPlayerBackGR' ($ pod update --no-repo-update )
+```
+pod SJVideoPlayerBackGR
+```
 
 如果好用, 兄弟, 给个 Star 吧.
 
