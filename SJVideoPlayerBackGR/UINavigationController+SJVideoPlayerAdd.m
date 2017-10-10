@@ -213,7 +213,7 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
         
         // 添加阴影
         nav.view.layer.shadowOffset = CGSizeMake(-1, 0);
-        nav.view.layer.shadowColor = [UIColor colorWithWhite:0 alpha:0.5].CGColor;
+        nav.view.layer.shadowColor = [UIColor colorWithWhite:0 alpha:0.2].CGColor;
         nav.view.layer.shadowRadius = 1;
         nav.view.layer.shadowOpacity = 1;
         // delegate
