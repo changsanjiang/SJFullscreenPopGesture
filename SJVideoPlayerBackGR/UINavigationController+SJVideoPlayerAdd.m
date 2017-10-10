@@ -78,14 +78,15 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
 }
 
 - (void)SJVideoPlayer_dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion {
-    if ( !self.navigationController ) {
+    if ( !self.navigationController && ![self isKindOfClass:[UINavigationController class]] ) {
         // call origin method
         [self SJVideoPlayer_dismissViewControllerAnimated:flag completion:completion];
         return;
     }
     
     // reset image
-    if ( self.presentingViewController ) [self SJVideoPlayer_resetScreenshotImageForLastIndex:self.navigationController.childViewControllers.count];
+    if      ( [self isKindOfClass:[UINavigationController class]] ) [self SJVideoPlayer_resetScreenshotImageForLastIndex:self.childViewControllers.count - 1];
+    else if ( self.presentingViewController ) [self SJVideoPlayer_resetScreenshotImageForLastIndex:self.navigationController.childViewControllers.count];
     
     // call origin method
     [self SJVideoPlayer_dismissViewControllerAnimated:flag completion:completion];
@@ -236,7 +237,10 @@ static UINavigationControllerOperation _navOperation;
 
 // Pop
 - (UIViewController *)SJVideoPlayer_popViewControllerAnimated:(BOOL)animated {
-    _navOperation = UINavigationControllerOperationPop;
+    if ( [self isKindOfClass:[UIImagePickerController class]] )
+        [self SJVideoPlayer_resetScreenshotImage];
+    else _navOperation = UINavigationControllerOperationPop;
+    
     // call origin method
     return [self SJVideoPlayer_popViewControllerAnimated:animated];
 }
