@@ -85,7 +85,7 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
     }
     
     // reset image
-    if ( self.presentingViewController ) [self SJVideoPlayer_resetScreenshotImage];
+    if ( self.presentingViewController ) [self SJVideoPlayer_resetScreenshotImageForLastIndex:self.navigationController.childViewControllers.count];
     
     // call origin method
     [self SJVideoPlayer_dismissViewControllerAnimated:flag completion:completion];
@@ -94,6 +94,16 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
 - (void)SJVideoPlayer_resetScreenshotImage {
     // remove last screenshot
     [[[self class] SJVideoPlayer_screenshotImagesM] removeLastObject];
+    // update screenshotImage
+    [[[self class] SJVideoPlayer_screenshotView] setImage:[[[self class] SJVideoPlayer_screenshotImagesM] lastObject]];
+}
+
+- (void)SJVideoPlayer_resetScreenshotImageForLastIndex:(NSInteger)lastIndex {
+    if ( lastIndex <= 0 ) return;
+    // remove last screenshot
+    NSMutableArray *arrayM = [[self class] SJVideoPlayer_screenshotImagesM];
+    [arrayM removeObjectsInRange:NSMakeRange(arrayM.count - lastIndex, lastIndex)];
+    
     // update screenshotImage
     [[[self class] SJVideoPlayer_screenshotView] setImage:[[[self class] SJVideoPlayer_screenshotImagesM] lastObject]];
 }
@@ -162,13 +172,22 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
     Method SJVideoPlayer_pushViewControllerAnimated = class_getInstanceMethod(nav, @selector(SJVideoPlayer_pushViewController:animated:));
     method_exchangeImplementations(SJVideoPlayer_pushViewControllerAnimated, pushViewControllerAnimated);
     
-    
     // Pop
     Method popViewControllerAnimated = class_getInstanceMethod(nav, @selector(popViewControllerAnimated:));
     Method SJVideoPlayer_popViewControllerAnimated = class_getInstanceMethod(nav, @selector(SJVideoPlayer_popViewControllerAnimated:));
     method_exchangeImplementations(popViewControllerAnimated, SJVideoPlayer_popViewControllerAnimated);
     
+    // Pop Root VC
+    Method popToRootViewControllerAnimated = class_getInstanceMethod(nav, @selector(popToRootViewControllerAnimated:));
+    Method SJVideoPlayer_popToRootViewControllerAnimated = class_getInstanceMethod(nav, @selector(SJVideoPlayer_popToRootViewControllerAnimated:));
+    method_exchangeImplementations(popToRootViewControllerAnimated, SJVideoPlayer_popToRootViewControllerAnimated);
+    
+    // Pop To View Controller
+    Method popToViewControllerAnimated = class_getInstanceMethod(nav, @selector(popToViewController:animated:));
+    Method SJVideoPlayer_popToViewControllerAnimated = class_getInstanceMethod(nav, @selector(SJVideoPlayer_popToViewController:animated:));
+    method_exchangeImplementations(popToViewControllerAnimated, SJVideoPlayer_popToViewControllerAnimated);
 }
+
 
 // App launching
 + (void)SJVideoPlayer_addscreenshotImageViewToWindow {
@@ -220,6 +239,21 @@ static UINavigationControllerOperation _navOperation;
     _navOperation = UINavigationControllerOperationPop;
     // call origin method
     return [self SJVideoPlayer_popViewControllerAnimated:animated];
+}
+
+// Pop To RootView Controller
+- (NSArray<UIViewController *> *)SJVideoPlayer_popToRootViewControllerAnimated:(BOOL)animated {
+    [self SJVideoPlayer_resetScreenshotImageForLastIndex:self.childViewControllers.count - 1];
+    return [self SJVideoPlayer_popToRootViewControllerAnimated:animated];
+}
+
+- (NSArray<UIViewController *> *)SJVideoPlayer_popToViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    [self.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ( viewController != obj ) return;
+        *stop = YES;
+        [self SJVideoPlayer_resetScreenshotImageForLastIndex:self.childViewControllers.count - idx - 1];
+    }];
+    return [self SJVideoPlayer_popToViewController:viewController animated:animated];
 }
 
 // navController delegate

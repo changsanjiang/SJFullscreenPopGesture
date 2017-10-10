@@ -22,6 +22,10 @@
 
 @property (nonatomic, strong, readonly) UIButton *customModeBtn;
 
+@property (nonatomic, strong, readonly) UIButton *popToRootVCBtn;
+
+@property (nonatomic, strong, readonly) UIButton *popToVCBtn;
+
 @end
 
 @implementation NextViewController {
@@ -31,6 +35,8 @@
 
 @synthesize nativeModeBtn = _nativeModeBtn;
 @synthesize customModeBtn = _customModeBtn;
+@synthesize popToRootVCBtn = _popToRootVCBtn;
+@synthesize popToVCBtn = _popToVCBtn;
 
 - (void)dealloc {
     NSLog(@"%s - %zd", __func__, __LINE__);
@@ -57,6 +63,7 @@
     [self.view addSubview:_pushBtn];
     _pushBtn.bounds = CGRectMake(0, 0, 100, 50);
     _pushBtn.center = self.view.center;
+    
     
     _segmented = [[UISegmentedControl alloc] initWithItems:@[@"Use Custom", @"Use Native"]];
     self.navigationItem.titleView = _segmented;
@@ -86,6 +93,15 @@
     CGRect frame = _pushBtn.frame;
     frame.origin.y += 100;
     _modalBtn.frame = frame;
+    
+    
+    [self.view addSubview:self.popToRootVCBtn];
+    frame.origin.y += 100;
+    _popToRootVCBtn.frame = frame;
+    
+    [self.view addSubview:self.popToVCBtn];
+    frame.origin.y += 100;
+    _popToVCBtn.frame = frame;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"modalClose" style:UIBarButtonItemStyleDone target:self action:@selector(clickedCloseItem)];
     
@@ -119,6 +135,15 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)clickedPopToRootVCBtn:(UIButton *)btn {
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+- (void)clickedPopToVCBtn:(UIButton *)btn {
+    NSInteger random = arc4random() % self.navigationController.childViewControllers.count - 1;
+    if ( random < 0 ) random = 0;
+    [self.navigationController popToViewController:self.navigationController.childViewControllers[random] animated:YES];
+}
 
 #pragma mark - Mode
 
@@ -150,4 +175,23 @@
     return _customModeBtn;
 }
 
+- (UIButton *)popToRootVCBtn {
+    if ( _popToRootVCBtn ) return _popToRootVCBtn;
+    _popToRootVCBtn = [UIButton new];
+    [_popToRootVCBtn setTitle:@"PopToRootVC" forState:UIControlStateNormal];
+    [_popToRootVCBtn sizeToFit];
+    [_popToRootVCBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [_popToRootVCBtn addTarget:self action:@selector(clickedPopToRootVCBtn:) forControlEvents:UIControlEventTouchUpInside];
+    return _popToRootVCBtn;
+}
+
+- (UIButton *)popToVCBtn {
+    if ( _popToVCBtn ) return _popToVCBtn;
+    _popToVCBtn = [UIButton new];
+    [_popToVCBtn setTitle:@"PopToVC" forState:UIControlStateNormal];
+    [_popToVCBtn sizeToFit];
+    [_popToVCBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [_popToVCBtn addTarget:self action:@selector(clickedPopToVCBtn:) forControlEvents:UIControlEventTouchUpInside];
+    return _popToVCBtn;
+}
 @end
