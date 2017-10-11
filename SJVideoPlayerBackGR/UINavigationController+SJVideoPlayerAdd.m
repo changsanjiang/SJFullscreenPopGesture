@@ -78,15 +78,14 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
 }
 
 - (void)SJVideoPlayer_dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion {
-    if ( !self.navigationController && ![self isKindOfClass:[UINavigationController class]] ) {
+    if ( !self.navigationController ) {
         // call origin method
         [self SJVideoPlayer_dismissViewControllerAnimated:flag completion:completion];
         return;
     }
     
     // reset image
-    if      ( [self isKindOfClass:[UINavigationController class]] ) [self SJVideoPlayer_resetScreenshotImageForLastIndex:self.childViewControllers.count - 1];
-    else if ( self.presentingViewController ) [self SJVideoPlayer_resetScreenshotImageForLastIndex:self.navigationController.childViewControllers.count];
+    if ( self.presentingViewController ) [self SJVideoPlayer_resetScreenshotImageForLastIndex:self.navigationController.childViewControllers.count];
     
     // call origin method
     [self SJVideoPlayer_dismissViewControllerAnimated:flag completion:completion];
@@ -152,6 +151,8 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
 
 @interface UINavigationController (SJVideoPlayerExtension)<UINavigationControllerDelegate>
 
+@property (nonatomic, assign, readwrite) BOOL isObserver;
+
 @end
 
 @implementation UINavigationController (SJVideoPlayerExtension)
@@ -189,6 +190,17 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
     method_exchangeImplementations(popToViewControllerAnimated, SJVideoPlayer_popToViewControllerAnimated);
 }
 
+- (void)dealloc {
+    if ( self.isObserver ) [self.interactivePopGestureRecognizer removeObserver:(id)[self class] forKeyPath:@"state"];
+}
+
+- (void)setIsObserver:(BOOL)isObserver {
+    objc_setAssociatedObject(self, @selector(isObserver), @(isObserver), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (BOOL)isObserver {
+    return [objc_getAssociatedObject(self, _cmd) boolValue];
+}
 
 // App launching
 + (void)SJVideoPlayer_addscreenshotImageViewToWindow {
@@ -208,6 +220,7 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
         // get nav
         UINavigationController *nav = _rootViewController.navigationController;
         [nav.interactivePopGestureRecognizer addObserver:(id)[self class] forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:(void *)nav];
+        nav.isObserver = YES;
         
         // use custom gesture
         nav.useNativeGesture = NO;
@@ -237,10 +250,7 @@ static UINavigationControllerOperation _navOperation;
 
 // Pop
 - (UIViewController *)SJVideoPlayer_popViewControllerAnimated:(BOOL)animated {
-    if ( [self isKindOfClass:[UIImagePickerController class]] )
-        [self SJVideoPlayer_resetScreenshotImage];
-    else _navOperation = UINavigationControllerOperationPop;
-    
+    _navOperation = UINavigationControllerOperationPop;
     // call origin method
     return [self SJVideoPlayer_popViewControllerAnimated:animated];
 }
@@ -277,10 +287,9 @@ static __weak UIViewController *_tmpShowViewController;
     _navOperation = UINavigationControllerOperationNone;
 }
 
-
 // observer
 + (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(UIScreenEdgePanGestureRecognizer *)gesture change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(UINavigationController *)nav {
-    switch (gesture.state) {
+    switch ( gesture.state ) {
         case UIGestureRecognizerStateBegan:
         case UIGestureRecognizerStateChanged:
             break;
