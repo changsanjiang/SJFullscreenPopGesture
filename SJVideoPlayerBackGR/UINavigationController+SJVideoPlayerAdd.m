@@ -385,6 +385,8 @@ static __weak UIViewController *_tmpShowViewController;
 - (void)SJVideoPlayer_ViewWillBeginDragging {
     [self.view endEditing:YES];
     
+    [[self class] SJVideoPlayer_screenshotView].hidden = NO;
+    
     // call block
     if ( self.topViewController.sj_viewWillBeginDragging ) self.topViewController.sj_viewWillBeginDragging(self.topViewController);
     
@@ -414,6 +416,8 @@ static __weak UIViewController *_tmpShowViewController;
             // reset status
             [[self class] SJVideoPlayer_screenshotView].transform = CGAffineTransformMakeTranslation(SJ_Shift, 0);
             [[[self class] SJVideoPlayer_screenshotView] setShadeAlpha:1];
+        } completion:^(BOOL finished) {
+            [[self class] SJVideoPlayer_screenshotView].hidden = NO;
         }];
     }
     else {
@@ -426,6 +430,7 @@ static __weak UIViewController *_tmpShowViewController;
         } completion:^(BOOL finished) {
             [self popViewControllerAnimated:NO];
             self.view.transform = CGAffineTransformIdentity;
+            [[self class] SJVideoPlayer_screenshotView].hidden = NO;
         }];
     }
     

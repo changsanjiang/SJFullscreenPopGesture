@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "SJVideoPlayerBackGR"
-  s.version      = "1.0.3"
+  s.version      = "1.0.5"
   s.summary      = "Customize return gestures."
 
   # This description is used to generate tags and improve search results.
