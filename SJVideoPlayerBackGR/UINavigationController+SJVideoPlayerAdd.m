@@ -417,7 +417,7 @@ static __weak UIViewController *_tmpShowViewController;
             [[self class] SJVideoPlayer_screenshotView].transform = CGAffineTransformMakeTranslation(SJ_Shift, 0);
             [[[self class] SJVideoPlayer_screenshotView] setShadeAlpha:1];
         } completion:^(BOOL finished) {
-            [[self class] SJVideoPlayer_screenshotView].hidden = NO;
+            [[self class] SJVideoPlayer_screenshotView].hidden = YES;
         }];
     }
     else {
@@ -430,7 +430,7 @@ static __weak UIViewController *_tmpShowViewController;
         } completion:^(BOOL finished) {
             [self popViewControllerAnimated:NO];
             self.view.transform = CGAffineTransformIdentity;
-            [[self class] SJVideoPlayer_screenshotView].hidden = NO;
+            [[self class] SJVideoPlayer_screenshotView].hidden = YES;
         }];
     }
     
