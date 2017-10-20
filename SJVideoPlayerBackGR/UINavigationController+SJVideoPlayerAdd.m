@@ -91,11 +91,15 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
     [self SJVideoPlayer_dismissViewControllerAnimated:flag completion:completion];
 }
 
-- (void)SJVideoPlayer_resetScreenshotImage {
++ (void)SJVideoPlayer_resetScreenshotImage {
     // remove last screenshot
     [[[self class] SJVideoPlayer_screenshotImagesM] removeLastObject];
     // update screenshotImage
     [[[self class] SJVideoPlayer_screenshotView] setImage:[[[self class] SJVideoPlayer_screenshotImagesM] lastObject]];
+}
+
+- (void)SJVideoPlayer_resetScreenshotImage {
+    [[self class] SJVideoPlayer_resetScreenshotImage];
 }
 
 - (void)SJVideoPlayer_resetScreenshotImageForLastIndex:(NSInteger)lastIndex {
@@ -131,6 +135,7 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
     CGFloat width = MIN(bounds.size.width, bounds.size.height);
     CGFloat height = MAX(bounds.size.width, bounds.size.height);
     SJVideoPlayer_screenshotView.frame = CGRectMake(0, 0, width, height);
+    SJVideoPlayer_screenshotView.hidden = YES;
     return SJVideoPlayer_screenshotView;
 }
 
@@ -191,7 +196,7 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
 }
 
 - (void)dealloc {
-    if ( self.isObserver ) [self.interactivePopGestureRecognizer removeObserver:(id)[self class] forKeyPath:@"state"];
+    if ( self.isObserver ) [self.interactivePopGestureRecognizer removeObserver:self forKeyPath:@"state"];
 }
 
 - (void)setIsObserver:(BOOL)isObserver {
@@ -215,23 +220,26 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
     [[NSTimer SJVideoPlayer_scheduledTimerWithTimeInterval:0.05 exeBlock:^(NSTimer *timer) {
         if ( !_rootViewController ) { [timer invalidate]; return ; }
         if ( !_rootViewController.navigationController ) return;
+        
         // timer invalidate
         [timer invalidate];
+       
         // get nav
         UINavigationController *nav = _rootViewController.navigationController;
-        [nav.interactivePopGestureRecognizer addObserver:(id)[self class] forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:(void *)nav];
+        [nav.interactivePopGestureRecognizer addObserver:nav forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
         nav.isObserver = YES;
         
         // use custom gesture
         nav.useNativeGesture = NO;
         
-        // 添加阴影
+        // border shadow
         nav.view.layer.shadowOffset = CGSizeMake(-1, 0);
         nav.view.layer.shadowColor = [UIColor colorWithWhite:0 alpha:0.2].CGColor;
         nav.view.layer.shadowRadius = 1;
         nav.view.layer.shadowOpacity = 1;
+        
         // delegate
-        nav.delegate = self;
+        nav.delegate = (id)[UINavigationController class];
         
     } repeats:YES] fire];
     return [self SJVideoPlayer_initWithRootViewController:rootViewController];
@@ -261,6 +269,7 @@ static UINavigationControllerOperation _navOperation;
     return [self SJVideoPlayer_popToRootViewControllerAnimated:animated];
 }
 
+// Pop To View Controller
 - (NSArray<UIViewController *> *)SJVideoPlayer_popToViewController:(UIViewController *)viewController animated:(BOOL)animated {
     [self.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ( viewController != obj ) return;
@@ -272,12 +281,12 @@ static UINavigationControllerOperation _navOperation;
 
 // navController delegate
 static __weak UIViewController *_tmpShowViewController;
-- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
++ (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     if ( _navOperation == UINavigationControllerOperationPush ) { return;}
     _tmpShowViewController = viewController;
 }
 
-- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
++ (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     if ( _navOperation != UINavigationControllerOperationPop ) return;
     if ( _tmpShowViewController != viewController ) return;
     
@@ -288,14 +297,14 @@ static __weak UIViewController *_tmpShowViewController;
 }
 
 // observer
-+ (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(UIScreenEdgePanGestureRecognizer *)gesture change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(UINavigationController *)nav {
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(UIScreenEdgePanGestureRecognizer *)gesture change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     switch ( gesture.state ) {
         case UIGestureRecognizerStateBegan:
         case UIGestureRecognizerStateChanged:
             break;
         default: {
             // update
-            nav.useNativeGesture = nav.useNativeGesture;
+            self.useNativeGesture = self.useNativeGesture;
         }
             break;
     }
