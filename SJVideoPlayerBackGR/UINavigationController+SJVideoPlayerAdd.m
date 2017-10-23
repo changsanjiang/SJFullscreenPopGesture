@@ -223,7 +223,7 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
         
         // timer invalidate
         [timer invalidate];
-       
+        
         // get nav
         UINavigationController *nav = _rootViewController.navigationController;
         [nav.interactivePopGestureRecognizer addObserver:nav forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
@@ -354,11 +354,10 @@ static __weak UIViewController *_tmpShowViewController;
 - (BOOL)SJVideoPlayer_considerScrollView:(UIScrollView *)sv {
     if ( [sv isKindOfClass:[UICollectionView class]] ) {
         UIView *sup = sv.superview;
-        if ( [sup isKindOfClass:[UITableViewCell class]] ) return NO;
         // 如果是 TableView 嵌套 CollectionView, 尽量不同时识别.
         for ( int i = 0 ; i < 4; ++ i ) {
+            if ( [sup isKindOfClass:[UITableView class]] ) return NO;
             sup = sup.superview;
-            if ( [sup isKindOfClass:[UITableViewCell class]] ) return NO;
         }
     }
     if ( sv.contentOffset.x == 0 ) return YES;
