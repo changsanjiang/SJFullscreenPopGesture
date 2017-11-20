@@ -56,7 +56,7 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
 
 
 
-#pragma mark -
+#pragma mark - UIViewController
 
 @interface UIViewController (SJVideoPlayerExtension)
 
@@ -68,13 +68,16 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
 @implementation UIViewController (SJVideoPlayerExtension)
 
 + (void)load {
-    Class vc = [self class];
-    
-    // dismiss
-    Method dismissViewControllerAnimatedCompletion = class_getInstanceMethod(vc, @selector(dismissViewControllerAnimated:completion:));
-    Method SJVideoPlayer_dismissViewControllerAnimatedCompletion = class_getInstanceMethod(vc, @selector(SJVideoPlayer_dismissViewControllerAnimated:completion:));
-    
-    method_exchangeImplementations(SJVideoPlayer_dismissViewControllerAnimatedCompletion, dismissViewControllerAnimatedCompletion);
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        Class vc = [self class];
+        
+        // dismiss
+        Method dismissViewControllerAnimatedCompletion = class_getInstanceMethod(vc, @selector(dismissViewControllerAnimated:completion:));
+        Method SJVideoPlayer_dismissViewControllerAnimatedCompletion = class_getInstanceMethod(vc, @selector(SJVideoPlayer_dismissViewControllerAnimated:completion:));
+        
+        method_exchangeImplementations(SJVideoPlayer_dismissViewControllerAnimatedCompletion, dismissViewControllerAnimatedCompletion);
+    });
 }
 
 - (void)SJVideoPlayer_dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion {
@@ -149,11 +152,7 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
 
 
 
-#pragma mark -
-
-
-
-
+#pragma mark - UINavigationController
 @interface UINavigationController (SJVideoPlayerExtension)<UINavigationControllerDelegate>
 
 @property (nonatomic, assign, readwrite) BOOL isObserver;
@@ -164,35 +163,38 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
 
 + (void)load {
     
-    // App launching
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(SJVideoPlayer_addscreenshotImageViewToWindow) name:UIApplicationDidFinishLaunchingNotification object:nil];
-    
-    Class nav = [self class];
-    
-    // Init
-    Method initWithRootViewController = class_getInstanceMethod(nav, @selector(initWithRootViewController:));
-    Method SJVideoPlayer_initWithRootViewController = class_getInstanceMethod(nav, @selector(SJVideoPlayer_initWithRootViewController:));
-    method_exchangeImplementations(SJVideoPlayer_initWithRootViewController, initWithRootViewController);
-    
-    // Push
-    Method pushViewControllerAnimated = class_getInstanceMethod(nav, @selector(pushViewController:animated:));
-    Method SJVideoPlayer_pushViewControllerAnimated = class_getInstanceMethod(nav, @selector(SJVideoPlayer_pushViewController:animated:));
-    method_exchangeImplementations(SJVideoPlayer_pushViewControllerAnimated, pushViewControllerAnimated);
-    
-    // Pop
-    Method popViewControllerAnimated = class_getInstanceMethod(nav, @selector(popViewControllerAnimated:));
-    Method SJVideoPlayer_popViewControllerAnimated = class_getInstanceMethod(nav, @selector(SJVideoPlayer_popViewControllerAnimated:));
-    method_exchangeImplementations(popViewControllerAnimated, SJVideoPlayer_popViewControllerAnimated);
-    
-    // Pop Root VC
-    Method popToRootViewControllerAnimated = class_getInstanceMethod(nav, @selector(popToRootViewControllerAnimated:));
-    Method SJVideoPlayer_popToRootViewControllerAnimated = class_getInstanceMethod(nav, @selector(SJVideoPlayer_popToRootViewControllerAnimated:));
-    method_exchangeImplementations(popToRootViewControllerAnimated, SJVideoPlayer_popToRootViewControllerAnimated);
-    
-    // Pop To View Controller
-    Method popToViewControllerAnimated = class_getInstanceMethod(nav, @selector(popToViewController:animated:));
-    Method SJVideoPlayer_popToViewControllerAnimated = class_getInstanceMethod(nav, @selector(SJVideoPlayer_popToViewController:animated:));
-    method_exchangeImplementations(popToViewControllerAnimated, SJVideoPlayer_popToViewControllerAnimated);
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        // App launching
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(SJVideoPlayer_addscreenshotImageViewToWindow) name:UIApplicationDidFinishLaunchingNotification object:nil];
+        
+        Class nav = [self class];
+        
+        // Init
+        Method initWithRootViewController = class_getInstanceMethod(nav, @selector(initWithRootViewController:));
+        Method SJVideoPlayer_initWithRootViewController = class_getInstanceMethod(nav, @selector(SJVideoPlayer_initWithRootViewController:));
+        method_exchangeImplementations(SJVideoPlayer_initWithRootViewController, initWithRootViewController);
+        
+        // Push
+        Method pushViewControllerAnimated = class_getInstanceMethod(nav, @selector(pushViewController:animated:));
+        Method SJVideoPlayer_pushViewControllerAnimated = class_getInstanceMethod(nav, @selector(SJVideoPlayer_pushViewController:animated:));
+        method_exchangeImplementations(SJVideoPlayer_pushViewControllerAnimated, pushViewControllerAnimated);
+        
+        // Pop
+        Method popViewControllerAnimated = class_getInstanceMethod(nav, @selector(popViewControllerAnimated:));
+        Method SJVideoPlayer_popViewControllerAnimated = class_getInstanceMethod(nav, @selector(SJVideoPlayer_popViewControllerAnimated:));
+        method_exchangeImplementations(popViewControllerAnimated, SJVideoPlayer_popViewControllerAnimated);
+        
+        // Pop Root VC
+        Method popToRootViewControllerAnimated = class_getInstanceMethod(nav, @selector(popToRootViewControllerAnimated:));
+        Method SJVideoPlayer_popToRootViewControllerAnimated = class_getInstanceMethod(nav, @selector(SJVideoPlayer_popToRootViewControllerAnimated:));
+        method_exchangeImplementations(popToRootViewControllerAnimated, SJVideoPlayer_popToRootViewControllerAnimated);
+        
+        // Pop To View Controller
+        Method popToViewControllerAnimated = class_getInstanceMethod(nav, @selector(popToViewController:animated:));
+        Method SJVideoPlayer_popToViewControllerAnimated = class_getInstanceMethod(nav, @selector(SJVideoPlayer_popToViewController:animated:));
+        method_exchangeImplementations(popToViewControllerAnimated, SJVideoPlayer_popToViewControllerAnimated);
+    });
 }
 
 - (void)dealloc {
@@ -210,9 +212,9 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
 // App launching
 + (void)SJVideoPlayer_addscreenshotImageViewToWindow {
     UIWindow *window = [(id)[UIApplication sharedApplication].delegate valueForKey:@"window"];
+    NSAssert(window, @"Window was not found and cannot continue!");
     [window insertSubview:self.SJVideoPlayer_screenshotView atIndex:0];
 }
-
 
 // Init
 - (instancetype)SJVideoPlayer_initWithRootViewController:(UIViewController *)rootViewController {
@@ -317,8 +319,7 @@ static __weak UIViewController *_tmpShowViewController;
 
 
 
-#pragma mark -
-
+#pragma mark - Gesture
 @implementation UINavigationController (SJVideoPlayerAdd)
 
 - (UIPanGestureRecognizer *)sj_pan {
