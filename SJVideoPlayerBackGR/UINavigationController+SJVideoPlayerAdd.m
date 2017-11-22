@@ -335,7 +335,7 @@ static __weak UIViewController *_tmpShowViewController;
 
 - (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)gestureRecognizer {
     CGPoint translate = [gestureRecognizer translationInView:self.view];
-    BOOL possible = translate.x != 0 && translate.y == 0;
+    BOOL possible = translate.x > 0 && translate.y == 0;
     if ( possible ) return YES;
     else return NO;
 }
