@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		771FFBBF1F7E94C40076EEB0 /* NextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 771FFBBB1F7E94B40076EEB0 /* NextViewController.m */; };
 		771FFBC01F7E94C70076EEB0 /* NoNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 771FFBBD1F7E94B40076EEB0 /* NoNavViewController.m */; };
+		779177801FC5170400E2AFF7 /* SJVideoPlayerBackGR.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 7791777F1FC5170400E2AFF7 /* SJVideoPlayerBackGR.podspec */; };
+		779177821FC539C100E2AFF7 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 779177811FC539C100E2AFF7 /* README.md */; };
 		77D9B7681F7E941A00E35746 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D9B7671F7E941A00E35746 /* main.m */; };
 		77D9B76B1F7E941A00E35746 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D9B76A1F7E941A00E35746 /* AppDelegate.m */; };
 		77D9B76E1F7E941A00E35746 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D9B76D1F7E941A00E35746 /* ViewController.m */; };
@@ -26,6 +28,8 @@
 		771FFBBC1F7E94B40076EEB0 /* NoNavViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoNavViewController.h; sourceTree = "<group>"; };
 		771FFBBD1F7E94B40076EEB0 /* NoNavViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoNavViewController.m; sourceTree = "<group>"; };
 		771FFBBE1F7E94B40076EEB0 /* test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test.png; sourceTree = "<group>"; };
+		7791777F1FC5170400E2AFF7 /* SJVideoPlayerBackGR.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SJVideoPlayerBackGR.podspec; path = ../SJVideoPlayerBackGR.podspec; sourceTree = "<group>"; };
+		779177811FC539C100E2AFF7 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		77D9B7631F7E941A00E35746 /* SJBackGRProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SJBackGRProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77D9B7671F7E941A00E35746 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		77D9B7691F7E941A00E35746 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -71,6 +75,8 @@
 		77D9B75A1F7E941A00E35746 = {
 			isa = PBXGroup;
 			children = (
+				7791777F1FC5170400E2AFF7 /* SJVideoPlayerBackGR.podspec */,
+				779177811FC539C100E2AFF7 /* README.md */,
 				77D9B7651F7E941A00E35746 /* SJBackGRProject */,
 				77D9B7641F7E941A00E35746 /* Products */,
 			);
@@ -186,6 +192,8 @@
 			files = (
 				77D9B7761F7E941A00E35746 /* LaunchScreen.storyboard in Resources */,
 				77D9B7731F7E941A00E35746 /* Assets.xcassets in Resources */,
+				779177821FC539C100E2AFF7 /* README.md in Resources */,
+				779177801FC5170400E2AFF7 /* SJVideoPlayerBackGR.podspec in Resources */,
 				77D9B7711F7E941A00E35746 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

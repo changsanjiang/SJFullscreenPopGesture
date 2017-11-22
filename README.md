@@ -30,4 +30,7 @@ pod SJVideoPlayerBackGR
 <img src="https://github.com/changsanjiang/SJVideoPlayerBackGR/blob/master/SJBackGRProject/SJBackGRProject/GestrueSample.gif" width="40%">    
 
 
+### 天朝
+
+http://www.jianshu.com/p/f04d39917d78
 

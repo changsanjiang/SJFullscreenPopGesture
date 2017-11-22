@@ -334,35 +334,56 @@ static __weak UIViewController *_tmpShowViewController;
 
 
 - (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)gestureRecognizer {
-    if (gestureRecognizer.view != self.view) return NO;
     CGPoint translate = [gestureRecognizer translationInView:self.view];
-    BOOL possible = translate.x != 0 && fabs(translate.y) == 0;
+    BOOL possible = translate.x != 0 && translate.y == 0;
     if ( possible ) return YES;
     else return NO;
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-    if ([otherGestureRecognizer isKindOfClass:NSClassFromString(@"UIScrollViewPanGestureRecognizer")] || [otherGestureRecognizer isKindOfClass:NSClassFromString(@"UIPanGestureRecognizer")]|| [otherGestureRecognizer isKindOfClass:NSClassFromString(@"UIScrollViewPagingSwipeGestureRecognizer")]) {
-        UIView *aView = otherGestureRecognizer.view;
-        if ( [aView isKindOfClass:[UIScrollView class]] ) {
-            return [self SJVideoPlayer_considerScrollView:(UIScrollView *)aView];
+    if ( [otherGestureRecognizer isMemberOfClass:NSClassFromString(@"UIPanGestureRecognizer")] ) {
+        return NO;
+    }
+    
+    if ([otherGestureRecognizer isMemberOfClass:NSClassFromString(@"UIScrollViewPanGestureRecognizer")] ||
+        [otherGestureRecognizer isMemberOfClass:NSClassFromString(@"UIScrollViewPagingSwipeGestureRecognizer")]) {
+        if ( [otherGestureRecognizer.view isKindOfClass:[UIScrollView class]] ) {
+            return [self SJVideoPlayer_considerScrollView:(UIScrollView *)otherGestureRecognizer.view otherGestureRecognizer:otherGestureRecognizer];
         }
         return NO;
     }
     return YES;
 }
 
-- (BOOL)SJVideoPlayer_considerScrollView:(UIScrollView *)sv {
-    if ( [sv isKindOfClass:[UICollectionView class]] ) {
-        UIView *sup = sv.superview;
-        // 如果是 TableView 嵌套 CollectionView, 尽量不同时识别.
-        for ( int i = 0 ; i < 4; ++ i ) {
-            if ( [sup isKindOfClass:[UITableView class]] ) return NO;
-            sup = sup.superview;
+
+- (BOOL)SJVideoPlayer_considerScrollView:(UIScrollView *)subScrollView otherGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    UIView *sup = subScrollView.superview;
+    // 尽量考虑 scrollView 嵌套在 scrollView 的情况. (只向上找了5层)
+    for ( int i = 0 ; i < 5; ++ i ) {
+        if ( [sup isKindOfClass:[UIScrollView class]] ) {
+            // 如果 scrollView 从未移动过
+            if ( 0 == subScrollView.contentOffset.x ) {
+                // 判断横向移动的方向 (向左还是向右)
+                CGPoint translate = [self.sj_pan translationInView:self.view];
+                // 横向 向右滑的情况
+                if ( translate.x > 0 ) {
+                    // 取消 subScrollView 滑动
+                    [otherGestureRecognizer setValue:@(UIGestureRecognizerStateCancelled) forKey:@"state"];
+                    // 全屏手势 处理
+                    return YES;
+                }
+                // 横向 向左滑动的情况
+                else {
+                    // 全屏手势 不处理
+                    return NO;
+                }
+            }
+            // 如果 subScrollView 没有复位(即 contentOffset.x != 0 ), 则不触发全局手势
+            else return NO;
         }
+        sup = sup.superview;
     }
-    if ( sv.contentOffset.x == 0 ) return YES;
-    return NO;
+    return YES;
 }
 
 - (void)SJVideoPlayer_handlePanGR:(UIPanGestureRecognizer *)pan {
@@ -488,8 +509,3 @@ static __weak UIViewController *_tmpShowViewController;
 }
 
 @end
-
-
-
-
-

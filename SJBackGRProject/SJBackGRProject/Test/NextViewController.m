@@ -26,6 +26,10 @@
 
 @property (nonatomic, strong, readonly) UIButton *popToVCBtn;
 
+@property (nonatomic, strong, readonly) UIScrollView *backgroundScrollView;
+
+@property (nonatomic, strong, readonly) UIView *testPanBackgroundView;
+
 @end
 
 @implementation NextViewController {
@@ -37,6 +41,8 @@
 @synthesize customModeBtn = _customModeBtn;
 @synthesize popToRootVCBtn = _popToRootVCBtn;
 @synthesize popToVCBtn = _popToVCBtn;
+@synthesize backgroundScrollView = _backgroundScrollView;
+@synthesize testPanBackgroundView = _testPanBackgroundView;
 
 - (void)dealloc {
     NSLog(@"%s - %zd", __func__, __LINE__);
@@ -50,11 +56,19 @@
                                                  blue:1.0 * (arc4random() % 256 / 255.0)
                                                 alpha:1];
     
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
+    [self.view addSubview:self.backgroundScrollView];
+    
     self.label = [UILabel new];
     _label.text = @"人生若只如初见，何事秋风悲画扇。";
     [_label sizeToFit];
     _label.center = CGPointMake(self.view.frame.size.width * 0.5, 100);
     [self.view addSubview:_label];
+    
+    self.testPanBackgroundView.frame = CGRectMake(self.view.frame.size.width * 0.5, 130, 100, 100);
+    [self.view addSubview:self.testPanBackgroundView];
+    
     
     self.pushBtn = [UIButton new];
     [_pushBtn setTitle:@"Push" forState:UIControlStateNormal];
@@ -194,4 +208,39 @@
     [_popToVCBtn addTarget:self action:@selector(clickedPopToVCBtn:) forControlEvents:UIControlEventTouchUpInside];
     return _popToVCBtn;
 }
+
+- (UIScrollView *)backgroundScrollView {
+    if ( _backgroundScrollView ) return _backgroundScrollView;
+    _backgroundScrollView = [UIScrollView new];
+    _backgroundScrollView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
+    int subCount = 5;
+    _backgroundScrollView.contentSize = CGSizeMake(CGRectGetWidth(self.view.frame) * subCount, CGRectGetHeight(self.view.frame));
+    for ( int i = 0 ; i < subCount ; i ++ ) {
+        UIView *view = [UIView new];
+        view.backgroundColor = [UIColor colorWithRed:1.0 * (arc4random() % 256 / 255.0)
+                                               green:1.0 * (arc4random() % 256 / 255.0)
+                                                blue:1.0 * (arc4random() % 256 / 255.0)
+                                               alpha:1];
+        view.frame = CGRectMake(CGRectGetWidth(self.view.frame) * i, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
+        [_backgroundScrollView addSubview:view];
+    }
+    return _backgroundScrollView;
+}
+
+- (UIView *)testPanBackgroundView {
+    if ( _testPanBackgroundView ) return _testPanBackgroundView;
+    _testPanBackgroundView = [UIView new];
+    _testPanBackgroundView.backgroundColor = [UIColor colorWithRed:1.0 * (arc4random() % 256 / 255.0)
+                                                            green:1.0 * (arc4random() % 256 / 255.0)
+                                                             blue:1.0 * (arc4random() % 256 / 255.0)
+                                                            alpha:1];
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleTestPan:)];
+    [_testPanBackgroundView addGestureRecognizer:pan];
+    return _testPanBackgroundView;
+}
+
+- (void)handleTestPan:(UIPanGestureRecognizer *)pan {
+//    NSLog(@"%zd - %s", __LINE__, __func__);
+}
+
 @end
