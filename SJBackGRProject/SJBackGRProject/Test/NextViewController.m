@@ -119,6 +119,14 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"modalClose" style:UIBarButtonItemStyleDone target:self action:@selector(clickedCloseItem)];
     
+    
+    self.sj_viewWillBeginDragging = ^(NextViewController *vc) {
+        vc.backgroundScrollView.scrollEnabled = NO;
+    };
+    
+    self.sj_viewDidEndDragging = ^(NextViewController *vc) {
+        vc.backgroundScrollView.scrollEnabled = YES;
+    };
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -224,6 +232,7 @@
         view.frame = CGRectMake(CGRectGetWidth(self.view.frame) * i, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
         [_backgroundScrollView addSubview:view];
     }
+    _backgroundScrollView.pagingEnabled = YES;
     return _backgroundScrollView;
 }
 
