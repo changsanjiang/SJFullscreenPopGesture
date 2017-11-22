@@ -19,7 +19,7 @@
     
     self.navigationBar.barTintColor = [UIColor whiteColor];
     self.navigationBar.backgroundColor = [UIColor whiteColor];
-    
+    self.view.backgroundColor = [UIColor whiteColor];
     // Do any additional setup after loading the view.
 }
 
