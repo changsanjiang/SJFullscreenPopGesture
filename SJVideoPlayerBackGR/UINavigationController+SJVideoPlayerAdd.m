@@ -350,21 +350,21 @@ static __weak UIViewController *_tmpShowViewController;
         if ( [otherGestureRecognizer.view isKindOfClass:[UIScrollView class]] ) {
             return [self SJVideoPlayer_considerScrollView:(UIScrollView *)otherGestureRecognizer.view otherGestureRecognizer:otherGestureRecognizer];
         }
-        return NO;
     }
     return YES;
 }
 
 
 - (BOOL)SJVideoPlayer_considerScrollView:(UIScrollView *)subScrollView otherGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    if ( 0 != subScrollView.contentOffset.x ) return NO;
     UIView *sup = subScrollView.superview;
+    // 用于判断横向移动的方向 (向左还是向右)
+    CGPoint translate = [self.sj_pan translationInView:self.view];
     // 尽量考虑 scrollView 嵌套在 scrollView 的情况. (只向上找了5层)
     for ( int i = 0 ; i < 5; ++ i ) {
         if ( [sup isKindOfClass:[UIScrollView class]] ) {
             // 如果 scrollView 从未移动过
             if ( 0 == subScrollView.contentOffset.x ) {
-                // 判断横向移动的方向 (向左还是向右)
-                CGPoint translate = [self.sj_pan translationInView:self.view];
                 // 横向 向右滑的情况
                 if ( translate.x > 0 ) {
                     // 取消 subScrollView 滑动
@@ -383,6 +383,8 @@ static __weak UIViewController *_tmpShowViewController;
         }
         sup = sup.superview;
     }
+    // 如果不嵌套并且向左滑动
+    if ( translate.x <= 0 ) return NO;
     return YES;
 }
 
