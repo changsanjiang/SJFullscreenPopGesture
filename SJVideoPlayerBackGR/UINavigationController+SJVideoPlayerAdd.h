@@ -22,15 +22,20 @@
 @interface UINavigationController (Settings)
 
 /*!
- *  default is 0.35.
- *  0.0 .. 1.0
- */
-@property (nonatomic, assign, readwrite) float scMaxOffset;
+ *  bar Color
+ **/
+@property (nonatomic, strong, readwrite) UIColor *sj_backgroundColor;
 
 /*!
  *  default is NO.
  *  If you use native gestures, some methods(sj_viewWillBeginDragging...) of the controller will not be called.
  */
 @property (nonatomic, assign, readwrite) BOOL useNativeGesture;
+
+/*!
+ *  default is 0.35.
+ *  0.0 .. 1.0
+ */
+@property (nonatomic, assign, readwrite) float scMaxOffset;
 
 @end

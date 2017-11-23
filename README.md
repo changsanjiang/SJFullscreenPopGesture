@@ -32,5 +32,5 @@ pod SJVideoPlayerBackGR
 
 ### 天朝
 
-http://www.jianshu.com/p/f04d39917d78
+https://juejin.im/post/5a150c166fb9a04524057832
 

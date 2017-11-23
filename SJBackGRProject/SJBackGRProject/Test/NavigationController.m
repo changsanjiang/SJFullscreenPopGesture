@@ -7,6 +7,7 @@
 //
 
 #import "NavigationController.h"
+#import "UINavigationController+SJVideoPlayerAdd.h"
 
 @interface NavigationController ()
 
@@ -17,9 +18,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationBar.barTintColor = [UIColor whiteColor];
-    self.navigationBar.backgroundColor = [UIColor whiteColor];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.sj_backgroundColor = [UIColor whiteColor];
+    
     // Do any additional setup after loading the view.
 }
 

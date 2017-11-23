@@ -358,34 +358,21 @@ static __weak UIViewController *_tmpShowViewController;
 - (BOOL)SJVideoPlayer_considerScrollView:(UIScrollView *)subScrollView otherGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     if ( 0 != subScrollView.contentOffset.x ) return NO;
     UIView *sup = subScrollView.superview;
-    // 用于判断横向移动的方向 (向左还是向右)
     CGPoint translate = [self.sj_pan translationInView:self.view];
-    // 尽量考虑 scrollView 嵌套在 scrollView 的情况. (只向上找了5层)
-    for ( int i = 0 ; i < 5; ++ i ) {
+    // Try to consider the case where scrollView is nested in scrollView.
+    // (only 5 layers are found up)
+    for ( int i = 0 ; i < 5 ; ++ i ) {
         if ( [sup isKindOfClass:[UIScrollView class]] ) {
-            // 如果 scrollView 从未移动过
-            if ( 0 == subScrollView.contentOffset.x ) {
-                // 横向 向右滑的情况
-                if ( translate.x > 0 ) {
-                    // 取消 subScrollView 滑动
-                    [otherGestureRecognizer setValue:@(UIGestureRecognizerStateCancelled) forKey:@"state"];
-                    // 全屏手势 处理
-                    return YES;
-                }
-                // 横向 向左滑动的情况
-                else {
-                    // 全屏手势 不处理
-                    return NO;
-                }
+            if ( 0 == subScrollView.contentOffset.x && translate.x > 0 ) {
+                [otherGestureRecognizer setValue:@(UIGestureRecognizerStateCancelled) forKey:@"state"];
+                return YES;
             }
-            // 如果 subScrollView 没有复位(即 contentOffset.x != 0 ), 则不触发全局手势
             else return NO;
         }
         sup = sup.superview;
     }
-    // 如果不嵌套并且向左滑动
     if ( translate.x <= 0 ) return NO;
-    return YES;
+    else return YES;
 }
 
 - (void)SJVideoPlayer_handlePanGR:(UIPanGestureRecognizer *)pan {
@@ -399,8 +386,7 @@ static __weak UIViewController *_tmpShowViewController;
         }
             break;
         case UIGestureRecognizerStateChanged: {
-            // 如果从右往左滑
-            if ( offset < 0 ) return;
+//            if ( offset < 0 ) return;
             [self SJVideoPlayer_ViewDidDrag:offset];
         }
             break;
@@ -482,6 +468,16 @@ static __weak UIViewController *_tmpShowViewController;
 #pragma mark - Settings
 
 @implementation UINavigationController (Settings)
+
+- (void)setSj_backgroundColor:(UIColor *)sj_backgroundColor {
+    objc_setAssociatedObject(self, @selector(sj_backgroundColor), sj_backgroundColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    self.navigationBar.barTintColor = sj_backgroundColor;
+    self.view.backgroundColor = sj_backgroundColor;
+}
+
+- (UIColor *)sj_backgroundColor {
+    return objc_getAssociatedObject(self, _cmd);
+}
 
 - (void)setScMaxOffset:(float)scMaxOffset {
     objc_setAssociatedObject(self, @selector(scMaxOffset), @(scMaxOffset), OBJC_ASSOCIATION_RETAIN_NONATOMIC);

@@ -10,6 +10,7 @@
 #import "NextViewController.h"
 #import "UINavigationController+SJVideoPlayerAdd.h"
 #import "UIViewController+SJVideoPlayerAdd.h"
+#import "NavigationController.h"
 
 @interface NoNavViewController ()
 
@@ -93,7 +94,7 @@
 
 - (void)presentNextVC {
     NextViewController *vc = [NextViewController new];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    NavigationController *nav = [[NavigationController alloc] initWithRootViewController:vc];
     [self presentViewController:nav animated:YES completion:nil];
 }
 
