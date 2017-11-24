@@ -121,13 +121,13 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"modalClose" style:UIBarButtonItemStyleDone target:self action:@selector(clickedCloseItem)];
     
     
-    self.sj_viewWillBeginDragging = ^(NextViewController *vc) {
-        vc.backgroundScrollView.scrollEnabled = NO;
-    };
-    
-    self.sj_viewDidEndDragging = ^(NextViewController *vc) {
-        vc.backgroundScrollView.scrollEnabled = YES;
-    };
+//    self.sj_viewWillBeginDragging = ^(NextViewController *vc) {
+//        vc.backgroundScrollView.scrollEnabled = NO;
+//    };
+//    
+//    self.sj_viewDidEndDragging = ^(NextViewController *vc) {
+//        vc.backgroundScrollView.scrollEnabled = YES;
+//    };
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -222,6 +222,7 @@
     if ( _backgroundScrollView ) return _backgroundScrollView;
     _backgroundScrollView = [UIScrollView new];
     _backgroundScrollView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
+    _backgroundScrollView.contentInset = UIEdgeInsetsMake(100, 0, 100, 0);
     int subCount = 5;
     _backgroundScrollView.contentSize = CGSizeMake(CGRectGetWidth(self.view.frame) * subCount, CGRectGetHeight(self.view.frame));
     for ( int i = 0 ; i < subCount ; i ++ ) {
@@ -232,6 +233,13 @@
                                                alpha:1];
         view.frame = CGRectMake(CGRectGetWidth(self.view.frame) * i, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
         [_backgroundScrollView addSubview:view];
+        
+        UILabel *label = [UILabel new];
+        label.font = [UIFont boldSystemFontOfSize:30];
+        label.text = [NSString stringWithFormat:@"%zd", i];
+        label.frame = CGRectMake(20, 20, 0, 0);
+        [label sizeToFit];
+        [view addSubview:label];
     }
     _backgroundScrollView.pagingEnabled = YES;
     return _backgroundScrollView;

@@ -354,14 +354,25 @@ static __weak UIViewController *_tmpShowViewController;
     }
 }
 
+- (UIScrollView *)SJVideoPlayer_findingScrollView {
+    __block UIScrollView *scrollView = nil;
+    [self.topViewController.view.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ( ![obj isKindOfClass:[UIScrollView class]] ) return ;
+        *stop = YES;
+        scrollView = obj;
+    }];
+    return scrollView;
+}
+
 - (void)SJVideoPlayer_ViewWillBeginDragging {
-    [self.view endEditing:YES];
+    [self.view endEditing:YES]; // 让键盘消失
     
     self.SJVideoPlayer_screenshotView.hidden = NO;
     
+    [self SJVideoPlayer_findingScrollView].scrollEnabled = NO;
+    
     // call block
     if ( self.topViewController.sj_viewWillBeginDragging ) self.topViewController.sj_viewWillBeginDragging(self.topViewController);
-    
     
     // begin animation
     self.SJVideoPlayer_screenshotView.transform = CGAffineTransformMakeTranslation(SJ_Shift, 0);
@@ -380,6 +391,9 @@ static __weak UIViewController *_tmpShowViewController;
 }
 
 - (void)SJVideoPlayer_ViewDidEndDragging:(CGFloat)offset {
+    
+    [self SJVideoPlayer_findingScrollView].scrollEnabled = YES;
+    
     CGFloat rate = offset / self.view.frame.size.width;
     if ( rate < self.scMaxOffset ) {
         [UIView animateWithDuration:0.25 animations:^{
@@ -408,7 +422,6 @@ static __weak UIViewController *_tmpShowViewController;
     
     // call block
     if ( self.topViewController.sj_viewDidEndDragging ) self.topViewController.sj_viewDidEndDragging(self.topViewController);
-    
 }
 
 @end
