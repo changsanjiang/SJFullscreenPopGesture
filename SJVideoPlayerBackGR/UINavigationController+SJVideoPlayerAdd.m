@@ -15,39 +15,6 @@
 #define SJ_Shift        (-[UIScreen mainScreen].bounds.size.width * 0.382)
 
 
-#pragma mark - Timer
-
-
-@interface NSTimer (SJVideoPlayerExtension)
-
-+ (instancetype)SJVideoPlayer_scheduledTimerWithTimeInterval:(NSTimeInterval)ti exeBlock:(void(^)(NSTimer *timer))block repeats:(BOOL)yesOrNo;
-
-@end
-
-
-@implementation NSTimer (SJVideoPlayerExtension)
-
-+ (instancetype)SJVideoPlayer_scheduledTimerWithTimeInterval:(NSTimeInterval)ti exeBlock:(void(^)(NSTimer *timer))block repeats:(BOOL)yesOrNo {
-    NSAssert(block, @"block 不可为空");
-    return [self scheduledTimerWithTimeInterval:ti target:self selector:@selector(SJVideoPlayer_exeTimerEvent:) userInfo:[block copy] repeats:yesOrNo];
-}
-
-+ (void)SJVideoPlayer_exeTimerEvent:(NSTimer *)timer {
-    void(^block)(NSTimer *timer) = timer.userInfo;
-    if ( block ) block(timer);
-}
-
-@end
-
-
-#pragma mark -
-
-
-
-
-
-
-
 
 #pragma mark -
 
@@ -60,8 +27,8 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
 
 @interface UIViewController (SJVideoPlayerExtension)
 
-@property (class, nonatomic, strong, readonly) SJScreenshotView *SJVideoPlayer_screenshotView;
-@property (class, nonatomic, strong, readonly) NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
+@property (nonatomic, strong, readonly) SJScreenshotView *SJVideoPlayer_screenshotView;
+@property (nonatomic, strong, readonly) NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
 
 @end
 
@@ -81,38 +48,18 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
 }
 
 - (void)SJVideoPlayer_dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion {
-    if ( !self.navigationController ) {
-        // call origin method
-        [self SJVideoPlayer_dismissViewControllerAnimated:flag completion:completion];
-        return;
+    if ( self.navigationController && self.presentingViewController ) {
+        // reset image
+        [self SJVideoPlayer_dumpingScreenshotWithNum:(NSInteger)self.navigationController.childViewControllers.count - 1];
+        [self SJVideoPlayer_resetScreenshotImage];
     }
-    
-    // reset image
-    if ( self.presentingViewController ) [self SJVideoPlayer_resetScreenshotImageForLastIndex:self.navigationController.childViewControllers.count];
     
     // call origin method
     [self SJVideoPlayer_dismissViewControllerAnimated:flag completion:completion];
 }
 
-+ (void)SJVideoPlayer_resetScreenshotImage {
-    // remove last screenshot
-    [[[self class] SJVideoPlayer_screenshotImagesM] removeLastObject];
-    // update screenshotImage
-    [[[self class] SJVideoPlayer_screenshotView] setImage:[[[self class] SJVideoPlayer_screenshotImagesM] lastObject]];
-}
-
 - (void)SJVideoPlayer_resetScreenshotImage {
     [[self class] SJVideoPlayer_resetScreenshotImage];
-}
-
-- (void)SJVideoPlayer_resetScreenshotImageForLastIndex:(NSInteger)lastIndex {
-    if ( lastIndex <= 0 ) return;
-    // remove last screenshot
-    NSMutableArray *arrayM = [[self class] SJVideoPlayer_screenshotImagesM];
-    [arrayM removeObjectsInRange:NSMakeRange(arrayM.count - lastIndex, lastIndex)];
-    
-    // update screenshotImage
-    [[[self class] SJVideoPlayer_screenshotView] setImage:[[[self class] SJVideoPlayer_screenshotImagesM] lastObject]];
 }
 
 - (void)SJVideoPlayer_updateScreenshot {
@@ -125,10 +72,23 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
     UIGraphicsEndImageContext();
     
     // add to container
-    [[self class].SJVideoPlayer_screenshotImagesM addObject:viewImage];
+    [self.SJVideoPlayer_screenshotImagesM addObject:viewImage];
     
     // change screenshotImage
-    [[self class].SJVideoPlayer_screenshotView setImage:viewImage];
+    [self.SJVideoPlayer_screenshotView setImage:viewImage];
+}
+
+- (void)SJVideoPlayer_dumpingScreenshotWithNum:(NSInteger)num {
+    if ( num <= 0 || num > self.SJVideoPlayer_screenshotImagesM.count ) return;
+    [self.SJVideoPlayer_screenshotImagesM removeObjectsInRange:NSMakeRange(self.SJVideoPlayer_screenshotImagesM.count - num, num)];
+}
+
+- (SJScreenshotView *)SJVideoPlayer_screenshotView {
+    return [[self class] SJVideoPlayer_screenshotView];
+}
+
+- (NSMutableArray<UIImage *> *)SJVideoPlayer_screenshotImagesM {
+    return [[self class] SJVideoPlayer_screenshotImagesM];
 }
 
 + (SJScreenshotView *)SJVideoPlayer_screenshotView {
@@ -146,6 +106,13 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
     if ( SJVideoPlayer_screenshotImagesM ) return SJVideoPlayer_screenshotImagesM;
     SJVideoPlayer_screenshotImagesM = [NSMutableArray array];
     return SJVideoPlayer_screenshotImagesM;
+}
+
++ (void)SJVideoPlayer_resetScreenshotImage {
+    // remove last screenshot
+    [self.SJVideoPlayer_screenshotImagesM removeLastObject];
+    // update screenshotImage
+    [self.SJVideoPlayer_screenshotView setImage:[self.SJVideoPlayer_screenshotImagesM lastObject]];
 }
 
 @end
@@ -169,11 +136,6 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(SJVideoPlayer_addscreenshotImageViewToWindow) name:UIApplicationDidFinishLaunchingNotification object:nil];
         
         Class nav = [self class];
-        
-        // Init
-        Method initWithRootViewController = class_getInstanceMethod(nav, @selector(initWithRootViewController:));
-        Method SJVideoPlayer_initWithRootViewController = class_getInstanceMethod(nav, @selector(SJVideoPlayer_initWithRootViewController:));
-        method_exchangeImplementations(SJVideoPlayer_initWithRootViewController, initWithRootViewController);
         
         // Push
         Method pushViewControllerAnimated = class_getInstanceMethod(nav, @selector(pushViewController:animated:));
@@ -216,42 +178,32 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
     [window insertSubview:self.SJVideoPlayer_screenshotView atIndex:0];
 }
 
-// Init
-- (instancetype)SJVideoPlayer_initWithRootViewController:(UIViewController *)rootViewController {
-    __weak typeof(rootViewController) _rootViewController = rootViewController;
-    [[NSTimer SJVideoPlayer_scheduledTimerWithTimeInterval:0.05 exeBlock:^(NSTimer *timer) {
-        if ( !_rootViewController ) { [timer invalidate]; return ; }
-        if ( !_rootViewController.navigationController ) return;
-        
-        // timer invalidate
-        [timer invalidate];
-        
-        // get nav
-        UINavigationController *nav = _rootViewController.navigationController;
-        [nav.interactivePopGestureRecognizer addObserver:nav forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
-        nav.isObserver = YES;
-        
-        // use custom gesture
-        nav.useNativeGesture = NO;
-        
-        // border shadow
-        nav.view.layer.shadowOffset = CGSizeMake(-1, 0);
-        nav.view.layer.shadowColor = [UIColor colorWithWhite:0 alpha:0.2].CGColor;
-        nav.view.layer.shadowRadius = 1;
-        nav.view.layer.shadowOpacity = 1;
-        
-        // delegate
-        nav.delegate = (id)[UINavigationController class];
-        
-    } repeats:YES] fire];
-    return [self SJVideoPlayer_initWithRootViewController:rootViewController];
+- (void)SJVideoPlayer_navSettings {
+    self.isObserver = YES;
+    
+    [self.interactivePopGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
+    
+    // use custom gesture
+    self.useNativeGesture = NO;
+    
+    // border shadow
+    self.view.layer.shadowOffset = CGSizeMake(-1, 0);
+    self.view.layer.shadowColor = [UIColor colorWithWhite:0 alpha:0.2].CGColor;
+    self.view.layer.shadowRadius = 1;
+    self.view.layer.shadowOpacity = 1;
+    
+    // delegate
+    self.delegate = (id)[UINavigationController class];
 }
-
 
 // Push
 static UINavigationControllerOperation _navOperation;
 - (void)SJVideoPlayer_pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
     _navOperation = UINavigationControllerOperationPush;
+
+    if ( self.interactivePopGestureRecognizer &&
+        !self.isObserver ) [self SJVideoPlayer_navSettings];
+    
     // push update screenshot
     [self SJVideoPlayer_updateScreenshot];
     // call origin method
@@ -267,16 +219,18 @@ static UINavigationControllerOperation _navOperation;
 
 // Pop To RootView Controller
 - (NSArray<UIViewController *> *)SJVideoPlayer_popToRootViewControllerAnimated:(BOOL)animated {
-    [self SJVideoPlayer_resetScreenshotImageForLastIndex:self.childViewControllers.count - 1];
+    _navOperation = UINavigationControllerOperationPop;
+    [self SJVideoPlayer_dumpingScreenshotWithNum:(NSInteger)self.childViewControllers.count - 1];
     return [self SJVideoPlayer_popToRootViewControllerAnimated:animated];
 }
 
 // Pop To View Controller
 - (NSArray<UIViewController *> *)SJVideoPlayer_popToViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    _navOperation = UINavigationControllerOperationPop;
     [self.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ( viewController != obj ) return;
         *stop = YES;
-        [self SJVideoPlayer_resetScreenshotImageForLastIndex:self.childViewControllers.count - idx - 1];
+        [self SJVideoPlayer_dumpingScreenshotWithNum:(NSInteger)self.childViewControllers.count - idx - 2];
     }];
     return [self SJVideoPlayer_popToViewController:viewController animated:animated];
 }
@@ -386,7 +340,7 @@ static __weak UIViewController *_tmpShowViewController;
         }
             break;
         case UIGestureRecognizerStateChanged: {
-//            if ( offset < 0 ) return;
+            if ( offset < 0 ) return;
             [self SJVideoPlayer_ViewDidDrag:offset];
         }
             break;
@@ -403,14 +357,14 @@ static __weak UIViewController *_tmpShowViewController;
 - (void)SJVideoPlayer_ViewWillBeginDragging {
     [self.view endEditing:YES];
     
-    [[self class] SJVideoPlayer_screenshotView].hidden = NO;
+    self.SJVideoPlayer_screenshotView.hidden = NO;
     
     // call block
     if ( self.topViewController.sj_viewWillBeginDragging ) self.topViewController.sj_viewWillBeginDragging(self.topViewController);
     
     
     // begin animation
-    [[self class] SJVideoPlayer_screenshotView].transform = CGAffineTransformMakeTranslation(SJ_Shift, 0);
+    self.SJVideoPlayer_screenshotView.transform = CGAffineTransformMakeTranslation(SJ_Shift, 0);
 }
 
 - (void)SJVideoPlayer_ViewDidDrag:(CGFloat)offset {
@@ -421,8 +375,8 @@ static __weak UIViewController *_tmpShowViewController;
     
     // continuous animation
     CGFloat rate = offset / self.view.frame.size.width;
-    [[self class] SJVideoPlayer_screenshotView].transform = CGAffineTransformMakeTranslation(SJ_Shift - SJ_Shift * rate, 0);
-    [[[self class] SJVideoPlayer_screenshotView] setShadeAlpha:1 - rate];
+    self.SJVideoPlayer_screenshotView.transform = CGAffineTransformMakeTranslation(SJ_Shift - SJ_Shift * rate, 0);
+    [self.SJVideoPlayer_screenshotView setShadeAlpha:1 - rate];
 }
 
 - (void)SJVideoPlayer_ViewDidEndDragging:(CGFloat)offset {
@@ -432,10 +386,10 @@ static __weak UIViewController *_tmpShowViewController;
             self.view.transform = CGAffineTransformIdentity;
             
             // reset status
-            [[self class] SJVideoPlayer_screenshotView].transform = CGAffineTransformMakeTranslation(SJ_Shift, 0);
-            [[[self class] SJVideoPlayer_screenshotView] setShadeAlpha:1];
+            self.SJVideoPlayer_screenshotView.transform = CGAffineTransformMakeTranslation(SJ_Shift, 0);
+            [self.SJVideoPlayer_screenshotView setShadeAlpha:1];
         } completion:^(BOOL finished) {
-            [[self class] SJVideoPlayer_screenshotView].hidden = YES;
+            self.SJVideoPlayer_screenshotView.hidden = YES;
         }];
     }
     else {
@@ -443,12 +397,12 @@ static __weak UIViewController *_tmpShowViewController;
             self.view.transform = CGAffineTransformMakeTranslation(self.view.frame.size.width, 0);
             
             // finished animation
-            [[self class] SJVideoPlayer_screenshotView].transform = CGAffineTransformMakeTranslation(0, 0);
-            [[[self class] SJVideoPlayer_screenshotView] setShadeAlpha:0.001];
+            self.SJVideoPlayer_screenshotView.transform = CGAffineTransformMakeTranslation(0, 0);
+            [self.SJVideoPlayer_screenshotView setShadeAlpha:0.001];
         } completion:^(BOOL finished) {
             [self popViewControllerAnimated:NO];
             self.view.transform = CGAffineTransformIdentity;
-            [[self class] SJVideoPlayer_screenshotView].hidden = YES;
+            self.SJVideoPlayer_screenshotView.hidden = YES;
         }];
     }
     

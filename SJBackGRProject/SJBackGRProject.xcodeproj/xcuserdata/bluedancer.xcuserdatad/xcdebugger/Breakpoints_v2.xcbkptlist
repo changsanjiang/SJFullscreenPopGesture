@@ -2,4 +2,54 @@
 <Bucket
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SJBackGRProject/Test/NextViewController.m"
+            timestampString = "533190394.561948"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "8"
+            endingLineNumber = "8"
+            landmarkName = "unknown"
+            landmarkType = "0">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[NextViewController label]"
+                  moduleName = "SJBackGRProject"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/bluedancer/Documents/GitHub/SJVideoPlayerBackGR/SJBackGRProject/SJBackGRProject/Test/NextViewController.m"
+                  timestampString = "533190394.781199"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[NextViewController setLabel:]"
+                  moduleName = "SJBackGRProject"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/bluedancer/Documents/GitHub/SJVideoPlayerBackGR/SJBackGRProject/SJBackGRProject/Test/NextViewController.m"
+                  timestampString = "533190394.782743"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

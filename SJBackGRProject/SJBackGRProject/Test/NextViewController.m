@@ -104,18 +104,18 @@
     [_modalBtn addTarget:self action:@selector(presentNextVC) forControlEvents:UIControlEventTouchUpInside];
     [_modalBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     [self.view addSubview:_modalBtn];
-    _modalBtn.bounds = CGRectMake(0, 0, 100, 50);
+    _modalBtn.bounds = CGRectMake(0, 0, 200, 50);
     CGRect frame = _pushBtn.frame;
-    frame.origin.y += 100;
+    frame.origin.y += 50;
     _modalBtn.frame = frame;
     
     
     [self.view addSubview:self.popToRootVCBtn];
-    frame.origin.y += 100;
+    frame.origin.y += 50;
     _popToRootVCBtn.frame = frame;
     
     [self.view addSubview:self.popToVCBtn];
-    frame.origin.y += 100;
+    frame.origin.y += 50;
     _popToVCBtn.frame = frame;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"modalClose" style:UIBarButtonItemStyleDone target:self action:@selector(clickedCloseItem)];
