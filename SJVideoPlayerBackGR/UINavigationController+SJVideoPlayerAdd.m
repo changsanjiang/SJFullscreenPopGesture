@@ -50,7 +50,7 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
 - (void)SJVideoPlayer_dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion {
     if ( self.navigationController && self.presentingViewController ) {
         // reset image
-        [self SJVideoPlayer_dumpingScreenshotWithNum:(NSInteger)self.navigationController.childViewControllers.count - 1];
+        [self SJVideoPlayer_dumpingScreenshotWithNum:(NSInteger)self.navigationController.childViewControllers.count - 1]; // 由于最顶层的视图还未截取, 所以这里 - 1. 以下相同.
         [self SJVideoPlayer_resetScreenshotImage];
     }
     
@@ -196,6 +196,20 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
     self.delegate = (id)[UINavigationController class];
 }
 
+// observer
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(UIScreenEdgePanGestureRecognizer *)gesture change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    switch ( gesture.state ) {
+        case UIGestureRecognizerStateBegan:
+        case UIGestureRecognizerStateChanged:
+            break;
+        default: {
+            // update
+            self.useNativeGesture = self.useNativeGesture;
+        }
+            break;
+    }
+}
+
 // Push
 static UINavigationControllerOperation _navOperation;
 - (void)SJVideoPlayer_pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
@@ -250,20 +264,6 @@ static __weak UIViewController *_tmpShowViewController;
     [self SJVideoPlayer_resetScreenshotImage];
     _tmpShowViewController = nil;
     _navOperation = UINavigationControllerOperationNone;
-}
-
-// observer
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(UIScreenEdgePanGestureRecognizer *)gesture change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    switch ( gesture.state ) {
-        case UIGestureRecognizerStateBegan:
-        case UIGestureRecognizerStateChanged:
-            break;
-        default: {
-            // update
-            self.useNativeGesture = self.useNativeGesture;
-        }
-            break;
-    }
 }
 
 @end
