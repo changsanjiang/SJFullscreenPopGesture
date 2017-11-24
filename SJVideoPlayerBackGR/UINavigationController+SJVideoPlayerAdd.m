@@ -311,23 +311,16 @@ static __weak UIViewController *_tmpShowViewController;
 
 - (BOOL)SJVideoPlayer_considerScrollView:(UIScrollView *)subScrollView otherGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     if ( 0 != subScrollView.contentOffset.x ) return NO;
-    UIView *sup = subScrollView.superview;
+    
     CGPoint translate = [self.sj_pan translationInView:self.view];
-    // Try to consider the case where scrollView is nested in scrollView.
-    // (only 5 layers are found up)
-    for ( int i = 0 ; i < 5 ; ++ i ) {
-        if ( [sup isKindOfClass:[UIScrollView class]] ) {
-            if ( 0 == subScrollView.contentOffset.x && translate.x > 0 ) {
-                [otherGestureRecognizer setValue:@(UIGestureRecognizerStateCancelled) forKey:@"state"];
-                return YES;
-            }
-            else return NO;
-        }
-        sup = sup.superview;
-    }
     if ( translate.x <= 0 ) return NO;
-    else return YES;
+    else {
+        [otherGestureRecognizer setValue:@(UIGestureRecognizerStateCancelled) forKey:@"state"];
+        return YES;
+    }
 }
+
+
 
 - (void)SJVideoPlayer_handlePanGR:(UIPanGestureRecognizer *)pan {
     if ( self.childViewControllers.count <= 1 ) return;
@@ -354,22 +347,12 @@ static __weak UIViewController *_tmpShowViewController;
     }
 }
 
-- (UIScrollView *)SJVideoPlayer_findingScrollView {
-    __block UIScrollView *scrollView = nil;
-    [self.topViewController.view.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ( ![obj isKindOfClass:[UIScrollView class]] ) return ;
-        *stop = YES;
-        scrollView = obj;
-    }];
-    return scrollView;
-}
-
 - (void)SJVideoPlayer_ViewWillBeginDragging {
     [self.view endEditing:YES]; // 让键盘消失
     
     self.SJVideoPlayer_screenshotView.hidden = NO;
     
-    [self SJVideoPlayer_findingScrollView].scrollEnabled = NO;
+//    self.topViewController.view.userInteractionEnabled = NO;
     
     // call block
     if ( self.topViewController.sj_viewWillBeginDragging ) self.topViewController.sj_viewWillBeginDragging(self.topViewController);
@@ -392,7 +375,7 @@ static __weak UIViewController *_tmpShowViewController;
 
 - (void)SJVideoPlayer_ViewDidEndDragging:(CGFloat)offset {
     
-    [self SJVideoPlayer_findingScrollView].scrollEnabled = YES;
+//    self.topViewController.view.userInteractionEnabled = YES;
     
     CGFloat rate = offset / self.view.frame.size.width;
     if ( rate < self.scMaxOffset ) {
