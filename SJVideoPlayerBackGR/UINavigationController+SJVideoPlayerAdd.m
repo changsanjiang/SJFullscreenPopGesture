@@ -230,7 +230,7 @@ static UINavigationControllerOperation _navOperation;
     [self.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ( viewController != obj ) return;
         *stop = YES;
-        [self SJVideoPlayer_dumpingScreenshotWithNum:(NSInteger)self.childViewControllers.count - idx - 2];
+        [self SJVideoPlayer_dumpingScreenshotWithNum:((NSInteger)self.childViewControllers.count - 1) - ((NSInteger)idx + 1)];
     }];
     return [self SJVideoPlayer_popToViewController:viewController animated:animated];
 }
