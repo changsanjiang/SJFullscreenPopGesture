@@ -286,8 +286,8 @@ static __weak UIViewController *_tmpShowViewController;
     return sj_pan;
 }
 
-
 - (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)gestureRecognizer {
+    if ( self.childViewControllers.count <= 1 ) return NO;
     CGPoint translate = [gestureRecognizer translationInView:self.view];
     BOOL possible = translate.x > 0 && translate.y == 0;
     if ( possible ) return YES;
@@ -308,7 +308,6 @@ static __weak UIViewController *_tmpShowViewController;
     return YES;
 }
 
-
 - (BOOL)SJVideoPlayer_considerScrollView:(UIScrollView *)subScrollView otherGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     if ( 0 != subScrollView.contentOffset.x ) return NO;
     
@@ -320,11 +319,7 @@ static __weak UIViewController *_tmpShowViewController;
     }
 }
 
-
-
 - (void)SJVideoPlayer_handlePanGR:(UIPanGestureRecognizer *)pan {
-    if ( self.childViewControllers.count <= 1 ) return;
-    
     CGFloat offset = [pan translationInView:self.view].x;
     
     switch (pan.state) {
