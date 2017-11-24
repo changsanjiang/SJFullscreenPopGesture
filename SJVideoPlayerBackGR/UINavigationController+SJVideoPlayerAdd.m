@@ -214,7 +214,7 @@ static NSMutableArray<UIImage *> * SJVideoPlayer_screenshotImagesM;
 static UINavigationControllerOperation _navOperation;
 - (void)SJVideoPlayer_pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
     _navOperation = UINavigationControllerOperationPush;
-
+    
     if ( self.interactivePopGestureRecognizer &&
         !self.isObserver ) [self SJVideoPlayer_navSettings];
     
@@ -347,12 +347,23 @@ static __weak UIViewController *_tmpShowViewController;
     }
 }
 
+- (UIScrollView *)SJVideoPlayer_findingSubScrollView {
+    __block UIScrollView *scrollView = nil;
+    [self.topViewController.view.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ( ![obj isKindOfClass:[UIScrollView class]] ) return;
+        *stop = YES;
+        scrollView = obj;
+    }];
+    
+    return scrollView;
+}
+
 - (void)SJVideoPlayer_ViewWillBeginDragging {
     [self.view endEditing:YES]; // 让键盘消失
     
     self.SJVideoPlayer_screenshotView.hidden = NO;
     
-//    self.topViewController.view.userInteractionEnabled = NO;
+    [self SJVideoPlayer_findingSubScrollView].scrollEnabled = NO;
     
     // call block
     if ( self.topViewController.sj_viewWillBeginDragging ) self.topViewController.sj_viewWillBeginDragging(self.topViewController);
@@ -375,7 +386,7 @@ static __weak UIViewController *_tmpShowViewController;
 
 - (void)SJVideoPlayer_ViewDidEndDragging:(CGFloat)offset {
     
-//    self.topViewController.view.userInteractionEnabled = YES;
+    [self SJVideoPlayer_findingSubScrollView].scrollEnabled = YES;
     
     CGFloat rate = offset / self.view.frame.size.width;
     if ( rate < self.scMaxOffset ) {
@@ -457,3 +468,5 @@ static __weak UIViewController *_tmpShowViewController;
 }
 
 @end
+
+
