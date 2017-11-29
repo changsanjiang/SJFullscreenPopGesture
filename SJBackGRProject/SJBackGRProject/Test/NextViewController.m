@@ -27,6 +27,8 @@
 
 @property (nonatomic, strong, readonly) UIButton *popToVCBtn;
 
+@property (nonatomic, strong, readonly) UIButton *disableBtn;
+
 @property (nonatomic, strong, readonly) UIScrollView *backgroundScrollView;
 
 @property (nonatomic, strong, readonly) UIView *testPanBackgroundView;
@@ -44,6 +46,7 @@
 @synthesize popToVCBtn = _popToVCBtn;
 @synthesize backgroundScrollView = _backgroundScrollView;
 @synthesize testPanBackgroundView = _testPanBackgroundView;
+@synthesize disableBtn = _disableBtn;
 
 - (void)dealloc {
     NSLog(@"%s - %zd", __func__, __LINE__);
@@ -58,7 +61,6 @@
                                                 alpha:1];
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    
     [self.view addSubview:self.backgroundScrollView];
     
     self.label = [UILabel new];
@@ -76,9 +78,10 @@
     [_pushBtn addTarget:self action:@selector(pushNextVC:) forControlEvents:UIControlEventTouchUpInside];
     [_pushBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     [self.view addSubview:_pushBtn];
-    _pushBtn.bounds = CGRectMake(0, 0, 100, 50);
+    _pushBtn.bounds = CGRectMake(0, 0, 300, 50);
     _pushBtn.center = self.view.center;
-    
+    [_pushBtn sizeToFit];
+
     
     _segmented = [[UISegmentedControl alloc] initWithItems:@[@"Use Custom", @"Use Native"]];
     self.navigationItem.titleView = _segmented;
@@ -104,23 +107,28 @@
     [_modalBtn addTarget:self action:@selector(presentNextVC) forControlEvents:UIControlEventTouchUpInside];
     [_modalBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     [self.view addSubview:_modalBtn];
-    _modalBtn.bounds = CGRectMake(0, 0, 200, 50);
     CGRect frame = _pushBtn.frame;
     frame.origin.y += 50;
     _modalBtn.frame = frame;
-    
+    [_modalBtn sizeToFit];
     
     [self.view addSubview:self.popToRootVCBtn];
     frame.origin.y += 50;
     _popToRootVCBtn.frame = frame;
+    [_popToRootVCBtn sizeToFit];
     
     [self.view addSubview:self.popToVCBtn];
     frame.origin.y += 50;
     _popToVCBtn.frame = frame;
-    
+    [_popToVCBtn sizeToFit];
+
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"modalClose" style:UIBarButtonItemStyleDone target:self action:@selector(clickedCloseItem)];
     
-    
+    [self.view addSubview:self.disableBtn];
+    frame.origin.y += 50;
+    _disableBtn.frame = frame;
+    [_disableBtn sizeToFit];
+
 //    self.sj_viewWillBeginDragging = ^(NextViewController *vc) {
 //        vc.backgroundScrollView.scrollEnabled = NO;
 //    };
@@ -132,12 +140,22 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    if ( self.navigationController.sj_DisableGestures ) {
+        [_disableBtn setTitle:@"Enable gesture" forState:UIControlStateNormal];
+    }
+    else {
+        [_disableBtn setTitle:@"Disable gesture" forState:UIControlStateNormal];
+    }
     
     // update selected index
     _segmented.selectedSegmentIndex = self.navigationController.useNativeGesture;
 }
 
 - (void)clickedSegmented:(UISegmentedControl *)control {
+    if ( self.navigationController.sj_DisableGestures ) {
+        control.selectedSegmentIndex = self.navigationController.useNativeGesture;
+        return;
+    }
     self.navigationController.useNativeGesture = control.selectedSegmentIndex;
 }
 
@@ -168,6 +186,16 @@
     [self.navigationController popToViewController:self.navigationController.childViewControllers[random] animated:YES];
 }
 
+- (void)clickedDisableBtn:(UIButton *)btn {
+    self.navigationController.sj_DisableGestures = !self.navigationController.sj_DisableGestures;
+    if ( self.navigationController.sj_DisableGestures ) {
+        [_disableBtn setTitle:@"Enable gesture" forState:UIControlStateNormal];
+    }
+    else {
+        [_disableBtn setTitle:@"Disable gesture" forState:UIControlStateNormal];
+    }
+}
+
 #pragma mark - Mode
 
 - (void)clickednativeModeBtn:(UIButton *)btn {
@@ -178,7 +206,6 @@
     if ( _nativeModeBtn ) return _nativeModeBtn;
     _nativeModeBtn = [UIButton new];
     [_nativeModeBtn setTitle:@"use native" forState:UIControlStateNormal];
-    [_nativeModeBtn sizeToFit];
     [_nativeModeBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     [_nativeModeBtn addTarget:self action:@selector(clickednativeModeBtn:) forControlEvents:UIControlEventTouchUpInside];
     return _nativeModeBtn;
@@ -192,7 +219,6 @@
     if ( _customModeBtn ) return _customModeBtn;
     _customModeBtn = [UIButton new];
     [_customModeBtn setTitle:@"use Custom" forState:UIControlStateNormal];
-    [_customModeBtn sizeToFit];
     [_customModeBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     [_customModeBtn addTarget:self action:@selector(clickedCustomModeBtn:) forControlEvents:UIControlEventTouchUpInside];
     return _customModeBtn;
@@ -202,7 +228,6 @@
     if ( _popToRootVCBtn ) return _popToRootVCBtn;
     _popToRootVCBtn = [UIButton new];
     [_popToRootVCBtn setTitle:@"PopToRootVC" forState:UIControlStateNormal];
-    [_popToRootVCBtn sizeToFit];
     [_popToRootVCBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     [_popToRootVCBtn addTarget:self action:@selector(clickedPopToRootVCBtn:) forControlEvents:UIControlEventTouchUpInside];
     return _popToRootVCBtn;
@@ -212,17 +237,25 @@
     if ( _popToVCBtn ) return _popToVCBtn;
     _popToVCBtn = [UIButton new];
     [_popToVCBtn setTitle:@"PopToVC" forState:UIControlStateNormal];
-    [_popToVCBtn sizeToFit];
     [_popToVCBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     [_popToVCBtn addTarget:self action:@selector(clickedPopToVCBtn:) forControlEvents:UIControlEventTouchUpInside];
     return _popToVCBtn;
+}
+
+- (UIButton *)disableBtn {
+    if ( _disableBtn ) return _disableBtn;
+    _disableBtn = [UIButton new];
+    [_disableBtn setTitle:@"Disable Gesture" forState:UIControlStateNormal];
+    [_disableBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [_disableBtn addTarget:self action:@selector(clickedDisableBtn:) forControlEvents:UIControlEventTouchUpInside];
+    return _disableBtn;
 }
 
 - (UIScrollView *)backgroundScrollView {
     if ( _backgroundScrollView ) return _backgroundScrollView;
     _backgroundScrollView = [UIScrollView new];
     _backgroundScrollView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
-    _backgroundScrollView.contentInset = UIEdgeInsetsMake(100, 0, 100, 0);
+    _backgroundScrollView.contentInset = UIEdgeInsetsMake(0, 0, 100, 0);
     int subCount = 5;
     _backgroundScrollView.contentSize = CGSizeMake(CGRectGetWidth(self.view.frame) * subCount, CGRectGetHeight(self.view.frame));
     for ( int i = 0 ; i < subCount ; i ++ ) {
@@ -241,6 +274,7 @@
         [label sizeToFit];
         [view addSubview:label];
     }
+    
     _backgroundScrollView.pagingEnabled = YES;
     return _backgroundScrollView;
 }
