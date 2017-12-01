@@ -10,7 +10,7 @@ Customize full-screen return gestures. System native gestures and custom gesture
 
 ### Use
 ```
-pod SJVideoPlayerBackGR
+pod 'SJVideoPlayerBackGR'
 ```
 
 如果好用, 兄弟, 给个 Star 吧.
