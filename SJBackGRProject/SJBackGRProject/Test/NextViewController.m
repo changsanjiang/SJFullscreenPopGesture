@@ -146,7 +146,8 @@
     [tipsLabel sizeToFit];
     [testFadeAreaView addSubview:tipsLabel];
     [self.view addSubview:testFadeAreaView];
-    self.sj_fadeArea = @[@(_pushBtn.frame), @(testFadeAreaView.frame)];
+//    self.sj_fadeArea = @[@(_pushBtn.frame), @(testFadeAreaView.frame)];
+    self.sj_fadeAreaViews = @[testFadeAreaView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

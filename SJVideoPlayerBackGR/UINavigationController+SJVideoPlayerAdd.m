@@ -288,14 +288,26 @@ static __weak UIViewController *_tmpShowViewController;
 }
 
 - (BOOL)isFadeAreaWithPoint:(CGPoint)point {
+    if ( !self.topViewController.sj_fadeAreaViews && !self.topViewController.sj_fadeArea ) return NO;
     __block BOOL isFadeArea = NO;
     UIView *view = self.topViewController.view;
-    [self.topViewController.sj_fadeArea enumerateObjectsUsingBlock:^(NSValue * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        CGRect rect = [self.view convertRect:[obj CGRectValue] fromView:view];
-        if ( !CGRectContainsPoint(rect, point) ) return ;
-        isFadeArea = YES;
-        *stop = YES;
-    }];
+    if ( 0 != self.topViewController.sj_fadeArea ) {
+        [self.topViewController.sj_fadeArea enumerateObjectsUsingBlock:^(NSValue * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            CGRect rect = [self.view convertRect:[obj CGRectValue] fromView:view];
+            if ( !CGRectContainsPoint(rect, point) ) return ;
+            isFadeArea = YES;
+            *stop = YES;
+        }];
+    }
+    
+    if ( !isFadeArea && 0 != self.topViewController.sj_fadeAreaViews.count ) {
+        [self.topViewController.sj_fadeAreaViews enumerateObjectsUsingBlock:^(UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            CGRect rect = [self.view convertRect:obj.frame fromView:view];
+            if ( !CGRectContainsPoint(rect, point) ) return ;
+            isFadeArea = YES;
+            *stop = YES;
+        }];
+    }
     return isFadeArea;
 }
 

@@ -35,7 +35,10 @@ pod SJVideoPlayerBackGR
 #import "UIViewController+SJVideoPlayerAdd.h"
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.sj_fadeArea = @[@(_btn.frame), @(_view2.frame)];
+    // or
+    self.sj_fadeAreaViews = @[_btn, _view2];
 }
 ```
 

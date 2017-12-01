@@ -19,6 +19,14 @@
     return objc_getAssociatedObject(self, _cmd);
 }
 
+- (void)setSj_fadeAreaViews:(NSArray<UIView *> *)sj_fadeAreaViews {
+    objc_setAssociatedObject(self, @selector(sj_fadeAreaViews), sj_fadeAreaViews, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NSArray<UIView *> *)sj_fadeAreaViews {
+    return objc_getAssociatedObject(self, _cmd);
+}
+
 - (void)setSj_viewWillBeginDragging:(void (^)(__kindof UIViewController *))sj_viewWillBeginDragging {
     objc_setAssociatedObject(self, @selector(sj_viewWillBeginDragging), sj_viewWillBeginDragging, OBJC_ASSOCIATION_COPY);
 }

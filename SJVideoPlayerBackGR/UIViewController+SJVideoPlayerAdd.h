@@ -19,6 +19,8 @@
  **/
 @property (nonatomic, strong) NSArray<NSValue *> *sj_fadeArea;
 
+@property (nonatomic, strong) NSArray<UIView *> *sj_fadeAreaViews;
+
 @property (nonatomic, copy, readwrite) void(^sj_viewWillBeginDragging)(__kindof UIViewController *vc);
 @property (nonatomic, copy, readwrite) void(^sj_viewDidDrag)(__kindof UIViewController *vc);
 @property (nonatomic, copy, readwrite) void(^sj_viewDidEndDragging)(__kindof UIViewController *vc);
