@@ -136,6 +136,17 @@
 //    self.sj_viewDidEndDragging = ^(NextViewController *vc) {
 //        vc.backgroundScrollView.scrollEnabled = YES;
 //    };
+    
+    
+    UIView *testFadeAreaView = [UIView new];
+    testFadeAreaView.frame = CGRectMake(200, 20, 100, 50);
+    testFadeAreaView.backgroundColor = [UIColor orangeColor];
+    UILabel *tipsLabel = [UILabel new];
+    tipsLabel.text = @"Test fade area";
+    [tipsLabel sizeToFit];
+    [testFadeAreaView addSubview:tipsLabel];
+    [self.view addSubview:testFadeAreaView];
+    self.sj_fadeArea = @[@(_pushBtn.frame), @(testFadeAreaView.frame)];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

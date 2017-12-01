@@ -287,8 +287,23 @@ static __weak UIViewController *_tmpShowViewController;
     return sj_pan;
 }
 
+- (BOOL)isFadeAreaWithPoint:(CGPoint)point {
+    __block BOOL isFadeArea = NO;
+    UIView *view = self.topViewController.view;
+    [self.topViewController.sj_fadeArea enumerateObjectsUsingBlock:^(NSValue * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        CGRect rect = [self.view convertRect:[obj CGRectValue] fromView:view];
+        if ( !CGRectContainsPoint(rect, point) ) return ;
+        isFadeArea = YES;
+        *stop = YES;
+    }];
+    return isFadeArea;
+}
+
 - (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)gestureRecognizer {
     if ( self.childViewControllers.count <= 1 ) return NO;
+    CGPoint point = [gestureRecognizer locationInView:gestureRecognizer.view];
+    if ( [self isFadeAreaWithPoint:point] ) return NO;
+
     CGPoint translate = [gestureRecognizer translationInView:self.view];
     BOOL possible = translate.x > 0 && translate.y == 0;
     if ( possible ) return YES;
