@@ -187,6 +187,7 @@ static NSMutableArray<UIImage *> * SJ_screenshotImagesM;
     self.useNativeGesture = NO;
     
     // border shadow
+    self.view.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.view.bounds].CGPath;
     self.view.layer.shadowOffset = CGSizeMake(-1, 0);
     self.view.layer.shadowColor = [UIColor colorWithWhite:0 alpha:0.2].CGColor;
     self.view.layer.shadowRadius = 1;
