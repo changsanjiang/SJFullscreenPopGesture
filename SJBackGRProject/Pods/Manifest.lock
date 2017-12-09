@@ -1,0 +1,12 @@
+PODS:
+  - SJObserverHelper (1.0.2)
+
+DEPENDENCIES:
+  - SJObserverHelper
+
+SPEC CHECKSUMS:
+  SJObserverHelper: cfc0431646b0bace1e96874e29b3a659f6c3a57b
+
+PODFILE CHECKSUM: c2bee0047925981f0a3c9b09de532aed60f1edaf
+
+COCOAPODS: 1.4.0.beta.2

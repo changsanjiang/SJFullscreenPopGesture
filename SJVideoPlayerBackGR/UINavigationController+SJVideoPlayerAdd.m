@@ -10,7 +10,7 @@
 #import <objc/message.h>
 #import "UIViewController+SJVideoPlayerAdd.h"
 #import "SJScreenshotView.h"
-
+#import <SJObserverHelper/NSObject+SJObserverHelper.h>
 
 #define SJ_Shift        (-[UIScreen mainScreen].bounds.size.width * 0.382)
 
@@ -159,10 +159,6 @@ static NSMutableArray<UIImage *> * SJ_screenshotImagesM;
     });
 }
 
-- (void)dealloc {
-    if ( self.isObserver ) [self.interactivePopGestureRecognizer removeObserver:self forKeyPath:@"state"];
-}
-
 - (void)setIsObserver:(BOOL)isObserver {
     objc_setAssociatedObject(self, @selector(isObserver), @(isObserver), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
@@ -181,7 +177,7 @@ static NSMutableArray<UIImage *> * SJ_screenshotImagesM;
 - (void)SJ_navSettings {
     self.isObserver = YES;
     
-    [self.interactivePopGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
+    [self.interactivePopGestureRecognizer sj_addObserver:self forKeyPath:@"state"];
     
     // use custom gesture
     self.useNativeGesture = NO;
@@ -235,7 +231,7 @@ static UINavigationControllerOperation _navOperation;
 // Pop To RootView Controller
 - (NSArray<UIViewController *> *)SJ_popToRootViewControllerAnimated:(BOOL)animated {
     _navOperation = UINavigationControllerOperationPop;
-    [self SJ_dumpingScreenshotWithNum:(NSInteger)self.childViewControllers.count - 1];
+    [self SJ_dumpingScreenshotWithNum:((NSInteger)self.childViewControllers.count - 1) - 1];
     return [self SJ_popToRootViewControllerAnimated:animated];
 }
 

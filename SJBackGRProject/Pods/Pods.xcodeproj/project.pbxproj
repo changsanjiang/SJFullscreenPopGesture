@@ -1,0 +1,497 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5A07F3B04EC0CF5D37D77DA2EB6BF076 /* Pods-SJBackGRProject-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C1F896DABED480D929279FFFDF7E72 /* Pods-SJBackGRProject-dummy.m */; };
+		6079D459A2D343F19C0BA58B4D87B999 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D88AAE1F92055A60CC2FC970D7D34634 /* Foundation.framework */; };
+		A6555B505DD77A1E3EE34499EB7B8612 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D88AAE1F92055A60CC2FC970D7D34634 /* Foundation.framework */; };
+		B352CAACEB13F07CD237B59C16944B93 /* SJObserverHelper-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 78C1A8D075CE956E3798AD9616C103CC /* SJObserverHelper-dummy.m */; };
+		CA28C6CEB79FA6D2D8ED80B48B0A4FC9 /* NSObject+SJObserverHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E46B0FF4432EF8446A52084480B8704 /* NSObject+SJObserverHelper.m */; };
+		E478271951F7E101BD377BFCAE21AE4A /* NSObject+SJObserverHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E8C3E871E75DBEF6F818C63AB68209E /* NSObject+SJObserverHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FADC86E3D4B38395245472A341E0D69D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B63C6A64CF66340668996F78DA6BB482 /* UIKit.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5642053F996DAD110BAC763A893532F9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B644D8AED77CF9B4E0C315AE97CA7DB0;
+			remoteInfo = SJObserverHelper;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		08BD679F8A984F134F0E5CB21BEB5A3F /* Pods-SJBackGRProject-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SJBackGRProject-acknowledgements.plist"; sourceTree = "<group>"; };
+		16B11B005DC193F6C719489202FE505F /* SJObserverHelper-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SJObserverHelper-prefix.pch"; sourceTree = "<group>"; };
+		1AA484388C2F3D0CF7EF7E1BF720B556 /* Pods-SJBackGRProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SJBackGRProject.debug.xcconfig"; sourceTree = "<group>"; };
+		1E8C3E871E75DBEF6F818C63AB68209E /* NSObject+SJObserverHelper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSObject+SJObserverHelper.h"; path = "Classes/NSObject+SJObserverHelper.h"; sourceTree = "<group>"; };
+		22C1F896DABED480D929279FFFDF7E72 /* Pods-SJBackGRProject-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SJBackGRProject-dummy.m"; sourceTree = "<group>"; };
+		2E46B0FF4432EF8446A52084480B8704 /* NSObject+SJObserverHelper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSObject+SJObserverHelper.m"; path = "Classes/NSObject+SJObserverHelper.m"; sourceTree = "<group>"; };
+		365C983C10AC581B2B33544C73F0E484 /* Pods-SJBackGRProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SJBackGRProject.release.xcconfig"; sourceTree = "<group>"; };
+		6096C12F1415E23B0B3B57E3845BB3EA /* Pods-SJBackGRProject-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SJBackGRProject-frameworks.sh"; sourceTree = "<group>"; };
+		68967B7EF199718D783E660FFC276609 /* libPods-SJBackGRProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-SJBackGRProject.a"; path = "libPods-SJBackGRProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C95D6A11329BA796ABB5E575AA311C0 /* libSJObserverHelper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libSJObserverHelper.a; path = libSJObserverHelper.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		78C1A8D075CE956E3798AD9616C103CC /* SJObserverHelper-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SJObserverHelper-dummy.m"; sourceTree = "<group>"; };
+		8656413D4119A79332ED1527207C3DB1 /* Pods-SJBackGRProject-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SJBackGRProject-acknowledgements.markdown"; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A424E66301EAFF4059B70673AC2EDAFA /* SJObserverHelper.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SJObserverHelper.xcconfig; sourceTree = "<group>"; };
+		B63C6A64CF66340668996F78DA6BB482 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		D88AAE1F92055A60CC2FC970D7D34634 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		E7BF54841DCF91EC7D7D783E282C0EFB /* Pods-SJBackGRProject-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SJBackGRProject-resources.sh"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		75FF5E8F4481E424C5D21E12913D0ACF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A6555B505DD77A1E3EE34499EB7B8612 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8E59E2476CAA4361C858B8B489CB66B4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6079D459A2D343F19C0BA58B4D87B999 /* Foundation.framework in Frameworks */,
+				FADC86E3D4B38395245472A341E0D69D /* UIKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		023F837626461C8A4E40CDF9F35D46DA /* Pods-SJBackGRProject */ = {
+			isa = PBXGroup;
+			children = (
+				8656413D4119A79332ED1527207C3DB1 /* Pods-SJBackGRProject-acknowledgements.markdown */,
+				08BD679F8A984F134F0E5CB21BEB5A3F /* Pods-SJBackGRProject-acknowledgements.plist */,
+				22C1F896DABED480D929279FFFDF7E72 /* Pods-SJBackGRProject-dummy.m */,
+				6096C12F1415E23B0B3B57E3845BB3EA /* Pods-SJBackGRProject-frameworks.sh */,
+				E7BF54841DCF91EC7D7D783E282C0EFB /* Pods-SJBackGRProject-resources.sh */,
+				1AA484388C2F3D0CF7EF7E1BF720B556 /* Pods-SJBackGRProject.debug.xcconfig */,
+				365C983C10AC581B2B33544C73F0E484 /* Pods-SJBackGRProject.release.xcconfig */,
+			);
+			name = "Pods-SJBackGRProject";
+			path = "Target Support Files/Pods-SJBackGRProject";
+			sourceTree = "<group>";
+		};
+		04E4FB0E80F9170409B9573F3A24A8E2 /* SJObserverHelper */ = {
+			isa = PBXGroup;
+			children = (
+				1E8C3E871E75DBEF6F818C63AB68209E /* NSObject+SJObserverHelper.h */,
+				2E46B0FF4432EF8446A52084480B8704 /* NSObject+SJObserverHelper.m */,
+				0528D1C982E74A9D96590D6E19332BFF /* Support Files */,
+			);
+			name = SJObserverHelper;
+			path = SJObserverHelper;
+			sourceTree = "<group>";
+		};
+		0528D1C982E74A9D96590D6E19332BFF /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				A424E66301EAFF4059B70673AC2EDAFA /* SJObserverHelper.xcconfig */,
+				78C1A8D075CE956E3798AD9616C103CC /* SJObserverHelper-dummy.m */,
+				16B11B005DC193F6C719489202FE505F /* SJObserverHelper-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/SJObserverHelper";
+			sourceTree = "<group>";
+		};
+		3DB2090D0A2835FF8A26B8CD4F88CBF6 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				023F837626461C8A4E40CDF9F35D46DA /* Pods-SJBackGRProject */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		433CD3331B6C3787F473C941B61FC68F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				438B396F6B4147076630CAEFE34282C1 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		438B396F6B4147076630CAEFE34282C1 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				D88AAE1F92055A60CC2FC970D7D34634 /* Foundation.framework */,
+				B63C6A64CF66340668996F78DA6BB482 /* UIKit.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		4CFB939B58DA8052E3368EB501FB0329 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				68967B7EF199718D783E660FFC276609 /* libPods-SJBackGRProject.a */,
+				6C95D6A11329BA796ABB5E575AA311C0 /* libSJObserverHelper.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
+				433CD3331B6C3787F473C941B61FC68F /* Frameworks */,
+				B8C83988FCEDA0FD85F5334709E80CFC /* Pods */,
+				4CFB939B58DA8052E3368EB501FB0329 /* Products */,
+				3DB2090D0A2835FF8A26B8CD4F88CBF6 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		B8C83988FCEDA0FD85F5334709E80CFC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				04E4FB0E80F9170409B9573F3A24A8E2 /* SJObserverHelper */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		C3FCD93BF5329F8F58A4556BCB6792C9 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E478271951F7E101BD377BFCAE21AE4A /* NSObject+SJObserverHelper.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		49B40103733AB71EDD4EA2606839AE00 /* Pods-SJBackGRProject */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 439A8144FB973170C8093E8EAD139681 /* Build configuration list for PBXNativeTarget "Pods-SJBackGRProject" */;
+			buildPhases = (
+				8DCBD678C270F80FC7F1424101D1D5AA /* Sources */,
+				75FF5E8F4481E424C5D21E12913D0ACF /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				65F548331FA667C46CF7B3FA5ACB64F6 /* PBXTargetDependency */,
+			);
+			name = "Pods-SJBackGRProject";
+			productName = "Pods-SJBackGRProject";
+			productReference = 68967B7EF199718D783E660FFC276609 /* libPods-SJBackGRProject.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		B644D8AED77CF9B4E0C315AE97CA7DB0 /* SJObserverHelper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9FC87B49BEFB9094747C283833E63D98 /* Build configuration list for PBXNativeTarget "SJObserverHelper" */;
+			buildPhases = (
+				AE990D18837D22ABD6A5062CF825889D /* Sources */,
+				8E59E2476CAA4361C858B8B489CB66B4 /* Frameworks */,
+				C3FCD93BF5329F8F58A4556BCB6792C9 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SJObserverHelper;
+			productName = SJObserverHelper;
+			productReference = 6C95D6A11329BA796ABB5E575AA311C0 /* libSJObserverHelper.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0700;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = 4CFB939B58DA8052E3368EB501FB0329 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				49B40103733AB71EDD4EA2606839AE00 /* Pods-SJBackGRProject */,
+				B644D8AED77CF9B4E0C315AE97CA7DB0 /* SJObserverHelper */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8DCBD678C270F80FC7F1424101D1D5AA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5A07F3B04EC0CF5D37D77DA2EB6BF076 /* Pods-SJBackGRProject-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AE990D18837D22ABD6A5062CF825889D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA28C6CEB79FA6D2D8ED80B48B0A4FC9 /* NSObject+SJObserverHelper.m in Sources */,
+				B352CAACEB13F07CD237B59C16944B93 /* SJObserverHelper-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		65F548331FA667C46CF7B3FA5ACB64F6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SJObserverHelper;
+			target = B644D8AED77CF9B4E0C315AE97CA7DB0 /* SJObserverHelper */;
+			targetProxy = 5642053F996DAD110BAC763A893532F9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		69DB0AA3F105825FD949B41F02E9D312 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 365C983C10AC581B2B33544C73F0E484 /* Pods-SJBackGRProject.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B254DAA6CF0CE39F4A3D11B90A7E059A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		D842E94DB039102712256B214E4A5A0D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1AA484388C2F3D0CF7EF7E1BF720B556 /* Pods-SJBackGRProject.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E4B68EE12B21C47CB798D9B1ECA6D7A7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		E5559B19D4F049AF383927CD8D709F0C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A424E66301EAFF4059B70673AC2EDAFA /* SJObserverHelper.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/SJObserverHelper/SJObserverHelper-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E805142F69038C52EFCC6DE3254A686C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A424E66301EAFF4059B70673AC2EDAFA /* SJObserverHelper.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/SJObserverHelper/SJObserverHelper-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E4B68EE12B21C47CB798D9B1ECA6D7A7 /* Debug */,
+				B254DAA6CF0CE39F4A3D11B90A7E059A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		439A8144FB973170C8093E8EAD139681 /* Build configuration list for PBXNativeTarget "Pods-SJBackGRProject" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D842E94DB039102712256B214E4A5A0D /* Debug */,
+				69DB0AA3F105825FD949B41F02E9D312 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9FC87B49BEFB9094747C283833E63D98 /* Build configuration list for PBXNativeTarget "SJObserverHelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E5559B19D4F049AF383927CD8D709F0C /* Debug */,
+				E805142F69038C52EFCC6DE3254A686C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}
