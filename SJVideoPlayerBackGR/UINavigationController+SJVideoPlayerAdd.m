@@ -310,6 +310,7 @@ static __weak UIViewController *_tmpShowViewController;
 
 - (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)gestureRecognizer {
     if ( self.childViewControllers.count <= 1 ) return NO;
+    if ( [[self.navigationController valueForKey:@"_isTransitioning"] boolValue] ) return NO;
     CGPoint point = [gestureRecognizer locationInView:gestureRecognizer.view];
     if ( [self isFadeAreaWithPoint:point] ) return NO;
 
