@@ -389,7 +389,7 @@ static __weak UIViewController *_tmpShowViewController;
         if ( ![self.view isDescendantOfView:obj] ) return ;
         *stop = YES;
         // Move the `screenshot` to the bottom of the `current view`.
-        [window insertSubview:self.SJ_screenshotView atIndex:idx - 1];
+        [window insertSubview:self.SJ_screenshotView atIndex:(int)idx - 1];
     }];
 
     self.SJ_screenshotView.hidden = NO;
