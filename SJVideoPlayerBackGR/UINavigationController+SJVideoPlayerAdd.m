@@ -70,7 +70,7 @@ static __weak UIWindow *_window;
         _window = [appDelegate valueForKey:@"window"];
     }
     UIGraphicsBeginImageContextWithOptions(_window.bounds.size, YES, 0);
-    [_window drawViewHierarchyInRect:_window.bounds afterScreenUpdates:false];
+    [_window drawViewHierarchyInRect:_window.bounds afterScreenUpdates:YES];
     UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
@@ -383,7 +383,9 @@ static __weak UIViewController *_tmpShowViewController;
 
 - (void)SJ_ViewWillBeginDragging {
     [self.view endEditing:YES]; // 让键盘消失
-    
+    NSInteger index = _window.subviews.count - 2;
+    if ( index < 0 ) index = 0;
+    [_window insertSubview:self.SJ_screenshotView atIndex:index];
     self.SJ_screenshotView.hidden = NO;
     
     [self SJ_findingPossibleRootScrollView].scrollEnabled = NO;

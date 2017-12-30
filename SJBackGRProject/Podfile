@@ -7,4 +7,6 @@ target 'SJBackGRProject' do
 
   # Pods for SJBackGRProject
   pod 'SJObserverHelper'
+  pod 'SJUIFactory'
+  pod 'SJTransitionAnimator'
 end

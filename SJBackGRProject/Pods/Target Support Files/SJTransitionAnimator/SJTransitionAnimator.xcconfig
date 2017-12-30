@@ -1,0 +1,9 @@
+CONFIGURATION_BUILD_DIR = ${PODS_CONFIGURATION_BUILD_DIR}/SJTransitionAnimator
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/SJTransitionAnimator" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/SJAttributesFactory" "${PODS_ROOT}/Headers/Public/SJLabel" "${PODS_ROOT}/Headers/Public/SJObserverHelper" "${PODS_ROOT}/Headers/Public/SJTransitionAnimator" "${PODS_ROOT}/Headers/Public/SJUIFactory"
+PODS_BUILD_DIR = ${BUILD_DIR}
+PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+PODS_ROOT = ${SRCROOT}
+PODS_TARGET_SRCROOT = ${PODS_ROOT}/SJTransitionAnimator
+PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.${PRODUCT_NAME:rfc1034identifier}
+SKIP_INSTALL = YES

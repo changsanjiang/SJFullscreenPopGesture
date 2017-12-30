@@ -10,6 +10,8 @@
 #import "NextViewController.h"
 #import "NoNavViewController.h"
 #import "UINavigationController+SJVideoPlayerAdd.h"
+#import <SJTransitionAnimator.h>
+#import "SJTest2ViewController.h"
 
 @interface ViewController ()
 
@@ -61,6 +63,13 @@
 - (void)testClicked:(UIButton *)btn {
     NoNavViewController *vc = [NoNavViewController new];
     [self presentViewController:vc animated:YES completion:nil];
+}
+
+- (IBAction)test2Clicked:(id)sender {
+    SJTest2ViewController *vc = [SJTest2ViewController new];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    [SJTransitionAnimator sharedAnimator].modalViewController = nav;
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 

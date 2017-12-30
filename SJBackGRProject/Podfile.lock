@@ -1,12 +1,30 @@
 PODS:
+  - SJAttributesFactory (1.1.14)
+  - SJLabel (1.1.0):
+    - SJAttributesFactory
+    - SJLabel/Services (= 1.1.0)
+  - SJLabel/Services (1.1.0):
+    - SJAttributesFactory
   - SJObserverHelper (1.0.2)
+  - SJTransitionAnimator (1.0.0)
+  - SJUIFactory (0.0.9):
+    - SJLabel
+    - SJUIFactory/Category (= 0.0.9)
+  - SJUIFactory/Category (0.0.9):
+    - SJLabel
 
 DEPENDENCIES:
   - SJObserverHelper
+  - SJTransitionAnimator
+  - SJUIFactory
 
 SPEC CHECKSUMS:
+  SJAttributesFactory: 10af803585a072a7d6273b87cb12f729f15b89a6
+  SJLabel: 887e2e0ade1c93dd9e1c4af9c1248bf6dd16dea7
   SJObserverHelper: cfc0431646b0bace1e96874e29b3a659f6c3a57b
+  SJTransitionAnimator: 6a533e7532777fe8eda5f2c76ebf9bc44741b918
+  SJUIFactory: bf2413b9fc9bf76d39381b9ff48df454819244f5
 
-PODFILE CHECKSUM: c2bee0047925981f0a3c9b09de532aed60f1edaf
+PODFILE CHECKSUM: b05e1bed0ea5988b5d92ca9f0c7ebc4c7e240950
 
-COCOAPODS: 1.4.0.beta.2
+COCOAPODS: 1.4.0.rc.1
