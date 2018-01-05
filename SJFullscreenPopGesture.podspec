@@ -15,9 +15,9 @@ Pod::Spec.new do |s|
   #  summary should be tweet-length, and the description more in depth.
   #
 
-  s.name         = "SJVideoPlayerBackGR"
+  s.name         = "SJFullscreenPopGesture"
   s.version      = "1.1.3"
-  s.summary      = "Customize return gestures."
+  s.summary      = "Customize pop gestures."
 
   # This description is used to generate tags and improve search results.
   #   * Think: What does it do? Why did you write it? What is the focus?
@@ -27,7 +27,7 @@ Pod::Spec.new do |s|
   s.description  = 'Customize return gestures. System native gestures and custom gestures are free to switch.'
 
 
-  s.homepage     = "https://github.com/changsanjiang/SJVideoPlayerBackGR"
+  s.homepage     = "https://github.com/changsanjiang/SJFullscreenPopGesture"
   # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
 
 
@@ -79,7 +79,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source    =   { :git => 'https://github.com/changsanjiang/SJVideoPlayerBackGR.git', :tag => "v#{s.version}" }
+  s.source    =   { :git => 'https://github.com/changsanjiang/SJFullscreenPopGesture.git', :tag => "v#{s.version}" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
