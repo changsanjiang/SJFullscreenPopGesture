@@ -1,4 +1,4 @@
-# SJVideoPlayerBackGR
+# SJFullScreenPopGesture
 自定义全屏返回手势. 系统原生手势和自定义手势随意切换. 适用于带有视频播放器的App.    
 Customize full-screen pop gesture. System native gestures and custom gestures are free to switch. App for App with video player.    
 
