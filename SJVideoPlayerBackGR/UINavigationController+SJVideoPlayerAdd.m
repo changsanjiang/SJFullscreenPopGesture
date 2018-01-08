@@ -48,10 +48,19 @@ static NSMutableArray<UIImage *> * SJ_screenshotImagesM;
 }
 
 - (void)SJ_dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion {
-    if ( self.navigationController && self.presentingViewController ) {
-        // reset image
-        [self SJ_dumpingScreenshotWithNum:(NSInteger)self.navigationController.childViewControllers.count - 1]; // 由于最顶层的视图还未截取, 所以这里 - 1. 以下相同.
-        [self SJ_resetScreenshotImage];
+    if ( [self isKindOfClass:[UIImagePickerController class]] ) {
+        if ( 0 != self.childViewControllers.count ) {
+            // 由于最顶层的视图还未截取, 所以这里 - 1. 以下相同.
+            [self SJ_dumpingScreenshotWithNum:(NSInteger)self.navigationController.childViewControllers.count - 1];
+            // reset image
+            [self SJ_resetScreenshotImage];
+        }
+    }
+    else if ( self.navigationController && self.presentingViewController ) {
+        if ( 0 != self.navigationController.childViewControllers ) {
+            [self SJ_dumpingScreenshotWithNum:(NSInteger)self.navigationController.childViewControllers.count - 1];
+            [self SJ_resetScreenshotImage];
+        }
     }
     
     // call origin method
