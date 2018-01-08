@@ -11,7 +11,6 @@
 		7706E1331FF78EA2006E0B56 /* SJTest2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7706E1321FF78EA2006E0B56 /* SJTest2ViewController.m */; };
 		771FFBBF1F7E94C40076EEB0 /* NextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 771FFBBB1F7E94B40076EEB0 /* NextViewController.m */; };
 		771FFBC01F7E94C70076EEB0 /* NoNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 771FFBBD1F7E94B40076EEB0 /* NoNavViewController.m */; };
-		779177801FC5170400E2AFF7 /* SJVideoPlayerBackGR.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 7791777F1FC5170400E2AFF7 /* SJVideoPlayerBackGR.podspec */; };
 		779177821FC539C100E2AFF7 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 779177811FC539C100E2AFF7 /* README.md */; };
 		779177851FC53F6D00E2AFF7 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 779177841FC53F6D00E2AFF7 /* NavigationController.m */; };
 		77D9B7681F7E941A00E35746 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D9B7671F7E941A00E35746 /* main.m */; };
@@ -23,6 +22,7 @@
 		77D9B7841F7E944100E35746 /* SJScreenshotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D9B77F1F7E944100E35746 /* SJScreenshotView.m */; };
 		77D9B7851F7E944100E35746 /* UINavigationController+SJVideoPlayerAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D9B7811F7E944100E35746 /* UINavigationController+SJVideoPlayerAdd.m */; };
 		77D9B7861F7E944100E35746 /* UIViewController+SJVideoPlayerAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D9B7831F7E944100E35746 /* UIViewController+SJVideoPlayerAdd.m */; };
+		77DB5340200384A800A6AD9F /* SJFullscreenPopGesture.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 77DB533F200384A800A6AD9F /* SJFullscreenPopGesture.podspec */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,7 +34,6 @@
 		771FFBBC1F7E94B40076EEB0 /* NoNavViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoNavViewController.h; sourceTree = "<group>"; };
 		771FFBBD1F7E94B40076EEB0 /* NoNavViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoNavViewController.m; sourceTree = "<group>"; };
 		771FFBBE1F7E94B40076EEB0 /* test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test.png; sourceTree = "<group>"; };
-		7791777F1FC5170400E2AFF7 /* SJVideoPlayerBackGR.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SJVideoPlayerBackGR.podspec; path = ../SJVideoPlayerBackGR.podspec; sourceTree = "<group>"; };
 		779177811FC539C100E2AFF7 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		779177831FC53F6D00E2AFF7 /* NavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		779177841FC53F6D00E2AFF7 /* NavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
@@ -54,6 +53,7 @@
 		77D9B7811F7E944100E35746 /* UINavigationController+SJVideoPlayerAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+SJVideoPlayerAdd.m"; sourceTree = "<group>"; };
 		77D9B7821F7E944100E35746 /* UIViewController+SJVideoPlayerAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SJVideoPlayerAdd.h"; sourceTree = "<group>"; };
 		77D9B7831F7E944100E35746 /* UIViewController+SJVideoPlayerAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SJVideoPlayerAdd.m"; sourceTree = "<group>"; };
+		77DB533F200384A800A6AD9F /* SJFullscreenPopGesture.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SJFullscreenPopGesture.podspec; path = ../SJFullscreenPopGesture.podspec; sourceTree = "<group>"; };
 		7EC039F4F8BF7EF7E3CBF732 /* libPods-SJBackGRProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SJBackGRProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6CE27271F813AA800E4A544 /* GestrueSample.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = GestrueSample.gif; sourceTree = "<group>"; };
 		B1904B4F007A4F6AE8248B29 /* Pods-SJBackGRProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SJBackGRProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-SJBackGRProject/Pods-SJBackGRProject.release.xcconfig"; sourceTree = "<group>"; };
@@ -98,7 +98,7 @@
 		77D9B75A1F7E941A00E35746 = {
 			isa = PBXGroup;
 			children = (
-				7791777F1FC5170400E2AFF7 /* SJVideoPlayerBackGR.podspec */,
+				77DB533F200384A800A6AD9F /* SJFullscreenPopGesture.podspec */,
 				779177811FC539C100E2AFF7 /* README.md */,
 				77D9B7651F7E941A00E35746 /* SJBackGRProject */,
 				77D9B7641F7E941A00E35746 /* Products */,
@@ -236,10 +236,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77DB5340200384A800A6AD9F /* SJFullscreenPopGesture.podspec in Resources */,
 				77D9B7761F7E941A00E35746 /* LaunchScreen.storyboard in Resources */,
 				77D9B7731F7E941A00E35746 /* Assets.xcassets in Resources */,
 				779177821FC539C100E2AFF7 /* README.md in Resources */,
-				779177801FC5170400E2AFF7 /* SJVideoPlayerBackGR.podspec in Resources */,
 				77D9B7711F7E941A00E35746 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
