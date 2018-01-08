@@ -10,6 +10,7 @@
 #import "UINavigationController+SJVideoPlayerAdd.h"
 #import "UIViewController+SJVideoPlayerAdd.h"
 #import "NavigationController.h"
+#import <SJUIFactory.h>
 
 @interface NextViewController ()
 
@@ -29,6 +30,8 @@
 
 @property (nonatomic, strong, readonly) UIButton *disableBtn;
 
+@property (nonatomic, strong, readonly) UIButton *albumBtn;
+
 @property (nonatomic, strong, readonly) UIScrollView *backgroundScrollView;
 
 @property (nonatomic, strong, readonly) UIView *testPanBackgroundView;
@@ -47,6 +50,7 @@
 @synthesize backgroundScrollView = _backgroundScrollView;
 @synthesize testPanBackgroundView = _testPanBackgroundView;
 @synthesize disableBtn = _disableBtn;
+@synthesize albumBtn = _albumBtn;
 
 - (void)dealloc {
     NSLog(@"%s - %zd", __func__, __LINE__);
@@ -128,6 +132,11 @@
     frame.origin.y += 50;
     _disableBtn.frame = frame;
     [_disableBtn sizeToFit];
+    
+    [self.view addSubview:self.albumBtn];
+    frame.origin.y += 50;
+    _albumBtn.frame = frame;
+    [_albumBtn sizeToFit];
 
 //    self.sj_viewWillBeginDragging = ^(NextViewController *vc) {
 //        vc.backgroundScrollView.scrollEnabled = NO;
@@ -208,6 +217,14 @@
     }
 }
 
+- (void)clickedAlbumBtn:(UIButton *)btn {
+    [[SJUIImagePickerControllerFactory shared] alterPickerViewControllerWithController:self alertTitle:@"" msg:@"" photoLibrary:^(UIImage *selectedImage) {
+        [btn setBackgroundImage:selectedImage forState:UIControlStateNormal];
+    } camera:^(UIImage *selectedImage) {
+        [btn setBackgroundImage:selectedImage forState:UIControlStateNormal];
+    }];
+}
+
 #pragma mark - Mode
 
 - (void)clickednativeModeBtn:(UIButton *)btn {
@@ -263,6 +280,14 @@
     return _disableBtn;
 }
 
+- (UIButton *)albumBtn {
+    if ( _albumBtn ) return _albumBtn;
+    _albumBtn = [UIButton new];
+    [_albumBtn setTitle:@"Album" forState:UIControlStateNormal];
+    [_albumBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [_albumBtn addTarget:self action:@selector(clickedAlbumBtn:) forControlEvents:UIControlEventTouchUpInside];
+    return _albumBtn;
+}
 - (UIScrollView *)backgroundScrollView {
     if ( _backgroundScrollView ) return _backgroundScrollView;
     _backgroundScrollView = [UIScrollView new];
