@@ -112,29 +112,29 @@
     [_modalBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     [self.view addSubview:_modalBtn];
     CGRect frame = _pushBtn.frame;
-    frame.origin.y += 50;
+    frame.origin.y += 30;
     _modalBtn.frame = frame;
     [_modalBtn sizeToFit];
     
     [self.view addSubview:self.popToRootVCBtn];
-    frame.origin.y += 50;
+    frame.origin.y += 30;
     _popToRootVCBtn.frame = frame;
     [_popToRootVCBtn sizeToFit];
     
     [self.view addSubview:self.popToVCBtn];
-    frame.origin.y += 50;
+    frame.origin.y += 30;
     _popToVCBtn.frame = frame;
     [_popToVCBtn sizeToFit];
 
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"modalClose" style:UIBarButtonItemStyleDone target:self action:@selector(clickedCloseItem)];
     
     [self.view addSubview:self.disableBtn];
-    frame.origin.y += 50;
+    frame.origin.y += 30;
     _disableBtn.frame = frame;
     [_disableBtn sizeToFit];
     
     [self.view addSubview:self.albumBtn];
-    frame.origin.y += 50;
+    frame.origin.y += 30;
     _albumBtn.frame = frame;
     [_albumBtn sizeToFit];
 
