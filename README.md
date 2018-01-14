@@ -7,7 +7,7 @@ Fullscreen pop gesture. An application with a video player is available.
 https://juejin.im/post/5a150c166fb9a04524057832
 
 ### Sample
-<img src="https://github.com/changsanjiang/SJVideoPlayerBackGR/blob/master/SJBackGRProject/SJBackGRProject/ex.gif" width="40%">
+<img src="https://github.com/changsanjiang/SJVideoPlayerBackGR/blob/master/SJBackGRProject/SJBackGRProject/ex1.gif" />
 
 ### 功能
 - 全屏手势(兼容scrollView, 当scrollView.contentOffset.x==0时, 触发全屏手势).
