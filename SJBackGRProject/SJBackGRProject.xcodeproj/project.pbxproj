@@ -11,6 +11,7 @@
 		7706E1331FF78EA2006E0B56 /* SJTest2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7706E1321FF78EA2006E0B56 /* SJTest2ViewController.m */; };
 		771FFBBF1F7E94C40076EEB0 /* NextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 771FFBBB1F7E94B40076EEB0 /* NextViewController.m */; };
 		771FFBC01F7E94C70076EEB0 /* NoNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 771FFBBD1F7E94B40076EEB0 /* NoNavViewController.m */; };
+		772D239A200B79D400E332B9 /* ex.gif in Resources */ = {isa = PBXBuildFile; fileRef = 772D2399200B79D300E332B9 /* ex.gif */; };
 		779177821FC539C100E2AFF7 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 779177811FC539C100E2AFF7 /* README.md */; };
 		779177851FC53F6D00E2AFF7 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 779177841FC53F6D00E2AFF7 /* NavigationController.m */; };
 		77D9B7681F7E941A00E35746 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D9B7671F7E941A00E35746 /* main.m */; };
@@ -34,6 +35,7 @@
 		771FFBBC1F7E94B40076EEB0 /* NoNavViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoNavViewController.h; sourceTree = "<group>"; };
 		771FFBBD1F7E94B40076EEB0 /* NoNavViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoNavViewController.m; sourceTree = "<group>"; };
 		771FFBBE1F7E94B40076EEB0 /* test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test.png; sourceTree = "<group>"; };
+		772D2399200B79D300E332B9 /* ex.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ex.gif; sourceTree = "<group>"; };
 		779177811FC539C100E2AFF7 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		779177831FC53F6D00E2AFF7 /* NavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		779177841FC53F6D00E2AFF7 /* NavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
@@ -55,7 +57,6 @@
 		77D9B7831F7E944100E35746 /* UIViewController+SJVideoPlayerAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SJVideoPlayerAdd.m"; sourceTree = "<group>"; };
 		77DB533F200384A800A6AD9F /* SJFullscreenPopGesture.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SJFullscreenPopGesture.podspec; path = ../SJFullscreenPopGesture.podspec; sourceTree = "<group>"; };
 		7EC039F4F8BF7EF7E3CBF732 /* libPods-SJBackGRProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SJBackGRProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A6CE27271F813AA800E4A544 /* GestrueSample.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = GestrueSample.gif; sourceTree = "<group>"; };
 		B1904B4F007A4F6AE8248B29 /* Pods-SJBackGRProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SJBackGRProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-SJBackGRProject/Pods-SJBackGRProject.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -125,7 +126,7 @@
 				77D9B77D1F7E944100E35746 /* SJVideoPlayerBackGR */,
 				77D9B76C1F7E941A00E35746 /* ViewController.h */,
 				77D9B76D1F7E941A00E35746 /* ViewController.m */,
-				A6CE27271F813AA800E4A544 /* GestrueSample.gif */,
+				772D2399200B79D300E332B9 /* ex.gif */,
 				77D9B76F1F7E941A00E35746 /* Main.storyboard */,
 				77D9B7721F7E941A00E35746 /* Assets.xcassets */,
 				77D9B7741F7E941A00E35746 /* LaunchScreen.storyboard */,
@@ -241,6 +242,7 @@
 				77D9B7731F7E941A00E35746 /* Assets.xcassets in Resources */,
 				779177821FC539C100E2AFF7 /* README.md in Resources */,
 				77D9B7711F7E941A00E35746 /* Main.storyboard in Resources */,
+				772D239A200B79D400E332B9 /* ex.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
