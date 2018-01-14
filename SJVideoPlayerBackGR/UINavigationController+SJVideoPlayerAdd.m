@@ -281,7 +281,7 @@ static __weak UIWindow *_window;
 
 - (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)gestureRecognizer {
     if ( self.childViewControllers.count <= 1 ) return NO;
-    if ( [[self.navigationController valueForKey:@"_isTransitioning"] boolValue] ) return NO;
+    if ( [[self valueForKey:@"_isTransitioning"] boolValue] ) return NO;
     CGPoint point = [gestureRecognizer locationInView:gestureRecognizer.view];
     if ( [self isFadeAreaWithPoint:point] ) return NO;
     
@@ -358,7 +358,7 @@ static __weak UIWindow *_window;
     UIWindow *window = self.view.window;
     [window.subviews enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ( [obj isMemberOfClass:NSClassFromString(@"UITransitionView")] ||
-            [obj isMemberOfClass:NSClassFromString(@"UILayoutContainerView")] ) {
+             [obj isMemberOfClass:NSClassFromString(@"UILayoutContainerView")] ) {
             *stop = YES;
             [window insertSubview:self.SJ_screenshotView belowSubview:obj];
         }
