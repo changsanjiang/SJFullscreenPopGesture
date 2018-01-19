@@ -1,6 +1,6 @@
 # SJFullscreenPopGesture
 全屏返回手势. 适用于带有视频播放器的App.    
-Fullscreen pop gesture. An application with a video player is available.    
+Fullscreen pop gesture. It is very suitable for the application of the video player.    
 
 ### Use
 ```ruby
