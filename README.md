@@ -7,13 +7,13 @@ Fullscreen pop gesture. An application with a video player is available.
 pod 'SJFullscreenPopGesture'
 ```
 
+### Features
+- Fullscreen Pop Gesture. Gestures are perfectly handled in UIScrollView And UIPageViewController.
+- Fade Area. The specified area does not trigger gestures.
+- Disable Gesture. Designate ViewController disable pop gesture.
+
 ### Example
 <img src="https://github.com/changsanjiang/SJVideoPlayerBackGR/blob/master/SJBackGRProject/SJBackGRProject/ex1.gif" />
-
-### Features
-- Fullscreen Pop Gesture. 
-- Fade Area. 
-- Disable Gesture.
 
 ### Disable 
 ```Objective-C
@@ -50,7 +50,7 @@ pod 'SJFullscreenPopGesture'
  *
  *  指定区域不触发手势. see `sj_fadeAreaViews` method
  **/
-@property (nonatomic, strong) NSArray<NSValue *> *sj_fadeArea;
+@property (nonatomic, strong, readwrite) NSArray<NSValue *> *sj_fadeArea;
 
 /*!
  *  The specified area does not trigger gestures.
@@ -59,7 +59,7 @@ pod 'SJFullscreenPopGesture'
  *
  *  指定区域不触发手势.
  **/
-@property (nonatomic, strong) NSArray<UIView *> *sj_fadeAreaViews;
+@property (nonatomic, strong, readwrite) NSArray<UIView *> *sj_fadeAreaViews;
 
 /*!
  *  disable pop Gestures. default is NO.
