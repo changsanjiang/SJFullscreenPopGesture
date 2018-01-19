@@ -296,7 +296,7 @@ static __weak UIWindow *_window;
          UIGestureRecognizerStateCancelled == gestureRecognizer.state ) return YES;
     if ( [otherGestureRecognizer isMemberOfClass:NSClassFromString(@"UIScrollViewPanGestureRecognizer")] ||
          [otherGestureRecognizer isMemberOfClass:NSClassFromString(@"UIScrollViewPagingSwipeGestureRecognizer")] ) {
-        if ( [gestureRecognizer.view isKindOfClass:[UIScrollView class]] ) {
+        if ( [otherGestureRecognizer.view isKindOfClass:[UIScrollView class]] ) {
             return [self SJ_considerScrollView:(UIScrollView *)otherGestureRecognizer.view gestureRecognizer:gestureRecognizer otherGestureRecognizer:otherGestureRecognizer];
         }
     }
