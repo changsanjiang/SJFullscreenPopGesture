@@ -292,11 +292,11 @@ static __weak UIWindow *_window;
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    if ( UIGestureRecognizerStateFailed ==  gestureRecognizer.state ||
+         UIGestureRecognizerStateCancelled == gestureRecognizer.state ) return YES;
     if ([otherGestureRecognizer isMemberOfClass:NSClassFromString(@"UIScrollViewPanGestureRecognizer")] ||
         [otherGestureRecognizer isMemberOfClass:NSClassFromString(@"UIScrollViewPagingSwipeGestureRecognizer")]) {
-        if ( [otherGestureRecognizer.view isKindOfClass:[UIScrollView class]] ) {
-            return [self SJ_considerScrollView:(UIScrollView *)otherGestureRecognizer.view otherGestureRecognizer:otherGestureRecognizer];
-        }
+        return [self SJ_considerScrollView:(UIScrollView *)otherGestureRecognizer.view gestureRecognizer:gestureRecognizer otherGestureRecognizer:otherGestureRecognizer];
     }
     
     if ( [otherGestureRecognizer isKindOfClass:NSClassFromString(@"UIPanGestureRecognizer")] ) {
@@ -305,14 +305,34 @@ static __weak UIWindow *_window;
     return YES;
 }
 
-- (BOOL)SJ_considerScrollView:(UIScrollView *)subScrollView otherGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-    if ( 0 != subScrollView.contentOffset.x + subScrollView.contentInset.left ) return NO;
+- (BOOL)SJ_considerScrollView:(UIScrollView *)subScrollView gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer otherGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    if ( [subScrollView isKindOfClass:NSClassFromString(@"_UIQueuingScrollView")] ) {
+        return [self SJ_considerQueuingScrollView:subScrollView gestureRecognizer:gestureRecognizer otherGestureRecognizer:otherGestureRecognizer];
+    }
     
+    if ( 0 != subScrollView.contentOffset.x + subScrollView.contentInset.left ) return NO;
     CGPoint translate = [self.sj_pan translationInView:self.view];
     if ( translate.x <= 0 ) return NO;
     else {
         [otherGestureRecognizer setValue:@(UIGestureRecognizerStateCancelled) forKey:@"state"];
         return YES;
+    }
+}
+
+- (BOOL)SJ_considerQueuingScrollView:(UIScrollView *)scrollView gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer otherGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    UIPageViewController *pageVC = [self SJ_findingPageViewControllerWithQueueingScrollView:scrollView];
+    id<UIPageViewControllerDataSource> dataSource = pageVC.dataSource;
+    if ( !pageVC.dataSource ||
+         0 == pageVC.viewControllers.count ) return NO;
+    
+    if ( [dataSource pageViewController:pageVC viewControllerBeforeViewController:pageVC.viewControllers.firstObject] ) {
+
+        [gestureRecognizer setValue:@(UIGestureRecognizerStateCancelled) forKey:@"state"];
+        return YES;
+    }
+    else {
+        [otherGestureRecognizer setValue:@(UIGestureRecognizerStateCancelled) forKey:@"state"];
+        return NO;
     }
 }
 
@@ -337,6 +357,15 @@ static __weak UIWindow *_window;
         }
             break;
     }
+}
+
+- (UIPageViewController *)SJ_findingPageViewControllerWithQueueingScrollView:(UIScrollView *)scrollView {
+    UIResponder *responder = scrollView.nextResponder;
+    while ( ![responder isKindOfClass:[UIPageViewController class]] ) {
+        responder = responder.nextResponder;
+        if ( [responder isMemberOfClass:[UIResponder class]] || !responder ) break;
+    }
+    return (UIPageViewController *)responder;
 }
 
 - (UIScrollView *)SJ_findingPossibleRootScrollView {
@@ -484,4 +513,3 @@ static __weak UIWindow *_window;
 }
 
 @end
-
