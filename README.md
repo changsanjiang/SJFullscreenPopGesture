@@ -20,7 +20,7 @@ Please wait for the example load, or download the project directly.
 
 ### Disable 
 ```Objective-C
-// If you want to disable the gestures, you can do the same as below.
+// If you want to disable the gestures, you can do the same as below. It does not affect other ViewControllers.
 #import "UIViewController+SJVideoPlayerAdd.h"
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -56,7 +56,7 @@ Please wait for the example load, or download the project directly.
 @property (nonatomic, strong, readwrite) NSArray<NSValue *> *sj_fadeArea;
 
 /*!
- *  The specified area does not trigger gestures.
+ *  The specified area does not trigger gestures. It does not affect other ViewControllers.
  *  In the array is subview.
  *  @[@(self.label)]
  *
@@ -65,7 +65,7 @@ Please wait for the example load, or download the project directly.
 @property (nonatomic, strong, readwrite) NSArray<UIView *> *sj_fadeAreaViews;
 
 /*!
- *  disable pop Gestures. default is NO.
+ *  disable pop Gestures. default is NO. It does not affect other ViewControllers.
  *
  *  禁用全屏手势. 默认是 NO.
  **/
