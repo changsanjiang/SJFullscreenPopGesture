@@ -20,10 +20,6 @@
 
 @property (nonatomic, strong) UIButton *modalBtn;
 
-@property (nonatomic, strong, readonly) UIButton *nativeModeBtn;
-
-@property (nonatomic, strong, readonly) UIButton *customModeBtn;
-
 @property (nonatomic, strong, readonly) UIButton *popToRootVCBtn;
 
 @property (nonatomic, strong, readonly) UIButton *popToVCBtn;
@@ -38,13 +34,8 @@
 
 @end
 
-@implementation NextViewController {
-    UISegmentedControl *_segmented;
-}
+@implementation NextViewController
 
-
-@synthesize nativeModeBtn = _nativeModeBtn;
-@synthesize customModeBtn = _customModeBtn;
 @synthesize popToRootVCBtn = _popToRootVCBtn;
 @synthesize popToVCBtn = _popToVCBtn;
 @synthesize backgroundScrollView = _backgroundScrollView;
@@ -58,6 +49,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.sj_DisableGestures = YES;
     
     self.view.backgroundColor = [UIColor colorWithRed:1.0 * (arc4random() % 256 / 255.0)
                                                 green:1.0 * (arc4random() % 256 / 255.0)
@@ -85,12 +78,6 @@
     _pushBtn.bounds = CGRectMake(0, 0, 300, 50);
     _pushBtn.center = self.view.center;
     [_pushBtn sizeToFit];
-
-    
-    _segmented = [[UISegmentedControl alloc] initWithItems:@[@"Use Custom", @"Use Native"]];
-    self.navigationItem.titleView = _segmented;
-    
-    [_segmented addTarget:self action:@selector(clickedSegmented:) forControlEvents:UIControlEventValueChanged];
     
     
     self.sj_viewWillBeginDragging = ^(UIViewController *vc) {
@@ -161,23 +148,12 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if ( self.navigationController.sj_DisableGestures ) {
+    if ( self.sj_DisableGestures ) {
         [_disableBtn setTitle:@"Enable gesture" forState:UIControlStateNormal];
     }
     else {
         [_disableBtn setTitle:@"Disable gesture" forState:UIControlStateNormal];
     }
-    
-    // update selected index
-    _segmented.selectedSegmentIndex = self.navigationController.useNativeGesture;
-}
-
-- (void)clickedSegmented:(UISegmentedControl *)control {
-    if ( self.navigationController.sj_DisableGestures ) {
-        control.selectedSegmentIndex = self.navigationController.useNativeGesture;
-        return;
-    }
-    self.navigationController.useNativeGesture = control.selectedSegmentIndex;
 }
 
 - (IBAction)pushNextVC:(id)sender {
@@ -208,8 +184,8 @@
 }
 
 - (void)clickedDisableBtn:(UIButton *)btn {
-    self.navigationController.sj_DisableGestures = !self.navigationController.sj_DisableGestures;
-    if ( self.navigationController.sj_DisableGestures ) {
+    self.sj_DisableGestures = !self.sj_DisableGestures;
+    if ( self.sj_DisableGestures ) {
         [_disableBtn setTitle:@"Enable gesture" forState:UIControlStateNormal];
     }
     else {
@@ -226,32 +202,6 @@
 }
 
 #pragma mark - Mode
-
-- (void)clickednativeModeBtn:(UIButton *)btn {
-    self.navigationController.useNativeGesture = YES;
-}
-
-- (UIButton *)nativeModeBtn {
-    if ( _nativeModeBtn ) return _nativeModeBtn;
-    _nativeModeBtn = [UIButton new];
-    [_nativeModeBtn setTitle:@"use native" forState:UIControlStateNormal];
-    [_nativeModeBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    [_nativeModeBtn addTarget:self action:@selector(clickednativeModeBtn:) forControlEvents:UIControlEventTouchUpInside];
-    return _nativeModeBtn;
-}
-
-- (void)clickedCustomModeBtn:(UIButton *)btn {
-    self.navigationController.useNativeGesture = NO;
-}
-
-- (UIButton *)customModeBtn {
-    if ( _customModeBtn ) return _customModeBtn;
-    _customModeBtn = [UIButton new];
-    [_customModeBtn setTitle:@"use Custom" forState:UIControlStateNormal];
-    [_customModeBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    [_customModeBtn addTarget:self action:@selector(clickedCustomModeBtn:) forControlEvents:UIControlEventTouchUpInside];
-    return _customModeBtn;
-}
 
 - (UIButton *)popToRootVCBtn {
     if ( _popToRootVCBtn ) return _popToRootVCBtn;

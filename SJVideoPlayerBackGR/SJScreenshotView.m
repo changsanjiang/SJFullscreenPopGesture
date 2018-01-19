@@ -11,7 +11,7 @@
 @interface SJScreenshotView ()
 
 @property (nonatomic, strong, readonly) UIView *containerView;
-@property (nonatomic, strong, readonly) UIImageView *screenshotImageView;
+@property (nonatomic, assign, readonly) CGFloat shift;
 @property (nonatomic, strong, readonly) UIView *shadeView;
 
 @end
@@ -19,13 +19,13 @@
 @implementation SJScreenshotView
 
 @synthesize containerView = _containerView;
-@synthesize screenshotImageView = _screenshotImageView;
 @synthesize shadeView = _shadeView;
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if ( !self ) return nil;
     [self _SJScreenshotViewSetupUI];
+    _shift = -[UIScreen mainScreen].bounds.size.width * 0.382;
     return self;
 }
 
@@ -33,34 +33,47 @@
     _shadeView.alpha = alpha;
 }
 
+- (void)beginTransition  {
+    self.transform = CGAffineTransformMakeTranslation( self.shift, 0 );
+    CGFloat width = self.frame.size.width;
+    _shadeView.transform = CGAffineTransformMakeTranslation( - (self.shift + width), 0 );
+    _shadeView.alpha = 1;
+}
+
+- (void)transitioningWithOffset:(CGFloat)offset {
+    CGFloat width = self.frame.size.width;
+    if ( 0 == width ) return;
+    CGFloat rate = offset / width;
+    [self setShadeAlpha:1 - rate];
+    self.transform = CGAffineTransformMakeTranslation( self.shift * ( 1 - rate ), 0 );
+    _shadeView.transform = CGAffineTransformMakeTranslation( - (self.shift + width) + (self.shift * rate) + offset, 0 );
+}
+
+- (void)reset {
+    [self beginTransition];
+}
+
+- (void)finishedTransition {
+    self.transform = CGAffineTransformIdentity;
+    _shadeView.transform = CGAffineTransformIdentity;
+    [self setShadeAlpha:0.001];
+}
+
+// MARK:
+
 - (void)_SJScreenshotViewSetupUI {
     [self addSubview:self.containerView];
-    [_containerView addSubview:self.screenshotImageView];
     [_containerView addSubview:self.shadeView];
-//    _containerView.translatesAutoresizingMaskIntoConstraints = NO;
-//    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_containerView]|" options:NSLayoutFormatAlignAllLeading metrics:nil views:NSDictionaryOfVariableBindings(_containerView)]];
-//    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_containerView]|" options:NSLayoutFormatAlignAllTop metrics:nil views:NSDictionaryOfVariableBindings(_containerView)]];
-//
-//    _screenshotImageView.translatesAutoresizingMaskIntoConstraints = NO;
-//    [_containerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_screenshotImageView]|" options:NSLayoutFormatAlignAllLeading metrics:nil views:NSDictionaryOfVariableBindings(_screenshotImageView)]];
-//    [_containerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_screenshotImageView]|" options:NSLayoutFormatAlignAllTop metrics:nil views:NSDictionaryOfVariableBindings(_screenshotImageView)]];
-//
-//    _shadeView.translatesAutoresizingMaskIntoConstraints = NO;
-//    [_containerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_shadeView]|" options:NSLayoutFormatAlignAllLeading metrics:nil views:NSDictionaryOfVariableBindings(_shadeView)]];
-//    [_containerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_shadeView]|" options:NSLayoutFormatAlignAllTop metrics:nil views:NSDictionaryOfVariableBindings(_shadeView)]];
-
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-
-    _screenshotImageView.frame = self.bounds;
     _shadeView.frame = self.bounds;
 }
 
 - (void)setImage:(UIImage *)image {
     _image = image;
-    _screenshotImageView.image = image;
+    self.layer.contents = (id)image.CGImage;
 }
 
 - (UIView *)containerView {
@@ -74,12 +87,6 @@
     _shadeView = [UIView new];
     _shadeView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.8];
     return _shadeView;
-}
-
-- (UIImageView *)screenshotImageView {
-    if ( _screenshotImageView ) return _screenshotImageView;
-    _screenshotImageView = [UIImageView new];
-    return _screenshotImageView;
 }
 
 @end

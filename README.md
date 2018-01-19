@@ -15,27 +15,19 @@ https://juejin.im/post/5a150c166fb9a04524057832
 
 ### 功能
 - 全屏手势(兼容scrollView, 当scrollView.contentOffset.x==0时, 触发全屏手势).
-- 指定盲区, 在指定区域不触发全屏手势. 可指定Frame或者View. 
-- 切换, 系统边缘手势与全屏手势切换.
+- 指定盲区, 在指定区域不触发全屏手势. 可指定Frame或者View.
 - 禁用, 可在某个页面禁用手势.
 
 如果好用, 兄弟, 给个 Star 吧.
 
 ### Disable 
 ```Objective-C
-// 如果想使用系统手势，可以像下面那样. 
-// If you want to use the system gestures, you can do the same as below.
+// If you want to disable the gestures, you can do the same as below.
 #import "UIViewController+SJVideoPlayerAdd.h"
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    // use system 
-    self.navigationController.useNativeGesture = YES;
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    // use custom 
-    self.navigationController.useNativeGesture = NO;
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.sj_DisableGestures = YES;
 }
 ```
 
@@ -47,9 +39,9 @@ https://juejin.im/post/5a150c166fb9a04524057832
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.sj_fadeArea = @[@(_btn.frame), @(_view2.frame)];
-    // or
     self.sj_fadeAreaViews = @[_btn, _view2];
+    // or
+    self.sj_fadeArea = @[@(_btn.frame), @(_view2.frame)];
 }
 ```
 

@@ -52,4 +52,12 @@
     return objc_getAssociatedObject(self, _cmd);
 }
 
+- (void)setSj_DisableGestures:(BOOL)sj_DisableGestures {
+    objc_setAssociatedObject(self, @selector(sj_DisableGestures), @(sj_DisableGestures), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (BOOL)sj_DisableGestures {
+    return [objc_getAssociatedObject(self, _cmd) boolValue];
+}
+
 @end

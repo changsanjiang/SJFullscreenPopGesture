@@ -12,6 +12,12 @@
 
 @property (nonatomic, strong) UIImage *image;
 
-- (void)setShadeAlpha:(CGFloat)alpha;
+- (void)beginTransition;
+
+- (void)transitioningWithOffset:(CGFloat)offset;
+
+- (void)reset;
+
+- (void)finishedTransition;
 
 @end
