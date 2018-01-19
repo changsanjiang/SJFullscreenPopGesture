@@ -9,8 +9,8 @@ pod 'SJFullscreenPopGesture'
 
 ### Features
 - Fullscreen Pop Gesture. Gestures are perfectly handled in UIScrollView And UIPageViewController.
-- Fade Area. The specified area does not trigger gestures.
-- Disable Gesture. Designate ViewController disable pop gesture. It does not affect other viewControllers.
+- Fade Area. The specified area does not trigger gestures. It does not affect other ViewControllers.
+- Disable Gesture. Designate ViewController disable pop gesture. It does not affect other ViewControllers.
 
 
 ### Example
@@ -32,7 +32,7 @@ Please wait for the example load, or download the project directly.
 ### Fade Area
 ```Objective-C
 // 如果想某个区域不触发手势, 可以这样做.
-// If you want an area to not trigger gestures, you can do the same as below. It does not affect other viewControllers.
+// If you want an area to not trigger gestures, you can do the same as below. It does not affect other ViewControllers.
 #import "UIViewController+SJVideoPlayerAdd.h"
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -47,7 +47,7 @@ Please wait for the example load, or download the project directly.
 @interface UIViewController (SJVideoPlayerAdd)
 
 /*!
- *  The specified area does not trigger gestures.
+ *  The specified area does not trigger gestures. It does not affect other ViewControllers.
  *  In the array is subview frame.
  *  @[@(self.label.frame)]
  *
