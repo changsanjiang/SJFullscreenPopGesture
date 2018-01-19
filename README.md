@@ -13,6 +13,7 @@ pod 'SJFullscreenPopGesture'
 - Disable Gesture. Designate ViewController disable pop gesture.
 
 ### Example
+Please wait for the example load, or download the project directly.
 <img src="https://github.com/changsanjiang/SJVideoPlayerBackGR/blob/master/SJBackGRProject/SJBackGRProject/ex1.gif" />
 
 ### Disable 
