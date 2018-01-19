@@ -294,9 +294,11 @@ static __weak UIWindow *_window;
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     if ( UIGestureRecognizerStateFailed ==  gestureRecognizer.state ||
          UIGestureRecognizerStateCancelled == gestureRecognizer.state ) return YES;
-    if ([otherGestureRecognizer isMemberOfClass:NSClassFromString(@"UIScrollViewPanGestureRecognizer")] ||
-        [otherGestureRecognizer isMemberOfClass:NSClassFromString(@"UIScrollViewPagingSwipeGestureRecognizer")]) {
-        return [self SJ_considerScrollView:(UIScrollView *)otherGestureRecognizer.view gestureRecognizer:gestureRecognizer otherGestureRecognizer:otherGestureRecognizer];
+    if ( [otherGestureRecognizer isMemberOfClass:NSClassFromString(@"UIScrollViewPanGestureRecognizer")] ||
+         [otherGestureRecognizer isMemberOfClass:NSClassFromString(@"UIScrollViewPagingSwipeGestureRecognizer")] ) {
+        if ( [gestureRecognizer.view isKindOfClass:[UIScrollView class]] ) {
+            return [self SJ_considerScrollView:(UIScrollView *)otherGestureRecognizer.view gestureRecognizer:gestureRecognizer otherGestureRecognizer:otherGestureRecognizer];
+        }
     }
     
     if ( [otherGestureRecognizer isKindOfClass:NSClassFromString(@"UIPanGestureRecognizer")] ) {
@@ -339,7 +341,7 @@ static __weak UIWindow *_window;
 - (void)SJ_handlePanGR:(UIPanGestureRecognizer *)pan {
     CGFloat offset = [pan translationInView:self.view].x;
     
-    switch (pan.state) {
+    switch ( pan.state ) {
         case UIGestureRecognizerStateBegan: {
             [self SJ_ViewWillBeginDragging];
         }
