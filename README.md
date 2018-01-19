@@ -9,10 +9,12 @@ pod 'SJFullscreenPopGesture'
 
 ### Example
 <img src="https://github.com/changsanjiang/SJVideoPlayerBackGR/blob/master/SJBackGRProject/SJBackGRProject/ex1.gif" />
+
 ### Features
 - Fullscreen Pop Gesture. 
 - Fade Area. 
 - Disable Gesture.
+
 ### Disable 
 ```Objective-C
 // If you want to disable the gestures, you can do the same as below.
@@ -23,6 +25,7 @@ pod 'SJFullscreenPopGesture'
     self.sj_DisableGestures = YES;
 }
 ```
+
 ### Fade Area
 ```Objective-C
 // 如果想某个区域不触发手势, 可以这样做.
