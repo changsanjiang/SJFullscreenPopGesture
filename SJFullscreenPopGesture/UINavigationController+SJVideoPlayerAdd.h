@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SJScreenshotTransitionMode.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UINavigationController (Settings)
+
+@property (nonatomic, readwrite) SJScreenshotTransitionMode transtitionMode;
 
 @property (nonatomic, readonly) UIGestureRecognizerState sj_fullscreenGestureState;
 

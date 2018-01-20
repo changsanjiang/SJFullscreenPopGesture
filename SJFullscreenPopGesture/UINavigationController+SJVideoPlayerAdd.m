@@ -171,6 +171,7 @@ static UIWindow *SJ_window;
     [self.view addGestureRecognizer:self.SJ_pan];
     
     // border shadow
+    self.view.layer.shadowOffset = CGSizeMake(0.5, 0);
     self.view.layer.shadowColor = [UIColor colorWithWhite:0.2 alpha:1].CGColor;
     self.view.layer.shadowOpacity = 1;
     self.view.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.view.bounds].CGPath;
@@ -408,6 +409,14 @@ static UIWindow *SJ_window;
 // MARK: Settings
 
 @implementation UINavigationController (Settings)
+
+- (void)setTranstitionMode:(SJScreenshotTransitionMode)transtitionMode {
+    self.SJ_screenshotView.transtitionMode = transtitionMode;
+}
+
+- (SJScreenshotTransitionMode)transtitionMode {
+    return self.SJ_screenshotView.transtitionMode;
+}
 
 - (UIGestureRecognizerState)sj_fullscreenGestureState {
     return self.SJ_pan.state;

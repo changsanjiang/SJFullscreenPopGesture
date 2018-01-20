@@ -7,12 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SJScreenshotTransitionMode.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
-typedef NS_ENUM(NSUInteger, SJScreenshotTransitionMode) {
-    SJScreenshotTransitionModeShifting,
-};
 
 @interface SJScreenshotView : UIView
 

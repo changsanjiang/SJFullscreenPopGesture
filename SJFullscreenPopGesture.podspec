@@ -90,7 +90,11 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "SJVideoPlayerBackGR/*.{h,m}"
+  s.source_files  = "SJFullscreenPopGesture/*.{h,m}"
+  s.subspec 'View' do |ss|
+        ss.source_files = 'SJFullscreenPopGesture/View/*.{h,m}'
+  end
+
   # s.exclude_files = "Classes/Exclude"
 
   # s.public_header_files = "Classes/**/*.h"
