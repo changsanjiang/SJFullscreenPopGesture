@@ -29,24 +29,30 @@
     return self;
 }
 
-- (void)setShadeAlpha:(CGFloat)alpha {
-    _shadeView.alpha = alpha;
-}
-
 - (void)beginTransition  {
-    self.transform = CGAffineTransformMakeTranslation( self.shift, 0 );
-    CGFloat width = self.frame.size.width;
-    _shadeView.transform = CGAffineTransformMakeTranslation( - (self.shift + width), 0 );
-    _shadeView.alpha = 1;
+    switch ( _transtitionMode ) {
+        case SJScreenshotTransitionModeShifting: {
+            self.transform = CGAffineTransformMakeTranslation( self.shift, 0 );
+            CGFloat width = self.frame.size.width;
+            _shadeView.transform = CGAffineTransformMakeTranslation( - (self.shift + width), 0 );
+            _shadeView.alpha = 1;
+        }
+            break;
+    }
 }
 
 - (void)transitioningWithOffset:(CGFloat)offset {
-    CGFloat width = self.frame.size.width;
-    if ( 0 == width ) return;
-    CGFloat rate = offset / width;
-    [self setShadeAlpha:1 - rate];
-    self.transform = CGAffineTransformMakeTranslation( self.shift * ( 1 - rate ), 0 );
-    _shadeView.transform = CGAffineTransformMakeTranslation( - (self.shift + width) + (self.shift * rate) + offset, 0 );
+    switch ( _transtitionMode ) {
+        case SJScreenshotTransitionModeShifting: {
+            CGFloat width = self.frame.size.width;
+            if ( 0 == width ) return;
+            CGFloat rate = offset / width;
+            _shadeView.alpha = 1 - rate;
+            self.transform = CGAffineTransformMakeTranslation( self.shift * ( 1 - rate ), 0 );
+            _shadeView.transform = CGAffineTransformMakeTranslation( - (self.shift + width) + (self.shift * rate) + offset, 0 );
+        }
+            break;
+    }
 }
 
 - (void)reset {
@@ -56,7 +62,7 @@
 - (void)finishedTransition {
     self.transform = CGAffineTransformIdentity;
     _shadeView.transform = CGAffineTransformIdentity;
-    [self setShadeAlpha:0.001];
+    _shadeView.alpha = 0.001;
 }
 
 // MARK:
@@ -68,7 +74,7 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    _shadeView.frame = self.bounds;
+    _shadeView.frame = _containerView.frame = self.bounds;
 }
 
 - (void)setImage:(UIImage *)image {

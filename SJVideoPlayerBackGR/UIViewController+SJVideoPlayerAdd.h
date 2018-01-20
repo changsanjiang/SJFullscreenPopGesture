@@ -8,36 +8,40 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface UIViewController (SJVideoPlayerAdd)
 
 /*!
- *  The specified area does not trigger gestures.
+ *  The specified area does not trigger gestures. It does not affect other ViewControllers.
  *  In the array is subview frame.
  *  @[@(self.label.frame)]
  *
  *  指定区域不触发手势. see `sj_fadeAreaViews` method
  **/
-@property (nonatomic, strong) NSArray<NSValue *> *sj_fadeArea;
+@property (nonatomic, strong, readwrite, nullable) NSArray<NSValue *> *sj_fadeArea;
 
 /*!
- *  The specified area does not trigger gestures.
+ *  The specified area does not trigger gestures. It does not affect other ViewControllers.
  *  In the array is subview.
  *  @[@(self.label)]
  *
  *  指定区域不触发手势.
  **/
-@property (nonatomic, strong) NSArray<UIView *> *sj_fadeAreaViews;
+@property (nonatomic, strong, readwrite, nullable) NSArray<UIView *> *sj_fadeAreaViews;
 
 /*!
- *  disable pop Gestures. default is NO.
+ *  disable pop Gestures. default is NO. It does not affect other ViewControllers.
  *
  *  禁用全屏手势. 默认是 NO.
  **/
 @property (nonatomic, assign, readwrite) BOOL sj_DisableGestures;
 
 
-@property (nonatomic, copy, readwrite) void(^sj_viewWillBeginDragging)(__kindof UIViewController *vc);
-@property (nonatomic, copy, readwrite) void(^sj_viewDidDrag)(__kindof UIViewController *vc);
-@property (nonatomic, copy, readwrite) void(^sj_viewDidEndDragging)(__kindof UIViewController *vc);
+@property (nonatomic, copy, readwrite, nullable) void(^sj_viewWillBeginDragging)(__kindof UIViewController *vc);
+@property (nonatomic, copy, readwrite, nullable) void(^sj_viewDidDrag)(__kindof UIViewController *vc);
+@property (nonatomic, copy, readwrite, nullable) void(^sj_viewDidEndDragging)(__kindof UIViewController *vc);
 
 @end
+
+NS_ASSUME_NONNULL_END

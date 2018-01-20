@@ -34,7 +34,6 @@
 		771FFBBB1F7E94B40076EEB0 /* NextViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NextViewController.m; sourceTree = "<group>"; };
 		771FFBBC1F7E94B40076EEB0 /* NoNavViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoNavViewController.h; sourceTree = "<group>"; };
 		771FFBBD1F7E94B40076EEB0 /* NoNavViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoNavViewController.m; sourceTree = "<group>"; };
-		771FFBBE1F7E94B40076EEB0 /* test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test.png; sourceTree = "<group>"; };
 		772D239B200B7B3A00E332B9 /* ex1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ex1.gif; sourceTree = "<group>"; };
 		779177811FC539C100E2AFF7 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		779177831FC53F6D00E2AFF7 /* NavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
@@ -89,7 +88,6 @@
 				771FFBBB1F7E94B40076EEB0 /* NextViewController.m */,
 				771FFBBC1F7E94B40076EEB0 /* NoNavViewController.h */,
 				771FFBBD1F7E94B40076EEB0 /* NoNavViewController.m */,
-				771FFBBE1F7E94B40076EEB0 /* test.png */,
 				779177831FC53F6D00E2AFF7 /* NavigationController.h */,
 				779177841FC53F6D00E2AFF7 /* NavigationController.m */,
 			);
