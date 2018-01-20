@@ -410,12 +410,12 @@ static UIWindow *SJ_window;
 
 @implementation UINavigationController (Settings)
 
-- (void)setTranstitionMode:(SJScreenshotTransitionMode)transtitionMode {
-    self.SJ_screenshotView.transtitionMode = transtitionMode;
+- (void)setTransitionMode:(SJScreenshotTransitionMode)transitionMode {
+    self.SJ_screenshotView.transitionMode = transitionMode;
 }
 
-- (SJScreenshotTransitionMode)transtitionMode {
-    return self.SJ_screenshotView.transtitionMode;
+- (SJScreenshotTransitionMode)transitionMode {
+    return self.SJ_screenshotView.transitionMode;
 }
 
 - (UIGestureRecognizerState)sj_fullscreenGestureState {

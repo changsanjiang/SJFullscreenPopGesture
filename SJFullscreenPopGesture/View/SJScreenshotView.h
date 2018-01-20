@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SJScreenshotView : UIView
 
-@property (nonatomic) SJScreenshotTransitionMode transtitionMode;
+@property (nonatomic) SJScreenshotTransitionMode transitionMode;
 
 @property (nonatomic, strong, readwrite, nullable) UIImage *image;
 

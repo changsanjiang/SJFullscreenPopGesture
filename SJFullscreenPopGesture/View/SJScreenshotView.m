@@ -30,7 +30,7 @@
 }
 
 - (void)beginTransition  {
-    switch ( _transtitionMode ) {
+    switch ( _transitionMode ) {
         case SJScreenshotTransitionModeShifting: {
             self.transform = CGAffineTransformMakeTranslation( self.shift, 0 );
             _shadeView.alpha = 0.001;
@@ -49,7 +49,7 @@
 - (void)transitioningWithOffset:(CGFloat)offset {
     CGFloat width = self.frame.size.width;
     if ( 0 == width ) return;
-    switch ( _transtitionMode ) {
+    switch ( _transitionMode ) {
         case SJScreenshotTransitionModeShifting: {
             CGFloat rate = offset / width;
             self.transform = CGAffineTransformMakeTranslation( self.shift * ( 1 - rate ), 0 );
