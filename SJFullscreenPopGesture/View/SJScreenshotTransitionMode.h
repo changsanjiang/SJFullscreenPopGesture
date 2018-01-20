@@ -10,8 +10,8 @@
 #define SJScreenshotTransitionMode_h
 
 typedef NS_ENUM(NSUInteger, SJScreenshotTransitionMode) {
-    SJScreenshotTransitionModeShifting,
     SJScreenshotTransitionModeShadeAndShifting,
+    SJScreenshotTransitionModeShifting,
 };
 
 #endif /* SJScreenshotTransitionMode_h */

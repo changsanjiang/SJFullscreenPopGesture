@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UINavigationController (Settings)
 
-@property (nonatomic, readwrite) SJScreenshotTransitionMode transitionMode;
+@property (nonatomic, readwrite) SJScreenshotTransitionMode sj_transitionMode;
 
 @property (nonatomic, readonly) UIGestureRecognizerState sj_fullscreenGestureState;
 

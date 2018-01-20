@@ -171,10 +171,14 @@ static UIWindow *SJ_window;
     [self.view addGestureRecognizer:self.SJ_pan];
     
     // border shadow
+    [CATransaction begin];
+    [CATransaction setDisableActions:YES];
     self.view.layer.shadowOffset = CGSizeMake(0.5, 0);
     self.view.layer.shadowColor = [UIColor colorWithWhite:0.2 alpha:1].CGColor;
     self.view.layer.shadowOpacity = 1;
+    self.view.layer.shadowRadius = 2;
     self.view.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.view.bounds].CGPath;
+    [CATransaction commit];
 }
 
 // Push
@@ -410,11 +414,11 @@ static UIWindow *SJ_window;
 
 @implementation UINavigationController (Settings)
 
-- (void)setTransitionMode:(SJScreenshotTransitionMode)transitionMode {
-    self.SJ_screenshotView.transitionMode = transitionMode;
+- (void)setSj_transitionMode:(SJScreenshotTransitionMode)sj_transitionMode {
+    self.SJ_screenshotView.transitionMode = sj_transitionMode;
 }
 
-- (SJScreenshotTransitionMode)transitionMode {
+- (SJScreenshotTransitionMode)sj_transitionMode {
     return self.SJ_screenshotView.transitionMode;
 }
 
