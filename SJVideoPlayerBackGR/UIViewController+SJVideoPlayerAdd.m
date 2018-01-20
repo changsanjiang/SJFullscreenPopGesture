@@ -7,9 +7,14 @@
 //
 
 #import "UIViewController+SJVideoPlayerAdd.h"
+#import "UINavigationController+SJVideoPlayerAdd.h"
 #import <objc/message.h>
 
 @implementation UIViewController (SJVideoPlayerAdd)
+
+- (UIGestureRecognizerState)sj_fullscreenGestureState {
+    return self.navigationController.sj_fullscreenGestureState;
+}
 
 - (void)setSj_fadeArea:(NSArray<NSValue *> *)sj_fadeArea {
     objc_setAssociatedObject(self, @selector(sj_fadeArea), sj_fadeArea, OBJC_ASSOCIATION_RETAIN_NONATOMIC);

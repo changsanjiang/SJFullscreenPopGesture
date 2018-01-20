@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIViewController (SJVideoPlayerAdd)
 
+@property (nonatomic, readonly) UIGestureRecognizerState sj_fullscreenGestureState;
+
 /*!
  *  The specified area does not trigger gestures. It does not affect other ViewControllers.
  *  In the array is subview frame.

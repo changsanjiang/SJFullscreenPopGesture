@@ -171,9 +171,9 @@ static UIWindow *SJ_window;
     [self.view addGestureRecognizer:self.SJ_pan];
     
     // border shadow
-    //    self.view.layer.shadowColor = [UIColor colorWithWhite:0 alpha:0.2].CGColor;
-    //    self.view.layer.shadowOpacity = 1;
-    //    self.view.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.view.bounds].CGPath;
+    self.view.layer.shadowColor = [UIColor colorWithWhite:0.2 alpha:1].CGColor;
+    self.view.layer.shadowOpacity = 1;
+    self.view.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.view.bounds].CGPath;
 }
 
 // Push
