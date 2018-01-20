@@ -409,6 +409,10 @@ static UIWindow *SJ_window;
 
 @implementation UINavigationController (Settings)
 
+- (UIGestureRecognizerState)sj_fullscreenGestureState {
+    return self.SJ_pan.state;
+}
+
 - (void)setSj_backgroundColor:(UIColor *)sj_backgroundColor {
     objc_setAssociatedObject(self, @selector(sj_backgroundColor), sj_backgroundColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     self.navigationBar.barTintColor = sj_backgroundColor;
