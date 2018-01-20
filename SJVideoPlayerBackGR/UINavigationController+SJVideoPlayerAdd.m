@@ -236,7 +236,7 @@ static UIWindow *SJ_window;
     if ( 0 != self.topViewController.sj_fadeArea ) {
         [self.topViewController.sj_fadeArea enumerateObjectsUsingBlock:^(NSValue * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             CGRect rect = [obj CGRectValue];
-            if ( self.isNavigationBarHidden ) rect = [self.view convertRect:rect fromView:view];
+            if ( !self.isNavigationBarHidden ) rect = [self.view convertRect:rect fromView:view];
             if ( !CGRectContainsPoint(rect, point) ) return ;
             isFadeArea = YES;
             *stop = YES;
@@ -247,7 +247,7 @@ static UIWindow *SJ_window;
          0 != self.topViewController.sj_fadeAreaViews.count ) {
         [self.topViewController.sj_fadeAreaViews enumerateObjectsUsingBlock:^(UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             CGRect rect = obj.frame;
-            if ( self.isNavigationBarHidden ) rect = [self.view convertRect:rect fromView:view];
+            if ( !self.isNavigationBarHidden ) rect = [self.view convertRect:rect fromView:view];
             if ( !CGRectContainsPoint(rect, point) ) return ;
             isFadeArea = YES;
             *stop = YES;
