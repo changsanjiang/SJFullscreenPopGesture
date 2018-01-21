@@ -14,22 +14,66 @@ typedef NS_ENUM(NSUInteger, ModalViewControllerState) {
     ModalViewControllerStateDismissed = 1
 };
 
-
-@interface SJTransitionAnimator (TransitioningDelegateMethods)<UIViewControllerTransitioningDelegate>@end
-
-@interface SJTransitionAnimator (UIViewControllerAnimatedTransitioningMethods)<UIViewControllerAnimatedTransitioning>@end
-
-
 @interface SJTransitionAnimator ()
 
 @property (nonatomic, assign) ModalViewControllerState      state;
 @property (nonatomic, copy)   AnimationBlockType            presentedAnimationBlock;
 @property (nonatomic, copy)   AnimationBlockType            dismissedAnimationBlock;
 
+@property (nonatomic, copy) void(^presentedAnimBlock)(SJTransitionAnimator *anim, UIView *presentView, id<UIViewControllerContextTransitioning> transitionContext);
+@property (nonatomic, copy) void(^dismissedAnimBlock)(SJTransitionAnimator *anim, UIView *presentView, id<UIViewControllerContextTransitioning> transitionContext);
+
 @end
 
 
-// MARK: TransitioningDelegateMethods
+#pragma mark -
+
+@interface SJTransitionAnimator (UIViewControllerAnimatedTransitioningMethods) <UIViewControllerAnimatedTransitioning>
+
+@end
+
+
+@implementation SJTransitionAnimator (UIViewControllerAnimatedTransitioningMethods)
+
+- (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext {
+    return self.duration;
+}
+
+- (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
+    
+    switch (self.state) {
+        case ModalViewControllerStatePresented: {
+            if ( self.presentedAnimBlock ) {
+                UIView *containerView = [transitionContext containerView];
+                UIView *toView = [transitionContext viewForKey:UITransitionContextToViewKey];
+                [containerView addSubview:toView];
+                self.presentedAnimBlock(self, toView, transitionContext);
+            }
+            else self.presentedAnimationBlock(self, transitionContext);
+        }
+            break;
+        case ModalViewControllerStateDismissed: {
+            if ( self.dismissedAnimBlock ) {
+                UIView *fromView = [transitionContext viewForKey:UITransitionContextFromViewKey];
+                self.dismissedAnimBlock(self, fromView, transitionContext);
+            }
+            else self.dismissedAnimationBlock(self, transitionContext);
+        }
+            break;
+        default:
+            NSLog(@"default error, %s, %zd", __FILE__, __LINE__);
+            break;
+    }
+}
+
+@end
+
+
+#pragma mark -
+
+@interface SJTransitionAnimator (TransitioningDelegateMethods)<UIViewControllerTransitioningDelegate>
+
+@end
 
 
 @implementation SJTransitionAnimator (TransitioningDelegateMethods)
@@ -48,40 +92,9 @@ typedef NS_ENUM(NSUInteger, ModalViewControllerState) {
 @end
 
 
-// MARK: UIViewControllerAnimatedTransitioningMethods
-
-
-@implementation SJTransitionAnimator (UIViewControllerAnimatedTransitioningMethods)
-
-
-- (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext {
-    return self.duration;
-}
-
-- (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
-    
-    switch (self.state) {
-        case ModalViewControllerStatePresented: {
-            self.presentedAnimationBlock(self, transitionContext);
-        }
-            break;
-        case ModalViewControllerStateDismissed: {
-            self.dismissedAnimationBlock(self, transitionContext);
-        }
-            break;
-        default:
-            NSLog(@"default error, %s, %zd", __FILE__, __LINE__);
-            break;
-    }
-}
-
-@end
-
-
+#pragma mark -
 
 @implementation SJTransitionAnimator
-
-// MARK: Init
 
 + (instancetype)sharedAnimator {
     static id _instance;
@@ -107,8 +120,6 @@ typedef NS_ENUM(NSUInteger, ModalViewControllerState) {
     return self;
 }
 
-// MARK: Setter
-
 - (void)setModalViewController:(UIViewController *)modalViewController {
     _modalViewController = modalViewController;
     modalViewController.transitioningDelegate  = self;
@@ -121,7 +132,52 @@ typedef NS_ENUM(NSUInteger, ModalViewControllerState) {
     _dismissedAnimationBlock = dBlock;
 }
 
-// MARK: Lazy
+- (void)presentedAnima:(void (^)(SJTransitionAnimator * _Nonnull, UIView * _Nonnull, id<UIViewControllerContextTransitioning> _Nonnull))pBlock dismissedAnima:(void (^)(SJTransitionAnimator * _Nonnull, UIView * _Nonnull, id<UIViewControllerContextTransitioning> _Nonnull))dBlock {
+    _presentedAnimBlock = pBlock;
+    _dismissedAnimBlock = dBlock;
+}
+
+- (void)modalViewController:(UIViewController *)viewController
+         presentedAnimation:(AnimationBlockType)pBlock
+         dismissedAnimation:(AnimationBlockType)dBlock {
+    _modalViewController = viewController;
+    _presentedAnimationBlock = pBlock;
+    _dismissedAnimationBlock = dBlock;
+}
+
+- (void)fadeInAndFadeOut {
+    [self presentedAnima:^(SJTransitionAnimator * _Nonnull anim, UIView * _Nonnull presentView, id<UIViewControllerContextTransitioning>  _Nonnull transitionContext) {
+        presentView.alpha = 0.001;
+        [UIView animateWithDuration:anim.duration animations:^{
+            presentView.alpha = 1;
+        } completion:^(BOOL finished) {
+            [transitionContext completeTransition:YES];
+        }];
+    } dismissedAnima:^(SJTransitionAnimator * _Nonnull anim, UIView * _Nonnull presentView, id<UIViewControllerContextTransitioning>  _Nonnull transitionContext) {
+        [UIView animateWithDuration:anim.duration animations:^{
+            presentView.alpha = 0.001;
+        } completion:^(BOOL finished) {
+            [transitionContext completeTransition:YES];
+        }];
+    }];
+}
+
+- (void)pushAndPop {
+    [self presentedAnima:^(SJTransitionAnimator * _Nonnull anim, UIView * _Nonnull presentView, id<UIViewControllerContextTransitioning>  _Nonnull transitionContext) {
+        presentView.transform = CGAffineTransformMakeTranslation([UIScreen mainScreen].bounds.size.width, 0);
+        [UIView animateWithDuration:anim.duration animations:^{
+            presentView.transform = CGAffineTransformIdentity;
+        } completion:^(BOOL finished) {
+            [transitionContext completeTransition:YES];
+        }];
+    } dismissedAnima:^(SJTransitionAnimator * _Nonnull anim, UIView * _Nonnull presentView, id<UIViewControllerContextTransitioning>  _Nonnull transitionContext) {
+        [UIView animateWithDuration:anim.duration animations:^{
+            presentView.transform = CGAffineTransformMakeTranslation([UIScreen mainScreen].bounds.size.width, 0);
+        } completion:^(BOOL finished) {
+            [transitionContext completeTransition:YES];
+        }];
+    }];
+}
 
 - (AnimationBlockType)presentedAnimationBlock {
     if ( _presentedAnimationBlock ) return _presentedAnimationBlock;
@@ -137,8 +193,7 @@ typedef NS_ENUM(NSUInteger, ModalViewControllerState) {
     };
 }
 
-// MARK: 缺省动画
-
+// default anim
 - (void)defaultPresentedAnimation:(id<UIViewControllerContextTransitioning>  _Nonnull)transitionContext {
     UIView *containerView = [transitionContext containerView];
     UIView *presentView = [transitionContext viewForKey:UITransitionContextToViewKey];
@@ -153,6 +208,7 @@ typedef NS_ENUM(NSUInteger, ModalViewControllerState) {
     }];
 }
 
+// default anim
 - (void)defaultDismissedAnimation:(id<UIViewControllerContextTransitioning>  _Nonnull)transitionContext {
     UIView *fromView = [transitionContext viewForKey:UITransitionContextFromViewKey];
     [UIView animateWithDuration:self.duration animations:^{
@@ -165,8 +221,6 @@ typedef NS_ENUM(NSUInteger, ModalViewControllerState) {
     }];
 }
 
-#pragma mark -
-
 - (void)clearPresentedAnimationBlock {
     _presentedAnimationBlock = nil;
 }
@@ -176,3 +230,4 @@ typedef NS_ENUM(NSUInteger, ModalViewControllerState) {
 }
 
 @end
+

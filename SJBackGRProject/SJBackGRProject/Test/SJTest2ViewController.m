@@ -15,6 +15,7 @@
 
 @property (nonatomic, strong) UIButton *btn;
 @property (nonatomic, strong) UIButton *closeBtn;
+@property (nonatomic, assign) BOOL dismissed;
 
 @end
 
@@ -45,6 +46,7 @@
 
 - (void)close {
     [self dismissViewControllerAnimated:YES completion:nil];
+    _dismissed = YES;
 }
 
 - (void)clickedBtn:(UIButton *)btn {
@@ -58,7 +60,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    if ( !_dismissed ) [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 @end

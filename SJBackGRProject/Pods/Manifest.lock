@@ -1,16 +1,16 @@
 PODS:
   - SJAttributesFactory (1.1.14)
-  - SJLabel (1.1.0):
+  - SJLabel (1.2.2):
     - SJAttributesFactory
-    - SJLabel/Services (= 1.1.0)
-  - SJLabel/Services (1.1.0):
+    - SJLabel/Services (= 1.2.2)
+  - SJLabel/Services (1.2.2):
     - SJAttributesFactory
-  - SJObserverHelper (1.0.2)
-  - SJTransitionAnimator (1.0.0)
-  - SJUIFactory (0.0.9):
+  - SJObserverHelper (1.0.3)
+  - SJTransitionAnimator (1.0.2)
+  - SJUIFactory (0.0.12):
     - SJLabel
-    - SJUIFactory/Category (= 0.0.9)
-  - SJUIFactory/Category (0.0.9):
+    - SJUIFactory/Category (= 0.0.12)
+  - SJUIFactory/Category (0.0.12):
     - SJLabel
 
 DEPENDENCIES:
@@ -20,11 +20,11 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   SJAttributesFactory: 10af803585a072a7d6273b87cb12f729f15b89a6
-  SJLabel: 887e2e0ade1c93dd9e1c4af9c1248bf6dd16dea7
-  SJObserverHelper: cfc0431646b0bace1e96874e29b3a659f6c3a57b
-  SJTransitionAnimator: 6a533e7532777fe8eda5f2c76ebf9bc44741b918
-  SJUIFactory: bf2413b9fc9bf76d39381b9ff48df454819244f5
+  SJLabel: 52b603aa4ff3c74ceebb4e85a299fc416d5f4660
+  SJObserverHelper: b270d707cd18ab76538596aa4e98cf798c9e9868
+  SJTransitionAnimator: 531f43f1bf883e210f7392da79fab4d39753eec1
+  SJUIFactory: c7b06279d970a829d049cd3e31fa99506dacaffe
 
 PODFILE CHECKSUM: b05e1bed0ea5988b5d92ca9f0c7ebc4c7e240950
 
-COCOAPODS: 1.4.0.rc.1
+COCOAPODS: 1.4.0

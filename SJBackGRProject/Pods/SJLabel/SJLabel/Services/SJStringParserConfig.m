@@ -10,16 +10,26 @@
 
 @implementation SJStringParserConfig
 
++ (UIFont *)defaultFont {
+    return [UIFont systemFontOfSize:14];
+}
+
 + (SJStringParserConfig *)defaultConfig {
     SJStringParserConfig *defaultConfig = [SJStringParserConfig new];
     defaultConfig.maxWidth = [UIScreen mainScreen].bounds.size.width;
     defaultConfig.lineSpacing = 0;
     defaultConfig.numberOfLines = 1;
-
-    defaultConfig.font = [UIFont systemFontOfSize:14];
-    defaultConfig.textColor = [UIColor blackColor];
     defaultConfig.textAlignment = NSTextAlignmentLeft;
     return defaultConfig;
 }
 
+- (UIFont *)font {
+    if ( !_font ) return [[self class] defaultFont];
+    return _font;
+}
+
+- (UIColor *)textColor {
+    if ( !_textColor ) return [UIColor blackColor];
+    return _textColor;
+}
 @end

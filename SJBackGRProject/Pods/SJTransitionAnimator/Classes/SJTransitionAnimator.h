@@ -23,20 +23,30 @@ typedef void(^_Nullable AnimationBlockType)(SJTransitionAnimator *animator, id<U
 
 @property (nonatomic, weak, readwrite) UIViewController *modalViewController;
 
-
 + (instancetype)sharedAnimator;
 
-- (instancetype)initWithModalViewController:(UIViewController *)viewController;
+- (instancetype)initWithModalViewController:(__weak UIViewController *)viewController;
 
 /*!
  *  注意  retain count
  *  如果没有设置将会使用默认的动画
  */
-- (void)presentedAnimation:(AnimationBlockType)pBlock dismissedAnimation:(AnimationBlockType)dBlock;
+- (void)presentedAnimation:(AnimationBlockType)pBlock
+        dismissedAnimation:(AnimationBlockType)dBlock;
 
-/*!
- *  重置动画block（presentedAnimation & dismissedAnimation）
- */
+- (void)presentedAnima:(void(^)(SJTransitionAnimator *anim, UIView *presentView, id<UIViewControllerContextTransitioning> transitionContext))pBlock
+        dismissedAnima:(void(^)(SJTransitionAnimator *anim, UIView *presentView, id<UIViewControllerContextTransitioning> transitionContext))dBlock;
+
+- (void)modalViewController:(__weak UIViewController *)viewController
+         presentedAnimation:(AnimationBlockType)pBlock
+         dismissedAnimation:(AnimationBlockType)dBlock;
+
+/// 淡入淡出
+- (void)fadeInAndFadeOut;
+
+/// 推进推出
+- (void)pushAndPop;
+
 - (void)clearPresentedAnimationBlock;
 
 - (void)clearDismissedAnimationBlock;

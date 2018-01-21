@@ -1,6 +1,11 @@
 # SJTransitionAnimator
 Modal自定义转场动画
 
+### Use
+```ruby
+pod 'SJTransitionAnimator'
+```
+    
 ### Default Animation
 <img src = "https://github.com/changsanjiang/SJTransitionAnimator/blob/master/SJTransitionAnimator/defaultAnimation.gif" width = "30%" />
 

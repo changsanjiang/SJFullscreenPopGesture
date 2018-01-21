@@ -32,39 +32,50 @@ float SJScreen_Max(void) {
 }
 
 BOOL SJ_is_iPhoneX(void) {
-    return SJScreen_Min() / SJScreen_Max() == 1125.0 / 2436;
+    CGFloat s1 = ((float)((int)(SJScreen_Min() / SJScreen_Max() * 100))) / 100;
+    CGFloat s2 = ((float)((int)(1125.0 / 2436 * 100))) / 100;;
+    return s1 == s2;
 }
 
 static void _SJ_Round(UIView *view, float cornerRadius) {
+    [CATransaction begin];
+    [CATransaction setDisableActions:YES];
     if ( 0 != cornerRadius ) {
         view.layer.mask = [SJUIFactory shapeLayerWithSize:view.bounds.size cornerRadius:cornerRadius];
-        view.layer.cornerRadius = cornerRadius;
     }
     else {
         view.layer.mask = [SJUIFactory roundShapeLayerWithSize:view.bounds.size];
-        view.layer.cornerRadius = MIN(view.bounds.size.width, view.bounds.size.height) * 0.5;
     }
+    [CATransaction commit];
 }
 
 #pragma mark - Round View
 
 @interface SJRoundView : UIView
 @property (nonatomic, assign, readwrite) CGFloat cornerRadius;
+@property (nonatomic, assign) BOOL finished;
 @end
 @implementation SJRoundView
 - (void)layoutSubviews {
     [super layoutSubviews];
-    _SJ_Round(self, _cornerRadius);
+    if ( !_finished ) {
+        _SJ_Round(self, _cornerRadius);
+        _finished = YES;
+    }
 }
 @end
 
 @interface SJRoundButton : UIButton
 @property (nonatomic, assign, readwrite) CGFloat cornerRadius;
+@property (nonatomic, assign) BOOL finished;
 @end
 @implementation SJRoundButton
 - (void)layoutSubviews {
     [super layoutSubviews];
-    _SJ_Round(self, _cornerRadius);
+    if ( !_finished ) {
+        _SJ_Round(self, _cornerRadius);
+        _finished = YES;
+    }
 }
 @end
 
@@ -130,6 +141,7 @@ static void _SJ_Round(UIView *view, float cornerRadius) {
 
 + (void)commonShadowWithView:(UIView *)view size:(CGSize)size cornerRadius:(CGFloat)cornerRadius {
     [self commonShadowWithView:view];
+    view.layer.cornerRadius = cornerRadius;
     view.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:(CGRect){CGPointZero, size} cornerRadius:cornerRadius].CGPath;
 }
 
@@ -166,6 +178,7 @@ static void _SJ_Round(UIView *view, float cornerRadius) {
     shapelayer.bounds = bounds;
     shapelayer.position = CGPointMake(size.width * 0.5, size.height * 0.5);
     shapelayer.path = [UIBezierPath bezierPathWithRoundedRect:bounds cornerRadius:cornerRadius].CGPath;
+    shapelayer.fillColor = [UIColor blackColor].CGColor;
     return shapelayer;
 }
 
@@ -195,14 +208,6 @@ static void _SJ_Round(UIView *view, float cornerRadius) {
 + (UIView *)viewWithBackgroundColor:(UIColor *)backgroundColor frame:(CGRect)frame {
     UIView *view = [UIView new];
     [self _settingView:view backgroundColor:backgroundColor frame:frame];
-    return view;
-}
-
-+ (UIView *)viewWithCornerRadius:(float)cornerRadius
-                 backgroundColor:(UIColor *)backgroundColor {
-    SJRoundView *view = [SJRoundView new];
-    view.cornerRadius = cornerRadius;
-    view.backgroundColor = backgroundColor;
     return view;
 }
 
@@ -249,10 +254,10 @@ static void _SJ_Round(UIView *view, float cornerRadius) {
 
 @implementation SJShapeViewFactory
 
-+ (UIView *)viewWithCornerRadius:(CGFloat)cornerRaius
++ (UIView *)viewWithCornerRadius:(float)cornerRadius
                  backgroundColor:(UIColor *)backgroundColor {
-    SJShadowView *view = [SJShadowView new];
-    view.cornerRadius = cornerRaius;
+    SJRoundView *view = [SJRoundView new];
+    view.cornerRadius = cornerRadius;
     view.backgroundColor = backgroundColor;
     return view;
 }
@@ -298,6 +303,9 @@ static void _SJ_Round(UIView *view, float cornerRadius) {
     tableView.showsHorizontalScrollIndicator = NO;
     tableView.delegate = delegate;
     tableView.dataSource = dataSource;
+    tableView.estimatedRowHeight = 0;
+    tableView.estimatedSectionHeaderHeight = 0;
+    tableView.estimatedSectionFooterHeight = 0;
     return tableView;
 }
 
@@ -308,7 +316,7 @@ static void _SJ_Round(UIView *view, float cornerRadius) {
           showsVerticalScrollIndicator:(BOOL)showsVerticalScrollIndicator
                               delegate:(id<UITableViewDelegate>)delegate
                             dataSource:(id<UITableViewDataSource>)dataSource {
-    if ( [subClass isKindOfClass:[UITableView class]] ) return nil;
+    if ( ![subClass isKindOfClass:[UITableView class]] ) return nil;
     UITableView *tableView = [[subClass alloc] initWithFrame:CGRectZero style:style];
     if ( !backgroundColor ) backgroundColor = [UIColor clearColor];
     tableView.backgroundColor = backgroundColor;
@@ -317,6 +325,10 @@ static void _SJ_Round(UIView *view, float cornerRadius) {
     tableView.showsHorizontalScrollIndicator = NO;
     tableView.delegate = delegate;
     tableView.dataSource = dataSource;
+    tableView.estimatedRowHeight = 0;
+    tableView.estimatedSectionHeaderHeight = 0;
+    tableView.estimatedSectionFooterHeight = 0;
+    if ( style == UITableViewStyleGrouped ) tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0.001)];
     return tableView;
 }
 
@@ -671,9 +683,9 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight {
     if ( !backgroundColor ) backgroundColor = [UIColor clearColor];
     [btn setBackgroundColor:backgroundColor];
     if ( target ) [btn addTarget:target action:sel forControlEvents:UIControlEventTouchUpInside];
-    if ( font ) [btn.titleLabel setFont:font];
+    if ( !font ) font = [UIFont systemFontOfSize:14];
+    [btn.titleLabel setFont:font];
     if ( imageName ) [btn setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
-    btn.titleLabel.numberOfLines = 0;
     btn.tag = tag;
 }
 
@@ -792,7 +804,7 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight {
     SJRoundButton *btn = [SJRoundButton new];
     btn.cornerRadius = cornerRadius;
     btn.backgroundColor = backgroundColor;
-    [btn addTarget:target action:sel forControlEvents:UIControlEventTouchUpInside];
+    if ( target ) [btn addTarget:target action:sel forControlEvents:UIControlEventTouchUpInside];
     btn.tag = tag;
     return btn;
 }
@@ -875,11 +887,15 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight {
 
 @interface SJShapeImageView : UIImageView
 @property (nonatomic, assign, readwrite) CGFloat cornerRadius;
+@property (nonatomic, assign) BOOL finished;
 @end
 @implementation SJShapeImageView
 - (void)layoutSubviews {
     [super layoutSubviews];
-    _SJ_Round(self, _cornerRadius);
+    if ( !_finished ) {
+        _SJ_Round(self, _cornerRadius);
+        _finished = YES;
+    }
 }
 @end
 
@@ -887,6 +903,13 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight {
 
 + (UIImageView *)imageViewWithCornerRadius:(float)cornerRadius {
     return [self imageViewWithCornerRadius:cornerRadius imageName:nil];
+}
+
++ (UIImageView *)imageViewWithCornerRadius:(float)cornerRadius
+                           backgroundColor:(UIColor *)backgroundColor {
+    UIImageView *imageView = [self imageViewWithCornerRadius:cornerRadius];
+    imageView.backgroundColor = backgroundColor;
+    return imageView;
 }
 
 + (UIImageView *)imageViewWithCornerRadius:(float)cornerRadius
@@ -1054,6 +1077,15 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight {
                                             msg:(NSString *)msg
                                    photoLibrary:(void(^)(UIImage *selectedImage))photoLibraryBlock
                                          camera:(void(^)(UIImage *selectedImage))cameraBlock {
+    [self alterPickerViewControllerWithController:controller alertTitle:title msg:msg actions:nil photoLibrary:photoLibraryBlock camera:cameraBlock];
+}
+
+- (void)alterPickerViewControllerWithController:(UIViewController *)controller
+                                     alertTitle:(NSString *)title
+                                            msg:(NSString *)msg
+                                        actions:(NSArray<UIAlertAction *> *)otherActions
+                                   photoLibrary:(void(^)(UIImage *selectedImage))photoLibraryBlock
+                                         camera:(void(^)(UIImage *selectedImage))cameraBlock {
     NSMutableArray<NSString *> *titlesM = [NSMutableArray new];
     NSMutableArray<void(^)(void)> *actionsM = [NSMutableArray new];
     
@@ -1073,22 +1105,34 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight {
         }];
     }
     
-    // 相册
-    [titlesM addObject:@"相册"];
-    [actionsM addObject:^ {
-        UIImagePickerController *pickerController = [UIImagePickerController new];
-        pickerController.delegate = self;
-        pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        pickerController.didFinishPickingImageCallBlock = ^(UIImage *selectedImage) {
-            if ( photoLibraryBlock ) photoLibraryBlock(selectedImage);
-        };
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [controller presentViewController:pickerController animated:YES completion:nil];
-        });
+    if ( [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary] ) {
+        // 相册
+        [titlesM addObject:@"相册"];
+        [actionsM addObject:^ {
+            UIImagePickerController *pickerController = [UIImagePickerController new];
+            pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            pickerController.delegate = self;
+            pickerController.didFinishPickingImageCallBlock = ^(UIImage *selectedImage) {
+                if ( photoLibraryBlock ) photoLibraryBlock(selectedImage);
+            };
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [controller presentViewController:pickerController animated:YES completion:nil];
+            });
+        }];
+    }
+    
+    
+    if ( 0 == titlesM.count ) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"无法访问相册, 请确认是否授权!" preferredStyle:UIAlertControllerStyleAlert];
+        [controller presentViewController:alertController animated:YES completion:nil];
+        return;
+    }
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle: 0 == title.length ? nil : title message:0 == msg.length ? nil : msg preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    [otherActions enumerateObjectsUsingBlock:^(UIAlertAction * _Nonnull action, NSUInteger idx, BOOL * _Nonnull stop) {
+        [alertController addAction:action];
     }];
-    
-    
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleActionSheet];
     
     // actions
     [titlesM enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -1120,6 +1164,7 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight {
 }
 
 #pragma mark Image Picker Controller Delegate Methods
+
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     [picker dismissViewControllerAnimated:YES completion:^{
         UIImage *imageOriginal = [info objectForKey:UIImagePickerControllerOriginalImage];

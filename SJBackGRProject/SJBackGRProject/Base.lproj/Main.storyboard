@@ -44,7 +44,7 @@
         <!--Navigation Controller-->
         <scene sceneID="YkA-ME-Z4u">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LjD-BP-vdg" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LjD-BP-vdg" customClass="NavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="l02-23-3eI">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>

@@ -32,6 +32,8 @@
 
 @property (nonatomic, strong, readonly) UIView *testPanBackgroundView;
 
+@property (nonatomic, strong, readonly) UIView *testOtherGestureView;
+
 @end
 
 @implementation NextViewController
@@ -42,6 +44,7 @@
 @synthesize testPanBackgroundView = _testPanBackgroundView;
 @synthesize disableBtn = _disableBtn;
 @synthesize albumBtn = _albumBtn;
+@synthesize testOtherGestureView = _testOtherGestureView;
 
 - (void)dealloc {
     NSLog(@"%s - %zd", __func__, __LINE__);
@@ -70,6 +73,8 @@
     self.testPanBackgroundView.frame = CGRectMake(self.view.frame.size.width * 0.5, 130, 100, 100);
     [self.view addSubview:self.testPanBackgroundView];
     
+    self.testOtherGestureView.frame = CGRectMake(self.view.frame.size.width * 0.5, 250, 100, 100);
+    [self.view addSubview:self.testOtherGestureView];
     
     self.pushBtn = [UIButton new];
     [_pushBtn setTitle:@"Push" forState:UIControlStateNormal];
@@ -80,6 +85,8 @@
     _pushBtn.center = self.view.center;
     [_pushBtn sizeToFit];
     
+    
+    #pragma mark -
     
     self.sj_viewWillBeginDragging = ^(UIViewController *vc) {
 //        NSLog(@"begin");
@@ -93,6 +100,8 @@
     self.sj_viewDidEndDragging = ^(UIViewController *vc) {
 //        NSLog(@"end");
     };
+    
+    #pragma mark -
     
     self.modalBtn = [UIButton new];
     [_modalBtn setTitle:@"Modal" forState:UIControlStateNormal];
@@ -125,15 +134,11 @@
     frame.origin.y += 30;
     _albumBtn.frame = frame;
     [_albumBtn sizeToFit];
-
-//    self.sj_viewWillBeginDragging = ^(NextViewController *vc) {
-//        vc.backgroundScrollView.scrollEnabled = NO;
-//    };
-//    
-//    self.sj_viewDidEndDragging = ^(NextViewController *vc) {
-//        vc.backgroundScrollView.scrollEnabled = YES;
-//    };
     
+    
+    
+    
+    #pragma mark - Fade Area
     
     UIView *testFadeAreaView = [UIView new];
     testFadeAreaView.frame = CGRectMake(200, 20, 100, 50);
@@ -143,8 +148,10 @@
     [tipsLabel sizeToFit];
     [testFadeAreaView addSubview:tipsLabel];
     [self.view addSubview:testFadeAreaView];
+
 //    self.sj_fadeArea = @[@(_pushBtn.frame), @(testFadeAreaView.frame)];
     self.sj_fadeAreaViews = @[testFadeAreaView];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -202,7 +209,7 @@
     }];
 }
 
-#pragma mark - Mode
+#pragma mark - Views
 
 - (UIButton *)popToRootVCBtn {
     if ( _popToRootVCBtn ) return _popToRootVCBtn;
@@ -280,7 +287,23 @@
 }
 
 - (void)handleTestPan:(UIPanGestureRecognizer *)pan {
-//    NSLog(@"%zd - %s", __LINE__, __func__);
+    NSLog(@"%zd - %s", __LINE__, __func__);
+}
+
+- (UIView *)testOtherGestureView {
+    if ( _testOtherGestureView ) return _testOtherGestureView;
+    _testOtherGestureView = [UIView new];
+    _testOtherGestureView.backgroundColor = [UIColor colorWithRed:1.0 * (arc4random() % 256 / 255.0)
+                                                            green:1.0 * (arc4random() % 256 / 255.0)
+                                                             blue:1.0 * (arc4random() % 256 / 255.0)
+                                                            alpha:1];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTestTap:)];
+    [_testOtherGestureView addGestureRecognizer:tap];
+    return _testOtherGestureView;
+}
+
+- (void)handleTestTap:(UITapGestureRecognizer *)tap {
+    NSLog(@"%zd - %s", __LINE__, __func__);
 }
 
 @end
