@@ -41,7 +41,7 @@
 }
 
 - (void)SJ_presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion {
-    SJ_updateScreenshot();
+    if ( ![viewControllerToPresent isKindOfClass:[UIAlertController class]] ) SJ_updateScreenshot();
     [self SJ_presentViewController:viewControllerToPresent animated:flag completion:completion];
 }
 
@@ -451,4 +451,3 @@ static inline void SJ_updateScreenshot() {
 }
 
 @end
-
