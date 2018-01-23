@@ -13,14 +13,6 @@
 #import <WebKit/WebKit.h>
 
 // MARK: UIViewController
-@interface UINavigationController (SJExtension)<UINavigationControllerDelegate>
-
-@property (nonatomic, assign, readwrite) BOOL SJ_tookOver;
-
-- (void)SJ_updateScreenshot;
-
-@end
-
 
 @interface UIViewController (SJExtension)
 
@@ -49,20 +41,18 @@
 }
 
 - (void)SJ_presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion {
-    if ( [viewControllerToPresent isKindOfClass:[UINavigationController class]] ) {
-        [self.navigationController SJ_updateScreenshot];
-    }
+    SJ_updateScreenshot();
     [self SJ_presentViewController:viewControllerToPresent animated:flag completion:completion];
 }
 
 - (void)SJ_dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion {
     if ( [self isKindOfClass:[UINavigationController class]] &&
          self.presentingViewController ) {
-        [self SJ_dumpingScreenshotWithNum:(NSInteger)self.childViewControllers.count];
+        [self SJ_dumpingScreenshotWithNum:(NSInteger)self.childViewControllers.count + 1];
     }
-    else if ( self.presentingViewController &&
-              0 != self.navigationController.childViewControllers ) {
-        [self SJ_dumpingScreenshotWithNum:(NSInteger)self.navigationController.childViewControllers.count];
+    else if ( self.navigationController &&
+              self.presentingViewController ) {
+        [self SJ_dumpingScreenshotWithNum:(NSInteger)self.navigationController.childViewControllers.count + 1];
     }
     
     // call origin method
@@ -100,6 +90,13 @@ static NSMutableArray<UIView *> * SJ_snapshotsM;
     return SJ_snapshotsM;
 }
 
+static UIWindow *SJ_window;
+static inline void SJ_updateScreenshot() {
+    if ( !SJ_window ) SJ_window = [(id)[UIApplication sharedApplication].delegate valueForKey:@"window"];
+    UIView *view = [SJ_window snapshotViewAfterScreenUpdates:NO];
+    if ( view ) [UIViewController.SJ_snapshotsM addObject:view];
+}
+
 @end
 
 
@@ -109,6 +106,12 @@ static NSMutableArray<UIView *> * SJ_snapshotsM;
 @interface UINavigationController (SJVideoPlayerAdd)<UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong, readonly) UIPanGestureRecognizer *SJ_pan;
+
+@end
+
+@interface UINavigationController (SJExtension)<UINavigationControllerDelegate>
+
+@property (nonatomic, assign, readwrite) BOOL SJ_tookOver;
 
 @end
 
@@ -173,7 +176,7 @@ static NSMutableArray<UIView *> * SJ_snapshotsM;
 - (void)SJ_pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
     if ( self.interactivePopGestureRecognizer &&
         !self.SJ_tookOver ) [self SJ_navSettings];
-    [self SJ_updateScreenshot];
+    SJ_updateScreenshot();
     [self SJ_pushViewController:viewController animated:animated]; // note: If Crash, please confirm that `viewController 'is ` UIViewController'(`UINavigationController` cannot be pushed).
 }
 
@@ -207,17 +210,6 @@ static NSMutableArray<UIView *> * SJ_snapshotsM;
     return [objc_getAssociatedObject(self, _cmd) boolValue];
 }
 
-static UIWindow *SJ_window;
-- (void)SJ_updateScreenshot {
-    if ( !SJ_window ) {
-        SJ_window = [(id)[UIApplication sharedApplication].delegate valueForKey:@"window"];
-    }
-    
-    if ( 0 == self.childViewControllers.count ) return;
-    UIView *view = [SJ_window snapshotViewAfterScreenUpdates:NO];
-    // add to container
-    if ( view ) [self.SJ_snapshotsM addObject:view];
-}
 @end
 
 
