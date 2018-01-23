@@ -14,6 +14,7 @@
 		772D239C200B7B3A00E332B9 /* ex1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 772D239B200B7B3A00E332B9 /* ex1.gif */; };
 		779177821FC539C100E2AFF7 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 779177811FC539C100E2AFF7 /* README.md */; };
 		779177851FC53F6D00E2AFF7 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 779177841FC53F6D00E2AFF7 /* NavigationController.m */; };
+		77BF683A2016F3DD0040AAC3 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77BF68392016F3DD0040AAC3 /* WebViewController.m */; };
 		77D9B7681F7E941A00E35746 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D9B7671F7E941A00E35746 /* main.m */; };
 		77D9B76B1F7E941A00E35746 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D9B76A1F7E941A00E35746 /* AppDelegate.m */; };
 		77D9B76E1F7E941A00E35746 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D9B76D1F7E941A00E35746 /* ViewController.m */; };
@@ -39,6 +40,8 @@
 		779177831FC53F6D00E2AFF7 /* NavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		779177841FC53F6D00E2AFF7 /* NavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
 		77A7162A2012EF1A00278C95 /* SJScreenshotTransitionMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SJScreenshotTransitionMode.h; sourceTree = "<group>"; };
+		77BF68382016F3DD0040AAC3 /* WebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		77BF68392016F3DD0040AAC3 /* WebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		77D9B7631F7E941A00E35746 /* SJBackGRProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SJBackGRProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77D9B7671F7E941A00E35746 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		77D9B7691F7E941A00E35746 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -105,6 +108,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		77BF68372016F3D10040AAC3 /* WebTest */ = {
+			isa = PBXGroup;
+			children = (
+				77BF68382016F3DD0040AAC3 /* WebViewController.h */,
+				77BF68392016F3DD0040AAC3 /* WebViewController.m */,
+			);
+			path = WebTest;
+			sourceTree = "<group>";
+		};
 		77D9B75A1F7E941A00E35746 = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +144,7 @@
 				77D9B76A1F7E941A00E35746 /* AppDelegate.m */,
 				771FFBB91F7E94B40076EEB0 /* Test */,
 				7706E1301FF78E8E006E0B56 /* Test2 */,
+				77BF68372016F3D10040AAC3 /* WebTest */,
 				77D9B77D1F7E944100E35746 /* SJFullscreenPopGesture */,
 				77D9B76C1F7E941A00E35746 /* ViewController.h */,
 				77D9B76D1F7E941A00E35746 /* ViewController.m */,
@@ -314,6 +327,7 @@
 			files = (
 				77D9B7851F7E944100E35746 /* UINavigationController+SJVideoPlayerAdd.m in Sources */,
 				771FFBC01F7E94C70076EEB0 /* NoNavViewController.m in Sources */,
+				77BF683A2016F3DD0040AAC3 /* WebViewController.m in Sources */,
 				77D9B76E1F7E941A00E35746 /* ViewController.m in Sources */,
 				779177851FC53F6D00E2AFF7 /* NavigationController.m in Sources */,
 				77D9B7861F7E944100E35746 /* UIViewController+SJVideoPlayerAdd.m in Sources */,

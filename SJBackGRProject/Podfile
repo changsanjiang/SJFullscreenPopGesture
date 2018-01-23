@@ -9,4 +9,5 @@ target 'SJBackGRProject' do
   pod 'SJObserverHelper'
   pod 'SJUIFactory'
   pod 'SJTransitionAnimator'
+  pod 'Masonry'
 end

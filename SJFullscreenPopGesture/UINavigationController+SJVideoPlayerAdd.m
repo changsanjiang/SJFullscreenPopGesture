@@ -10,18 +10,22 @@
 #import <objc/message.h>
 #import "UIViewController+SJVideoPlayerAdd.h"
 #import "SJScreenshotView.h"
-
-// MARK:
-
-static SJScreenshotView *SJ_screenshotView;
-static NSMutableArray<UIImage *> * SJ_screenshotImagesM;
+#import <WebKit/WebKit.h>
 
 // MARK: UIViewController
+@interface UINavigationController (SJExtension)<UINavigationControllerDelegate>
+
+@property (nonatomic, assign, readwrite) BOOL SJ_tookOver;
+
+- (void)SJ_updateScreenshot;
+
+@end
+
 
 @interface UIViewController (SJExtension)
 
 @property (nonatomic, strong, readonly) SJScreenshotView *SJ_screenshotView;
-@property (nonatomic, strong, readonly) NSMutableArray<UIImage *> * SJ_screenshotImagesM;
+@property (nonatomic, strong, readonly) NSMutableArray<UIView *> * SJ_snapshotsM;
 
 @end
 
@@ -32,20 +36,31 @@ static NSMutableArray<UIImage *> * SJ_screenshotImagesM;
     dispatch_once(&onceToken, ^{
         Class vc = [self class];
         
+        // present
+        Method presentViewController = class_getInstanceMethod(vc, @selector(presentViewController:animated:completion:));
+        Method SJ_presentViewController = class_getInstanceMethod(vc, @selector(SJ_presentViewController:animated:completion:));
+        method_exchangeImplementations(SJ_presentViewController, presentViewController);
+
         // dismiss
         Method dismissViewControllerAnimatedCompletion = class_getInstanceMethod(vc, @selector(dismissViewControllerAnimated:completion:));
         Method SJ_dismissViewControllerAnimatedCompletion = class_getInstanceMethod(vc, @selector(SJ_dismissViewControllerAnimated:completion:));
-        
         method_exchangeImplementations(SJ_dismissViewControllerAnimatedCompletion, dismissViewControllerAnimatedCompletion);
     });
 }
 
-- (void)SJ_dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion {
-    if ( [self isKindOfClass:[UIImagePickerController class]] ) { /// nav
-        [self SJ_dumpingScreenshotWithNum:(NSInteger)self.childViewControllers.count - 1];
+- (void)SJ_presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion {
+    if ( [viewControllerToPresent isKindOfClass:[UINavigationController class]] ) {
+        [self.navigationController SJ_updateScreenshot];
     }
-    else if ( self.navigationController &&
-              self.presentingViewController &&
+    [self SJ_presentViewController:viewControllerToPresent animated:flag completion:completion];
+}
+
+- (void)SJ_dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion {
+    if ( [self isKindOfClass:[UINavigationController class]] &&
+         self.presentingViewController ) {
+        [self SJ_dumpingScreenshotWithNum:(NSInteger)self.childViewControllers.count];
+    }
+    else if ( self.presentingViewController &&
               0 != self.navigationController.childViewControllers ) {
         [self SJ_dumpingScreenshotWithNum:(NSInteger)self.navigationController.childViewControllers.count];
     }
@@ -54,34 +69,20 @@ static NSMutableArray<UIImage *> * SJ_screenshotImagesM;
     [self SJ_dismissViewControllerAnimated:flag completion:completion];
 }
 
-static UIWindow *SJ_window;
-- (void)SJ_updateScreenshot {
-    if ( !SJ_window ) {
-        SJ_window = [(id)[UIApplication sharedApplication].delegate valueForKey:@"window"];
-        NSAssert(SJ_window, @"Window was not found and cannot continue!");
-    }
-    UIGraphicsBeginImageContextWithOptions(SJ_window.bounds.size, YES, 0);
-    [SJ_window drawViewHierarchyInRect:SJ_window.bounds afterScreenUpdates:NO];
-    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    // add to container
-    [self.SJ_screenshotImagesM addObject:viewImage];
-}
-
 - (void)SJ_dumpingScreenshotWithNum:(NSInteger)num {
-    if ( num <= 0 || num >= self.SJ_screenshotImagesM.count ) return;
-    [self.SJ_screenshotImagesM removeObjectsInRange:NSMakeRange(self.SJ_screenshotImagesM.count - num, num)];
+    if ( num <= 0 || num >= self.SJ_snapshotsM.count ) return;
+    [self.SJ_snapshotsM removeObjectsInRange:NSMakeRange(self.SJ_snapshotsM.count - num, num)];
 }
 
 - (SJScreenshotView *)SJ_screenshotView {
     return [[self class] SJ_screenshotView];
 }
 
-- (NSMutableArray<UIImage *> *)SJ_screenshotImagesM {
-    return [[self class] SJ_screenshotImagesM];
+- (NSMutableArray<UIView *> *)SJ_snapshotsM {
+    return [[self class] SJ_snapshotsM];
 }
 
+static SJScreenshotView *SJ_screenshotView;
 + (SJScreenshotView *)SJ_screenshotView {
     if ( SJ_screenshotView ) return SJ_screenshotView;
     SJ_screenshotView = [SJScreenshotView new];
@@ -92,10 +93,11 @@ static UIWindow *SJ_window;
     return SJ_screenshotView;
 }
 
-+ (NSMutableArray<UIImage *> *)SJ_screenshotImagesM {
-    if ( SJ_screenshotImagesM ) return SJ_screenshotImagesM;
-    SJ_screenshotImagesM = [NSMutableArray array];
-    return SJ_screenshotImagesM;
+static NSMutableArray<UIView *> * SJ_snapshotsM;
++ (NSMutableArray<UIView *> *)SJ_snapshotsM {
+    if ( SJ_snapshotsM ) return SJ_snapshotsM;
+    SJ_snapshotsM = [NSMutableArray array];
+    return SJ_snapshotsM;
 }
 
 @end
@@ -103,12 +105,6 @@ static UIWindow *SJ_window;
 
 
 // MARK: UINavigationController
-@interface UINavigationController (SJExtension)<UINavigationControllerDelegate>
-
-@property (nonatomic, assign, readwrite) BOOL SJ_tookOver;
-
-@end
-
 
 @interface UINavigationController (SJVideoPlayerAdd)<UIGestureRecognizerDelegate>
 
@@ -211,6 +207,17 @@ static UIWindow *SJ_window;
     return [objc_getAssociatedObject(self, _cmd) boolValue];
 }
 
+static UIWindow *SJ_window;
+- (void)SJ_updateScreenshot {
+    if ( !SJ_window ) {
+        SJ_window = [(id)[UIApplication sharedApplication].delegate valueForKey:@"window"];
+    }
+    
+    if ( 0 == self.childViewControllers.count ) return;
+    UIView *view = [SJ_window snapshotViewAfterScreenUpdates:NO];
+    // add to container
+    if ( view ) [self.SJ_snapshotsM addObject:view];
+}
 @end
 
 
@@ -231,37 +238,13 @@ static UIWindow *SJ_window;
     return SJ_pan;
 }
 
-- (BOOL)SJ_isFadeAreaWithPoint:(CGPoint)point {
-    __block BOOL isFadeArea = NO;
-    UIView *view = self.topViewController.view;
-    if ( 0 != self.topViewController.sj_fadeArea ) {
-        [self.topViewController.sj_fadeArea enumerateObjectsUsingBlock:^(NSValue * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            CGRect rect = [obj CGRectValue];
-            if ( !self.isNavigationBarHidden ) rect = [self.view convertRect:rect fromView:view];
-            if ( !CGRectContainsPoint(rect, point) ) return ;
-            isFadeArea = YES;
-            *stop = YES;
-        }];
-    }
-    
-    if ( !isFadeArea &&
-         0 != self.topViewController.sj_fadeAreaViews.count ) {
-        [self.topViewController.sj_fadeAreaViews enumerateObjectsUsingBlock:^(UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            CGRect rect = obj.frame;
-            if ( !self.isNavigationBarHidden ) rect = [self.view convertRect:rect fromView:view];
-            if ( !CGRectContainsPoint(rect, point) ) return ;
-            isFadeArea = YES;
-            *stop = YES;
-        }];
-    }
-    return isFadeArea;
-}
+#pragma mark -
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
     if ( self.topViewController.sj_DisableGestures ||
          self.childViewControllers.count <= 1 ||
-         [[self valueForKey:@"_isTransitioning"] boolValue] ) return NO;
-    return YES;
+        [[self valueForKey:@"_isTransitioning"] boolValue] ) return NO;
+    else return YES;
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)gestureRecognizer {
@@ -283,6 +266,34 @@ static UIWindow *SJ_window;
     }
     else if ( [otherGestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]] ) return NO;
     else return YES;
+}
+
+#pragma mark -
+
+- (BOOL)SJ_isFadeAreaWithPoint:(CGPoint)point {
+    __block BOOL isFadeArea = NO;
+    UIView *view = self.topViewController.view;
+    if ( 0 != self.topViewController.sj_fadeArea.count ) {
+        [self.topViewController.sj_fadeArea enumerateObjectsUsingBlock:^(NSValue * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            CGRect rect = [obj CGRectValue];
+            if ( !self.isNavigationBarHidden ) rect = [self.view convertRect:rect fromView:view];
+            if ( !CGRectContainsPoint(rect, point) ) return ;
+            isFadeArea = YES;
+            *stop = YES;
+        }];
+    }
+    
+    if ( !isFadeArea &&
+         0 != self.topViewController.sj_fadeAreaViews.count ) {
+        [self.topViewController.sj_fadeAreaViews enumerateObjectsUsingBlock:^(UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            CGRect rect = obj.frame;
+            if ( !self.isNavigationBarHidden ) rect = [self.view convertRect:rect fromView:view];
+            if ( !CGRectContainsPoint(rect, point) ) return ;
+            isFadeArea = YES;
+            *stop = YES;
+        }];
+    }
+    return isFadeArea;
 }
 
 - (BOOL)SJ_considerScrollView:(UIScrollView *)subScrollView gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer otherGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
@@ -360,8 +371,7 @@ static UIWindow *SJ_window;
     }];
     
     self.SJ_screenshotView.hidden = NO;
-    [self.SJ_screenshotView setImage:self.SJ_screenshotImagesM.lastObject];
-    [self.SJ_screenshotView beginTransition];
+    [self.SJ_screenshotView beginTransitionWithSnapshot:self.SJ_snapshotsM.lastObject];
     if ( self.topViewController.sj_viewWillBeginDragging ) self.topViewController.sj_viewWillBeginDragging(self.topViewController);
 }
 
@@ -444,4 +454,3 @@ static UIWindow *SJ_window;
 }
 
 @end
-

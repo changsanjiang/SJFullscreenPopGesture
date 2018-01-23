@@ -12,6 +12,7 @@
 #import "UINavigationController+SJVideoPlayerAdd.h"
 #import <SJTransitionAnimator.h>
 #import "SJTest2ViewController.h"
+#import "WebViewController.h"
 
 @interface ViewController ()
 
@@ -69,5 +70,9 @@
     [self presentViewController:nav animated:YES completion:nil];
 }
 
+- (IBAction)webClicked:(id)sender {
+    WebViewController *vc = [WebViewController new];
+    [self.navigationController pushViewController:vc animated:YES];
+}
 
 @end

@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -22,17 +23,26 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AEb-Os-sMu">
-                                <rect key="frame" x="168" y="540" width="38" height="30"/>
+                                <rect key="frame" x="168" y="485.5" width="38" height="30"/>
                                 <state key="normal" title="Test2"/>
                                 <connections>
                                     <action selector="test2Clicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HUX-Bc-BM2"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3ql-wO-ZWR">
+                                <rect key="frame" x="172" y="523" width="31" height="30"/>
+                                <state key="normal" title="Web"/>
+                                <connections>
+                                    <action selector="webClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pL3-vU-KUb"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="3ql-wO-ZWR" firstAttribute="top" secondItem="AEb-Os-sMu" secondAttribute="bottom" constant="7.5" id="PmZ-PJ-WBC"/>
+                            <constraint firstItem="3ql-wO-ZWR" firstAttribute="centerX" secondItem="AEb-Os-sMu" secondAttribute="centerX" id="Wsb-OE-9jU"/>
                             <constraint firstItem="AEb-Os-sMu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="h68-DD-sL9"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="AEb-Os-sMu" secondAttribute="bottom" constant="97" id="qyP-Lr-zGG"/>
+                            <constraint firstItem="AEb-Os-sMu" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="1.5" id="vJT-eJ-nTy"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="aph-3t-N6b"/>

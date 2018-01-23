@@ -1,4 +1,5 @@
 PODS:
+  - Masonry (1.1.0)
   - SJAttributesFactory (1.1.14)
   - SJLabel (1.2.2):
     - SJAttributesFactory
@@ -14,17 +15,19 @@ PODS:
     - SJLabel
 
 DEPENDENCIES:
+  - Masonry
   - SJObserverHelper
   - SJTransitionAnimator
   - SJUIFactory
 
 SPEC CHECKSUMS:
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   SJAttributesFactory: 10af803585a072a7d6273b87cb12f729f15b89a6
   SJLabel: 52b603aa4ff3c74ceebb4e85a299fc416d5f4660
   SJObserverHelper: b270d707cd18ab76538596aa4e98cf798c9e9868
   SJTransitionAnimator: 531f43f1bf883e210f7392da79fab4d39753eec1
   SJUIFactory: c7b06279d970a829d049cd3e31fa99506dacaffe
 
-PODFILE CHECKSUM: b05e1bed0ea5988b5d92ca9f0c7ebc4c7e240950
+PODFILE CHECKSUM: dab7e94dbaeaed144f0c3335afd0a99aa479c068
 
 COCOAPODS: 1.4.0
