@@ -54,6 +54,9 @@
               self.presentingViewController ) {
         [self SJ_dumpingScreenshotWithNum:(NSInteger)self.navigationController.childViewControllers.count + 1];
     }
+    else if ( self.presentingViewController ) {
+        [self SJ_dumpingScreenshotWithNum:1];
+    }
     
     // call origin method
     [self SJ_dismissViewControllerAnimated:flag completion:completion];
@@ -448,3 +451,4 @@ static inline void SJ_updateScreenshot() {
 }
 
 @end
+

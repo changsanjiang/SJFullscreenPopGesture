@@ -11,6 +11,7 @@
 #import "UIViewController+SJVideoPlayerAdd.h"
 #import "NavigationController.h"
 #import <SJUIFactory.h>
+#import "NoNavViewController.h"
 
 @interface NextViewController ()
 
@@ -170,9 +171,8 @@
 }
 
 - (void)presentNextVC {
-    NextViewController *vc = [NextViewController new];
-    NavigationController *nav = [[NavigationController alloc] initWithRootViewController:vc];
-    [self presentViewController:nav animated:YES completion:nil];
+    NoNavViewController *vc = [NoNavViewController new];
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 - (void)clickedCloseItem {
