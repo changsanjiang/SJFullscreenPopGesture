@@ -376,8 +376,10 @@ static UIWindow *SJ_window;
 }
 
 - (void)SJ_ViewDidDrag:(CGFloat)offset {
-    self.view.transform = CGAffineTransformMakeTranslation(offset, 0);
-    [self.SJ_screenshotView transitioningWithOffset:offset];
+    [UIView animateWithDuration:0.1 animations:^{
+        self.view.transform = CGAffineTransformMakeTranslation(offset, 0);
+        [self.SJ_screenshotView transitioningWithOffset:offset];
+    }];
     if ( self.topViewController.sj_viewDidDrag ) self.topViewController.sj_viewDidDrag(self.topViewController);
 }
 

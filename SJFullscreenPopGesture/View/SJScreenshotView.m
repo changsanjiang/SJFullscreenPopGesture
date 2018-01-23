@@ -76,8 +76,15 @@
 - (void)reset {
     self.transform = CGAffineTransformMakeTranslation( self.shift, 0 );
     CGFloat width = self.frame.size.width;
-    _shadeView.transform = CGAffineTransformMakeTranslation( - (self.shift + width), 0 );
-    _shadeView.alpha = 1;
+    
+    switch ( _transitionMode ) {
+        case SJScreenshotTransitionModeShifting: break;
+        case SJScreenshotTransitionModeShadeAndShifting: {
+            _shadeView.transform = CGAffineTransformMakeTranslation( - (self.shift + width), 0 );
+            _shadeView.alpha = 1;
+        }
+            break;
+    }
 }
 
 - (void)finishedTransition {
