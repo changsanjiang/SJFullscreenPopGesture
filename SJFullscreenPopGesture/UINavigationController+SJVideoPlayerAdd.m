@@ -240,8 +240,9 @@ static inline void SJ_updateScreenshot() {
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
     if ( self.topViewController.sj_DisableGestures ||
-         self.childViewControllers.count <= 1 ||
-        [[self valueForKey:@"_isTransitioning"] boolValue] ) return NO;
+         [[self valueForKey:@"_isTransitioning"] boolValue] ||
+         [self.topViewController.sj_considerWebView canGoBack] ) return NO;
+    else if ( self.childViewControllers.count <= 1 ) return NO;
     else return YES;
 }
 
