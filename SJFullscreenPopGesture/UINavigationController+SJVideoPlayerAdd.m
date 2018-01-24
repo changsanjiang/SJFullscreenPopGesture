@@ -54,10 +54,13 @@
               self.presentingViewController ) {
         [self SJ_dumpingScreenshotWithNum:(NSInteger)self.navigationController.childViewControllers.count + 1];
     }
-    else if ( self.presentingViewController ) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    else if ( ![self.modalViewController isKindOfClass:[UIAlertController class]] ) {
         [self SJ_dumpingScreenshotWithNum:1];
     }
-    
+#pragma clang diagnostic pop
+
     // call origin method
     [self SJ_dismissViewControllerAnimated:flag completion:completion];
 }
