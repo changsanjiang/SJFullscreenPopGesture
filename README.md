@@ -14,9 +14,10 @@ pod 'SJFullscreenPopGesture'
 - WKWebView.
 
 ### Example
-Please wait for the example load, or download the project directly.</br>
-<img src="https://github.com/changsanjiang/SJVideoPlayerBackGR/blob/master/SJBackGRProject/SJBackGRProject/ex2.gif" /> 
-<img src="https://github.com/changsanjiang/SJVideoPlayerBackGR/blob/master/SJBackGRProject/SJBackGRProject/ex1.gif" />
+<img src="https://github.com/changsanjiang/SJVideoPlayerBackGR/blob/master/SJBackGRProject/SJBackGRProject/ex2.gif" />
+ <img src="https://github.com/changsanjiang/SJVideoPlayerBackGR/blob/master/SJBackGRProject/SJBackGRProject/ex1.gif" />    
+
+Please wait for the example load, or download the project directly.
 
 ### Disable 
 ```Objective-C
