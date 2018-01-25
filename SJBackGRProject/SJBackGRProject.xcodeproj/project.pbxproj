@@ -113,7 +113,6 @@
 		77BF68372016F3D10040AAC3 /* WebTest */ = {
 			isa = PBXGroup;
 			children = (
-				775A29FF201974E100327470 /* ex2.gif */,
 				77BF68382016F3DD0040AAC3 /* WebViewController.h */,
 				77BF68392016F3DD0040AAC3 /* WebViewController.m */,
 			);
@@ -152,6 +151,7 @@
 				77D9B76C1F7E941A00E35746 /* ViewController.h */,
 				77D9B76D1F7E941A00E35746 /* ViewController.m */,
 				772D239B200B7B3A00E332B9 /* ex1.gif */,
+				775A29FF201974E100327470 /* ex2.gif */,
 				77D9B76F1F7E941A00E35746 /* Main.storyboard */,
 				77D9B7721F7E941A00E35746 /* Assets.xcassets */,
 				77D9B7741F7E941A00E35746 /* LaunchScreen.storyboard */,

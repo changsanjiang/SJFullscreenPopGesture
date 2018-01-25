@@ -15,6 +15,7 @@ pod 'SJFullscreenPopGesture'
 
 ### Example
 Please wait for the example load, or download the project directly.
+
 <img src="https://github.com/changsanjiang/SJVideoPlayerBackGR/blob/master/SJBackGRProject/SJBackGRProject/ex2.gif" /> <img src="https://github.com/changsanjiang/SJVideoPlayerBackGR/blob/master/SJBackGRProject/SJBackGRProject/ex1.gif" />
 
 ### Disable 
