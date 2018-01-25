@@ -11,12 +11,11 @@ pod 'SJFullscreenPopGesture'
 - Fullscreen Pop Gesture. Gestures are perfectly handled in UIScrollView And UIPageViewController.
 - Fade Area. The specified area does not trigger gestures. It does not affect other ViewControllers.
 - Disable Gesture. Designate ViewController disable pop gesture. It does not affect other ViewControllers.
-
+- WKWebView.
 
 ### Example
 Please wait for the example load, or download the project directly.
-
-<img src="https://github.com/changsanjiang/SJVideoPlayerBackGR/blob/master/SJBackGRProject/SJBackGRProject/ex1.gif" />
+<img src="https://github.com/changsanjiang/SJVideoPlayerBackGR/blob/master/SJBackGRProject/SJBackGRProject/ex2.gif" /> <img src="https://github.com/changsanjiang/SJVideoPlayerBackGR/blob/master/SJBackGRProject/SJBackGRProject/ex1.gif" />
 
 ### Disable 
 ```Objective-C
@@ -26,6 +25,16 @@ Please wait for the example load, or download the project directly.
     [super viewDidLoad];
     
     self.sj_DisableGestures = YES; // 如果想在某个页面禁用全屏手势, 可以这样做. 不影响其他页面. 离开页面时, 也无需恢复.
+}
+```
+
+### WKWebView
+```Objective-C
+#import "UIViewController+SJVideoPlayerAdd.h"
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // when this property is set, will be enabled system gesture to back last web page, until it can't go back.
+    self.sj_considerWebView = self.webView;
 }
 ```
 
@@ -49,7 +58,7 @@ Please wait for the example load, or download the project directly.
 
 /*!
  *  Consider `webview`.
- *  when this property if set, will be enabled system gesture to back last web page, until it can't go back.
+ *  when this property is set, will be enabled system gesture to back last web page, until it can't go back.
  *
  *  考虑`webview`. 当设置此属性后, 将会`启用手势返回上一个网页`.
  **/

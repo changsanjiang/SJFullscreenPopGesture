@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /*!
  *  Consider `webview`.
- *  when this property if set, will be enabled system gesture to back last web page, until it can't go back.
+ *  when this property is set, will be enabled system gesture to back last web page, until it can't go back.
  *
  *  考虑`webview`. 当设置此属性后, 将会`启用手势返回上一个网页`.
  **/

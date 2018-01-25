@@ -12,6 +12,7 @@
 		771FFBBF1F7E94C40076EEB0 /* NextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 771FFBBB1F7E94B40076EEB0 /* NextViewController.m */; };
 		771FFBC01F7E94C70076EEB0 /* NoNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 771FFBBD1F7E94B40076EEB0 /* NoNavViewController.m */; };
 		772D239C200B7B3A00E332B9 /* ex1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 772D239B200B7B3A00E332B9 /* ex1.gif */; };
+		775A2A00201974E100327470 /* ex2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 775A29FF201974E100327470 /* ex2.gif */; };
 		779177821FC539C100E2AFF7 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 779177811FC539C100E2AFF7 /* README.md */; };
 		779177851FC53F6D00E2AFF7 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 779177841FC53F6D00E2AFF7 /* NavigationController.m */; };
 		77BF683A2016F3DD0040AAC3 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77BF68392016F3DD0040AAC3 /* WebViewController.m */; };
@@ -36,6 +37,7 @@
 		771FFBBC1F7E94B40076EEB0 /* NoNavViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoNavViewController.h; sourceTree = "<group>"; };
 		771FFBBD1F7E94B40076EEB0 /* NoNavViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoNavViewController.m; sourceTree = "<group>"; };
 		772D239B200B7B3A00E332B9 /* ex1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ex1.gif; sourceTree = "<group>"; };
+		775A29FF201974E100327470 /* ex2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ex2.gif; sourceTree = "<group>"; };
 		779177811FC539C100E2AFF7 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		779177831FC53F6D00E2AFF7 /* NavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		779177841FC53F6D00E2AFF7 /* NavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 		77BF68372016F3D10040AAC3 /* WebTest */ = {
 			isa = PBXGroup;
 			children = (
+				775A29FF201974E100327470 /* ex2.gif */,
 				77BF68382016F3DD0040AAC3 /* WebViewController.h */,
 				77BF68392016F3DD0040AAC3 /* WebViewController.m */,
 			);
@@ -259,6 +262,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				77DB5340200384A800A6AD9F /* SJFullscreenPopGesture.podspec in Resources */,
+				775A2A00201974E100327470 /* ex2.gif in Resources */,
 				77D9B7761F7E941A00E35746 /* LaunchScreen.storyboard in Resources */,
 				77D9B7731F7E941A00E35746 /* Assets.xcassets in Resources */,
 				779177821FC539C100E2AFF7 /* README.md in Resources */,
