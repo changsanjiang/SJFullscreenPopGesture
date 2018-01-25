@@ -29,6 +29,8 @@
 
 @property (nonatomic, strong, readonly) UIButton *albumBtn;
 
+@property (nonatomic, strong, readonly) UIButton *modalBtn_NoNav;
+
 @property (nonatomic, strong, readonly) UIScrollView *backgroundScrollView;
 
 @property (nonatomic, strong, readonly) UIView *testPanBackgroundView;
@@ -46,6 +48,7 @@
 @synthesize disableBtn = _disableBtn;
 @synthesize albumBtn = _albumBtn;
 @synthesize testOtherGestureView = _testOtherGestureView;
+@synthesize modalBtn_NoNav = _modalBtn_NoNav;
 
 - (void)dealloc {
     NSLog(@"%s - %zd", __func__, __LINE__);
@@ -105,7 +108,7 @@
     #pragma mark -
     
     self.modalBtn = [UIButton new];
-    [_modalBtn setTitle:@"Modal" forState:UIControlStateNormal];
+    [_modalBtn setTitle:@"Modal_Nav" forState:UIControlStateNormal];
     [_modalBtn addTarget:self action:@selector(presentNextVC) forControlEvents:UIControlEventTouchUpInside];
     [_modalBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     [self.view addSubview:_modalBtn];
@@ -136,6 +139,10 @@
     _albumBtn.frame = frame;
     [_albumBtn sizeToFit];
     
+    [self.view addSubview:self.modalBtn_NoNav];
+    frame.origin.y += 30;
+    _modalBtn_NoNav.frame = frame;
+    [_modalBtn_NoNav sizeToFit];
     
     
     
@@ -171,8 +178,10 @@
 }
 
 - (void)presentNextVC {
-    NoNavViewController *vc = [NoNavViewController new];
-    [self presentViewController:vc animated:YES completion:nil];
+//    NoNavViewController *vc = [NoNavViewController new];
+    NextViewController * vc = [NextViewController new];
+    NavigationController *nav = [[NavigationController alloc] initWithRootViewController:vc];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (void)clickedCloseItem {
@@ -209,6 +218,10 @@
     }];
 }
 
+- (void)clickedModal_NoNavBtn:(UIButton *)btn {
+    NoNavViewController * vc = [NoNavViewController new];
+    [self presentViewController:vc animated:YES completion:nil];
+}
 #pragma mark - Views
 
 - (UIButton *)popToRootVCBtn {
@@ -246,6 +259,16 @@
     [_albumBtn addTarget:self action:@selector(clickedAlbumBtn:) forControlEvents:UIControlEventTouchUpInside];
     return _albumBtn;
 }
+
+- (UIButton *)modalBtn_NoNav {
+    if ( _modalBtn_NoNav ) return _modalBtn_NoNav;
+    _modalBtn_NoNav = [UIButton new];
+    [_modalBtn_NoNav setTitle:@"Modal_NoNav" forState:UIControlStateNormal];
+    [_modalBtn_NoNav setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [_modalBtn_NoNav addTarget:self action:@selector(clickedModal_NoNavBtn:) forControlEvents:UIControlEventTouchUpInside];
+    return _modalBtn_NoNav;
+}
+
 - (UIScrollView *)backgroundScrollView {
     if ( _backgroundScrollView ) return _backgroundScrollView;
     _backgroundScrollView = [UIScrollView new];

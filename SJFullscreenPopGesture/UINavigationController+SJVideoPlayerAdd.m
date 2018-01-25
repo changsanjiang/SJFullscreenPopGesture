@@ -46,21 +46,22 @@
 }
 
 - (void)SJ_dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion {
-    if ( [self isKindOfClass:[UINavigationController class]] &&
-         self.presentingViewController ) {
-        [self SJ_dumpingScreenshotWithNum:(NSInteger)self.childViewControllers.count + 1];
-    }
-    else if ( self.navigationController &&
-              self.presentingViewController ) {
-        [self SJ_dumpingScreenshotWithNum:(NSInteger)self.navigationController.childViewControllers.count + 1];
-    }
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    else if ( ![self.modalViewController isKindOfClass:[UIAlertController class]] ) {
-        [self SJ_dumpingScreenshotWithNum:1];
+    if ( ![self.modalViewController isKindOfClass:[UIAlertController class]] ) {
+        if ( [self isKindOfClass:[UINavigationController class]] &&
+            self.presentingViewController ) {
+            [self SJ_dumpingScreenshotWithNum:(NSInteger)self.childViewControllers.count];
+        }
+        else if ( self.navigationController &&
+                  self.presentingViewController ) { // nav.child + nav
+            [self SJ_dumpingScreenshotWithNum:(NSInteger)self.navigationController.childViewControllers.count + 1];
+        }
+        else {
+            [self SJ_dumpingScreenshotWithNum:1];
+        }
     }
 #pragma clang diagnostic pop
-
     // call origin method
     [self SJ_dismissViewControllerAnimated:flag completion:completion];
 }
