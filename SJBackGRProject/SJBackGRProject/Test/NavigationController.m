@@ -19,6 +19,7 @@
     [super viewDidLoad];
     
     self.sj_backgroundColor = [UIColor whiteColor];
+    self.sj_transitionMode = SJScreenshotTransitionModeShifting;
     
     // Do any additional setup after loading the view.
 }
