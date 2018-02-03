@@ -134,8 +134,6 @@ static inline void SJ_updateScreenshot() {
 + (void)load {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        // App launching
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(SJ_addscreenshotImageViewToWindow) name:UIApplicationDidFinishLaunchingNotification object:nil];
         
         SEL sel[] = {
             @selector(pushViewController:animated:),
@@ -157,14 +155,6 @@ static inline void SJ_updateScreenshot() {
             method_exchangeImplementations(originalMethod, swizzledMethod);
         }
     });
-}
-
-// App launching
-+ (void)SJ_addscreenshotImageViewToWindow {
-    UIWindow *window = [(id)[UIApplication sharedApplication].delegate valueForKey:@"window"];
-    NSAssert(window, @"Window was not found and cannot continue!");
-    [window insertSubview:self.SJ_screenshotView atIndex:0];
-    self.SJ_screenshotView.hidden = YES;
 }
 
 - (void)SJ_navSettings {
