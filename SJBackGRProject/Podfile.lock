@@ -7,6 +7,8 @@ PODS:
   - SJLabel/Services (1.2.2):
     - SJAttributesFactory
   - SJObserverHelper (1.0.3)
+  - SJScrollEntriesView (1.0.8):
+    - Masonry
   - SJTransitionAnimator (1.0.2)
   - SJUIFactory (0.0.12):
     - SJLabel
@@ -17,6 +19,7 @@ PODS:
 DEPENDENCIES:
   - Masonry
   - SJObserverHelper
+  - SJScrollEntriesView
   - SJTransitionAnimator
   - SJUIFactory
 
@@ -25,9 +28,10 @@ SPEC CHECKSUMS:
   SJAttributesFactory: 10af803585a072a7d6273b87cb12f729f15b89a6
   SJLabel: 52b603aa4ff3c74ceebb4e85a299fc416d5f4660
   SJObserverHelper: b270d707cd18ab76538596aa4e98cf798c9e9868
+  SJScrollEntriesView: 2875f2780574aca3b970af51180669df956ef1f7
   SJTransitionAnimator: 531f43f1bf883e210f7392da79fab4d39753eec1
   SJUIFactory: c7b06279d970a829d049cd3e31fa99506dacaffe
 
-PODFILE CHECKSUM: dab7e94dbaeaed144f0c3335afd0a99aa479c068
+PODFILE CHECKSUM: db0e481cdeda541c27e54444dadcfe78bc6330b8
 
 COCOAPODS: 1.4.0

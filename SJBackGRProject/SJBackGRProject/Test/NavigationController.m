@@ -20,6 +20,7 @@
     
     self.sj_backgroundColor = [UIColor whiteColor];
     self.sj_transitionMode = SJScreenshotTransitionModeShifting;
+//    self.sj_gestureType = SJFullscreenPopGestureType_Full;
     
     // Do any additional setup after loading the view.
 }

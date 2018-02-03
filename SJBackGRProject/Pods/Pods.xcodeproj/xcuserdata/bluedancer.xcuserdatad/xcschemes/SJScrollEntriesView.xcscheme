@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "197B43D3EC6E4582DB1306B27733B09F"
-               BuildableName = "libSJUIFactory.a"
-               BlueprintName = "SJUIFactory"
+               BlueprintIdentifier = "4CD7693FEFF4807CE3BD32FB69A938E2"
+               BuildableName = "libSJScrollEntriesView.a"
+               BlueprintName = "SJScrollEntriesView"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -47,9 +47,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "197B43D3EC6E4582DB1306B27733B09F"
-            BuildableName = "libSJUIFactory.a"
-            BlueprintName = "SJUIFactory"
+            BlueprintIdentifier = "4CD7693FEFF4807CE3BD32FB69A938E2"
+            BuildableName = "libSJScrollEntriesView.a"
+            BlueprintName = "SJScrollEntriesView"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

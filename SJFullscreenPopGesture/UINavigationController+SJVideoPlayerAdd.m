@@ -26,17 +26,21 @@
 + (void)load {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        Class vc = [self class];
+        SEL sel[] = {
+            @selector(presentViewController:animated:completion:),
+            @selector(SJ_presentViewController:animated:completion:),
+            @selector(dismissViewControllerAnimated:completion:),
+            @selector(SJ_dismissViewControllerAnimated:completion:)
+        };
         
-        // present
-        Method presentViewController = class_getInstanceMethod(vc, @selector(presentViewController:animated:completion:));
-        Method SJ_presentViewController = class_getInstanceMethod(vc, @selector(SJ_presentViewController:animated:completion:));
-        method_exchangeImplementations(SJ_presentViewController, presentViewController);
-
-        // dismiss
-        Method dismissViewControllerAnimatedCompletion = class_getInstanceMethod(vc, @selector(dismissViewControllerAnimated:completion:));
-        Method SJ_dismissViewControllerAnimatedCompletion = class_getInstanceMethod(vc, @selector(SJ_dismissViewControllerAnimated:completion:));
-        method_exchangeImplementations(SJ_dismissViewControllerAnimatedCompletion, dismissViewControllerAnimatedCompletion);
+        Class class = [self class];
+        for ( int i = 0 ; i < sizeof(sel) / sizeof(SEL) ; ++ i ) {
+            SEL originalSelector = sel[i];
+            SEL swizzledSelector = sel[++ i];
+            Method originalMethod = class_getInstanceMethod(class, originalSelector);
+            Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
+            method_exchangeImplementations(originalMethod, swizzledMethod);
+        }
     });
 }
 
@@ -54,7 +58,7 @@
             [self SJ_dumpingScreenshotWithNum:(NSInteger)self.childViewControllers.count];
         }
         else if ( self.navigationController &&
-                  self.presentingViewController ) { // nav.child + nav
+                 self.presentingViewController ) { // nav.child + nav
             [self SJ_dumpingScreenshotWithNum:(NSInteger)self.navigationController.childViewControllers.count + 1];
         }
         else {
@@ -113,6 +117,8 @@ static inline void SJ_updateScreenshot() {
 @interface UINavigationController (SJVideoPlayerAdd)<UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong, readonly) UIPanGestureRecognizer *SJ_pan;
+@property (nonatomic, strong, readonly) UIScreenEdgePanGestureRecognizer *SJ_edgePan;
+@property (nonatomic, assign, readwrite) SJFullscreenPopGestureType SJ_selectedType;
 
 @end
 
@@ -131,27 +137,25 @@ static inline void SJ_updateScreenshot() {
         // App launching
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(SJ_addscreenshotImageViewToWindow) name:UIApplicationDidFinishLaunchingNotification object:nil];
         
+        SEL sel[] = {
+            @selector(pushViewController:animated:),
+            @selector(SJ_pushViewController:animated:),
+            @selector(popViewControllerAnimated:),
+            @selector(SJ_popViewControllerAnimated:),
+            @selector(popToViewController:animated:),
+            @selector(SJ_popToViewController:animated:),
+            @selector(popToRootViewControllerAnimated:),
+            @selector(SJ_popToRootViewControllerAnimated:),
+        };
+        
         Class nav = [self class];
-        
-        // Push
-        Method pushViewControllerAnimated = class_getInstanceMethod(nav, @selector(pushViewController:animated:));
-        Method SJ_pushViewControllerAnimated = class_getInstanceMethod(nav, @selector(SJ_pushViewController:animated:));
-        method_exchangeImplementations(SJ_pushViewControllerAnimated, pushViewControllerAnimated);
-        
-        // Pop
-        Method popViewControllerAnimated = class_getInstanceMethod(nav, @selector(popViewControllerAnimated:));
-        Method SJ_popViewControllerAnimated = class_getInstanceMethod(nav, @selector(SJ_popViewControllerAnimated:));
-        method_exchangeImplementations(popViewControllerAnimated, SJ_popViewControllerAnimated);
-        
-        // Pop Root VC
-        Method popToRootViewControllerAnimated = class_getInstanceMethod(nav, @selector(popToRootViewControllerAnimated:));
-        Method SJ_popToRootViewControllerAnimated = class_getInstanceMethod(nav, @selector(SJ_popToRootViewControllerAnimated:));
-        method_exchangeImplementations(popToRootViewControllerAnimated, SJ_popToRootViewControllerAnimated);
-        
-        // Pop To View Controller
-        Method popToViewControllerAnimated = class_getInstanceMethod(nav, @selector(popToViewController:animated:));
-        Method SJ_popToViewControllerAnimated = class_getInstanceMethod(nav, @selector(SJ_popToViewController:animated:));
-        method_exchangeImplementations(popToViewControllerAnimated, SJ_popToViewControllerAnimated);
+        for ( int i = 0 ; i < sizeof(sel) / sizeof(SEL) ; ++ i ) {
+            SEL originalSelector = sel[i];
+            SEL swizzledSelector = sel[++ i];
+            Method originalMethod = class_getInstanceMethod(nav, originalSelector);
+            Method swizzledMethod = class_getInstanceMethod(nav, swizzledSelector);
+            method_exchangeImplementations(originalMethod, swizzledMethod);
+        }
     });
 }
 
@@ -167,6 +171,8 @@ static inline void SJ_updateScreenshot() {
     self.SJ_tookOver = YES;
     self.interactivePopGestureRecognizer.enabled = NO;
     [self.view addGestureRecognizer:self.SJ_pan];
+    [self.view addGestureRecognizer:self.SJ_edgePan];
+    self.sj_gestureType = self.SJ_selectedType;
     
     // border shadow
     [CATransaction begin];
@@ -237,17 +243,36 @@ static inline void SJ_updateScreenshot() {
     return SJ_pan;
 }
 
+- (UIScreenEdgePanGestureRecognizer *)SJ_edgePan {
+    UIScreenEdgePanGestureRecognizer *SJ_edgePan = objc_getAssociatedObject(self, _cmd);
+    if ( SJ_edgePan ) return SJ_edgePan;
+    SJ_edgePan = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(SJ_handlePanGR:)];
+    SJ_edgePan.delegate = self;
+    SJ_edgePan.edges = UIRectEdgeLeft;
+    objc_setAssociatedObject(self, _cmd, SJ_edgePan, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    return SJ_edgePan;
+}
+
+- (void)setSJ_selectedType:(SJFullscreenPopGestureType)SJ_selectedType {
+    objc_setAssociatedObject(self, @selector(SJ_selectedType), @(SJ_selectedType), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (SJFullscreenPopGestureType)SJ_selectedType {
+    return  [objc_getAssociatedObject(self, _cmd) integerValue];
+}
+
 #pragma mark -
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
     if ( self.topViewController.sj_DisableGestures ||
-         [[self valueForKey:@"_isTransitioning"] boolValue] ||
-         [self.topViewController.sj_considerWebView canGoBack] ) return NO;
+        [[self valueForKey:@"_isTransitioning"] boolValue] ||
+        [self.topViewController.sj_considerWebView canGoBack] ) return NO;
     else if ( self.childViewControllers.count <= 1 ) return NO;
     else return YES;
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)gestureRecognizer {
+    if ( SJFullscreenPopGestureType_EdgeLeft == self.SJ_selectedType ) return YES;
     if ( [self SJ_isFadeAreaWithPoint:[gestureRecognizer locationInView:gestureRecognizer.view]] ) return NO;
     CGPoint translate = [gestureRecognizer translationInView:self.view];
     if ( translate.x > 0 && 0 == translate.y ) return YES;
@@ -256,10 +281,10 @@ static inline void SJ_updateScreenshot() {
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     if ( UIGestureRecognizerStateFailed ==  gestureRecognizer.state ||
-         UIGestureRecognizerStateCancelled == gestureRecognizer.state ) return YES;
+        UIGestureRecognizerStateCancelled == gestureRecognizer.state ) return YES;
     else if ( ([otherGestureRecognizer isMemberOfClass:NSClassFromString(@"UIScrollViewPanGestureRecognizer")] ||
                [otherGestureRecognizer isMemberOfClass:NSClassFromString(@"UIScrollViewPagingSwipeGestureRecognizer")])
-            && [otherGestureRecognizer.view isKindOfClass:[UIScrollView class]] ) {
+             && [otherGestureRecognizer.view isKindOfClass:[UIScrollView class]] ) {
         return [self SJ_considerScrollView:(UIScrollView *)otherGestureRecognizer.view
                          gestureRecognizer:gestureRecognizer
                     otherGestureRecognizer:otherGestureRecognizer];
@@ -284,7 +309,7 @@ static inline void SJ_updateScreenshot() {
     }
     
     if ( !isFadeArea &&
-         0 != self.topViewController.sj_fadeAreaViews.count ) {
+        0 != self.topViewController.sj_fadeAreaViews.count ) {
         [self.topViewController.sj_fadeAreaViews enumerateObjectsUsingBlock:^(UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             CGRect rect = obj.frame;
             if ( !self.isNavigationBarHidden ) rect = [self.view convertRect:rect fromView:view];
@@ -314,7 +339,7 @@ static inline void SJ_updateScreenshot() {
     
     id<UIPageViewControllerDataSource> dataSource = pageVC.dataSource;
     if ( !pageVC.dataSource ||
-         0 == pageVC.viewControllers.count ) return NO;
+        0 == pageVC.viewControllers.count ) return NO;
     else if ( [dataSource pageViewController:pageVC viewControllerBeforeViewController:pageVC.viewControllers.firstObject] ) {
         [self _sjCancellGesture:gestureRecognizer];
         return YES;
@@ -339,7 +364,7 @@ static inline void SJ_updateScreenshot() {
     switch ( pan.state ) {
         case UIGestureRecognizerStatePossible: break;
         case UIGestureRecognizerStateBegan: {
-            [self SJ_ViewWillBeginDragging];
+            [self SJ_ViewWillBeginDragging:offset];
         }
             break;
         case UIGestureRecognizerStateChanged: {
@@ -355,7 +380,7 @@ static inline void SJ_updateScreenshot() {
     }
 }
 
-- (void)SJ_ViewWillBeginDragging {
+- (void)SJ_ViewWillBeginDragging:(CGFloat)offset {
     // resign keybord
     [self.view endEditing:YES];
     
@@ -365,6 +390,7 @@ static inline void SJ_updateScreenshot() {
     self.SJ_screenshotView.hidden = NO;
     [self.SJ_screenshotView beginTransitionWithSnapshot:self.SJ_snapshotsM.lastObject];
     if ( self.topViewController.sj_viewWillBeginDragging ) self.topViewController.sj_viewWillBeginDragging(self.topViewController);
+    [self SJ_ViewDidDrag:offset];
 }
 
 - (void)SJ_ViewDidDrag:(CGFloat)offset {
@@ -416,6 +442,27 @@ static inline void SJ_updateScreenshot() {
 // MARK: Settings
 
 @implementation UINavigationController (Settings)
+
+- (void)setSj_gestureType:(SJFullscreenPopGestureType)sj_gestureType {
+    self.SJ_selectedType = sj_gestureType;
+    objc_setAssociatedObject(self, @selector(sj_gestureType), @(sj_gestureType), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    switch ( sj_gestureType ) {
+        case SJFullscreenPopGestureType_EdgeLeft: {
+            self.SJ_pan.enabled = NO;
+            self.SJ_edgePan.enabled = YES;
+        }
+            break;
+        case SJFullscreenPopGestureType_Full: {
+            self.SJ_pan.enabled = YES;
+            self.SJ_edgePan.enabled = NO;
+        }
+            break;
+    }
+}
+
+- (SJFullscreenPopGestureType)sj_gestureType {
+    return [objc_getAssociatedObject(self, _cmd) integerValue];
+}
 
 - (void)setSj_transitionMode:(SJScreenshotTransitionMode)sj_transitionMode {
     self.SJ_screenshotView.transitionMode = sj_transitionMode;

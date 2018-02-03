@@ -12,6 +12,7 @@
 #import "NavigationController.h"
 #import <SJUIFactory.h>
 #import "NoNavViewController.h"
+#import "TestPageViewController.h"
 
 @interface NextViewController ()
 
@@ -31,6 +32,8 @@
 
 @property (nonatomic, strong, readonly) UIButton *modalBtn_NoNav;
 
+@property (nonatomic, strong, readonly) UIButton *pageVC;
+
 @property (nonatomic, strong, readonly) UIScrollView *backgroundScrollView;
 
 @property (nonatomic, strong, readonly) UIView *testPanBackgroundView;
@@ -49,6 +52,7 @@
 @synthesize albumBtn = _albumBtn;
 @synthesize testOtherGestureView = _testOtherGestureView;
 @synthesize modalBtn_NoNav = _modalBtn_NoNav;
+@synthesize pageVC = _pageVC;
 
 - (void)dealloc {
     NSLog(@"%s - %zd", __func__, __LINE__);
@@ -141,7 +145,10 @@
     _modalBtn_NoNav.frame = frame;
     [_modalBtn_NoNav sizeToFit];
     
-    
+    [self.view addSubview:self.pageVC];
+    frame.origin.y += 30;
+    _pageVC.frame = frame;
+    [_pageVC sizeToFit];
     
     #pragma mark - Fade Area
     
@@ -219,6 +226,12 @@
     NoNavViewController * vc = [NoNavViewController new];
     [self presentViewController:vc animated:YES completion:nil];
 }
+
+- (void)clickedPageVC:(UIButton *)btn {
+    TestPageViewController *vc = [TestPageViewController new];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 #pragma mark - Views
 
 - (UIButton *)popToRootVCBtn {
@@ -264,6 +277,15 @@
     [_modalBtn_NoNav setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     [_modalBtn_NoNav addTarget:self action:@selector(clickedModal_NoNavBtn:) forControlEvents:UIControlEventTouchUpInside];
     return _modalBtn_NoNav;
+}
+
+- (UIButton *)pageVC {
+    if ( _pageVC ) return _pageVC;
+    _pageVC = [UIButton new];
+    [_pageVC setTitle:@"PageVC" forState:UIControlStateNormal];
+    [_pageVC setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [_pageVC addTarget:self action:@selector(clickedPageVC:) forControlEvents:UIControlEventTouchUpInside];
+    return _pageVC;
 }
 
 - (UIScrollView *)backgroundScrollView {

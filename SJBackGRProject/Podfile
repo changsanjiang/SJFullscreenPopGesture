@@ -10,4 +10,5 @@ target 'SJBackGRProject' do
   pod 'SJUIFactory'
   pod 'SJTransitionAnimator'
   pod 'Masonry'
+  pod 'SJScrollEntriesView'
 end
