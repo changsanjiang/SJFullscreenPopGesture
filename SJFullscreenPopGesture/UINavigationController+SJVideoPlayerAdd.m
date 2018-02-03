@@ -335,11 +335,14 @@ static inline void SJ_updateScreenshot() {
 
 - (BOOL)SJ_considerQueuingScrollView:(UIScrollView *)scrollView gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer otherGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     UIPageViewController *pageVC = [self SJ_findingPageViewControllerWithQueueingScrollView:scrollView];
-    if ( !pageVC ) return NO;
+    if ( !pageVC ) {
+        [self _sjCancellGesture:gestureRecognizer];
+        return NO;
+    }
     
     id<UIPageViewControllerDataSource> dataSource = pageVC.dataSource;
     if ( !pageVC.dataSource ||
-        0 == pageVC.viewControllers.count ) return NO;
+         0 == pageVC.viewControllers.count ) return NO;
     else if ( [dataSource pageViewController:pageVC viewControllerBeforeViewController:pageVC.viewControllers.firstObject] ) {
         [self _sjCancellGesture:gestureRecognizer];
         return YES;
@@ -354,7 +357,7 @@ static inline void SJ_updateScreenshot() {
     UIResponder *responder = scrollView.nextResponder;
     while ( ![responder isKindOfClass:[UIPageViewController class]] ) {
         responder = responder.nextResponder;
-        if ( [responder isMemberOfClass:[UIResponder class]] || !responder ) break;
+        if ( [responder isMemberOfClass:[UIResponder class]] || !responder ) { responder = nil; break;}
     }
     return (UIPageViewController *)responder;
 }
@@ -384,7 +387,7 @@ static inline void SJ_updateScreenshot() {
     // resign keybord
     [self.view endEditing:YES];
     
-    // Move the `screenshot` to the bottom of the `obj`.
+    // Move the `screenshot` to the bottom
     [self.view.superview insertSubview:self.SJ_screenshotView atIndex:0];
     
     self.SJ_screenshotView.hidden = NO;
@@ -405,12 +408,12 @@ static inline void SJ_updateScreenshot() {
     if ( 0 == maxWidth ) return;
     CGFloat rate = offset / maxWidth;
     CGFloat maxOffset = self.scMaxOffset;
-    BOOL pull = rate > maxOffset;
+    BOOL pop = rate > maxOffset;
     NSTimeInterval duration = 0.25;
-    if ( !pull ) duration = duration * ( offset / (maxOffset * maxWidth) ) + 0.05;
+    if ( !pop ) duration = duration * ( offset / (maxOffset * maxWidth) ) + 0.05;
     
     [UIView animateWithDuration:duration animations:^{
-        if ( pull ) {
+        if ( pop ) {
             self.view.transform = CGAffineTransformMakeTranslation(self.view.frame.size.width, 0);
             [self.SJ_screenshotView finishedTransition];
         }
@@ -419,7 +422,7 @@ static inline void SJ_updateScreenshot() {
             [self.SJ_screenshotView reset];
         }
     } completion:^(BOOL finished) {
-        if ( pull ) {
+        if ( pop ) {
             [self popViewControllerAnimated:NO];
             self.view.transform = CGAffineTransformIdentity;
         }
