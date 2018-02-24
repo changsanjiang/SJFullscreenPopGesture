@@ -299,7 +299,7 @@ static inline void SJ_updateScreenshot() {
     }
     
     if ( !isFadeArea &&
-        0 != self.topViewController.sj_fadeAreaViews.count ) {
+         0 != self.topViewController.sj_fadeAreaViews.count ) {
         [self.topViewController.sj_fadeAreaViews enumerateObjectsUsingBlock:^(UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             CGRect rect = obj.frame;
             if ( !self.isNavigationBarHidden ) rect = [self.view convertRect:rect fromView:view];
@@ -311,34 +311,36 @@ static inline void SJ_updateScreenshot() {
     return isFadeArea;
 }
 
-- (BOOL)SJ_considerScrollView:(UIScrollView *)subScrollView gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer otherGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-    if ( [subScrollView isKindOfClass:NSClassFromString(@"_UIQueuingScrollView")] ) {
-        return [self SJ_considerQueuingScrollView:subScrollView gestureRecognizer:gestureRecognizer otherGestureRecognizer:otherGestureRecognizer];
+- (BOOL)SJ_considerScrollView:(UIScrollView *)scrollView gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer otherGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    if ( [scrollView isKindOfClass:NSClassFromString(@"_UIQueuingScrollView")] ) {
+        return [self SJ_considerQueuingScrollView:scrollView gestureRecognizer:gestureRecognizer otherGestureRecognizer:otherGestureRecognizer];
     }
-    else if ( 0 != subScrollView.contentOffset.x + subScrollView.contentInset.left ) return NO;
+    else if ( 0 != scrollView.contentOffset.x + scrollView.contentInset.left ) return NO;
     else if ( [(UIPanGestureRecognizer *)gestureRecognizer translationInView:self.view].x <= 0 ) return NO;
-    else {
-        [self _sjCancellGesture:otherGestureRecognizer];
-        return YES;
-    }
+    
+    return YES;
 }
 
 - (BOOL)SJ_considerQueuingScrollView:(UIScrollView *)scrollView gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer otherGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     UIPageViewController *pageVC = [self SJ_findingPageViewControllerWithQueueingScrollView:scrollView];
     if ( !pageVC ) {
-        [self _sjCancellGesture:gestureRecognizer];
+        [self _sjCancellGesture:otherGestureRecognizer];    // 取消other, 触发pop
         return NO;
     }
     
     id<UIPageViewControllerDataSource> dataSource = pageVC.dataSource;
     if ( !pageVC.dataSource ||
-         0 == pageVC.viewControllers.count ) return NO;
-    else if ( [dataSource pageViewController:pageVC viewControllerBeforeViewController:pageVC.viewControllers.firstObject] ) {
-        [self _sjCancellGesture:gestureRecognizer];
+         0 == pageVC.viewControllers.count ) {
+        [self _sjCancellGesture:otherGestureRecognizer];    // 取消other, 触发pop
+        return NO;
+    }
+    else if ( 0 != pageVC.viewControllers.count &&
+              [dataSource pageViewController:pageVC viewControllerBeforeViewController:pageVC.viewControllers.firstObject] ) {
+        [self _sjCancellGesture:gestureRecognizer];         // 取消pop, 触发 other
         return YES;
     }
     else {
-        [self _sjCancellGesture:otherGestureRecognizer];
+        [self _sjCancellGesture:otherGestureRecognizer];    // 默认 取消other, 触发pop
         return NO;
     }
 }

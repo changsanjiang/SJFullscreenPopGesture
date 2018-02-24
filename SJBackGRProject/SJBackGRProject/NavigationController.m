@@ -8,6 +8,7 @@
 
 #import "NavigationController.h"
 #import "UINavigationController+SJVideoPlayerAdd.h"
+#import <objc/message.h>
 
 @interface NavigationController ()
 
@@ -17,7 +18,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.sj_backgroundColor = [UIColor whiteColor];
 //    self.sj_transitionMode = SJScreenshotTransitionModeShifting;
 //    self.sj_gestureType = SJFullscreenPopGestureType_Full;

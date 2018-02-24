@@ -9,6 +9,63 @@
 import UIKit
 import WebKit
 
+public class SJNavigationPopGestureManager : NSObject {
+
+    private static var sharedInstance: SJNavigationPopGestureManager?
+    
+    @objc @discardableResult
+    public class func launching() -> SJNavigationPopGestureManager {
+        if ( nil == sharedInstance ) {
+            sharedInstance = SJNavigationPopGestureManager()
+        }
+        var selArr = [
+            [
+                #selector(UIViewController.present(_:animated:completion:)),
+                #selector(UIViewController.sj_present(_:animated:completion:))
+            ],
+            [
+                #selector(UIViewController.dismiss(animated:completion:)),
+                #selector(UIViewController.sj_dismiss(animated:completion:))
+            ]
+        ]
+        var cls = UIViewController.self
+        _exchangeImp(selArr, cls)
+        
+        selArr = [
+            [
+                #selector(UINavigationController.pushViewController(_:animated:)),
+                #selector(UINavigationController.sj_pushViewController(_:animated:))
+            ],
+            [
+                #selector(UINavigationController.popViewController(animated:)),
+                #selector(UINavigationController.sj_popViewController(animated:))
+            ],
+            [
+                #selector(UINavigationController.popToViewController(_:animated:)),
+                #selector(UINavigationController.sj_popToViewController(_:animated:))
+            ],
+            [
+                #selector(UINavigationController.popToRootViewController(animated:)),
+                #selector(UINavigationController.sj_popToRootViewController(animated:))
+            ],
+        ]
+        cls = UINavigationController.self
+        _exchangeImp(selArr, cls)
+        
+        return sharedInstance!
+    }
+    
+    private class func _exchangeImp(_ selArr: [[Selector]], _ cls: AnyClass) -> Void {
+        for sel in selArr {
+            let originalSelector = sel[0]
+            let swizzledSelector = sel[1]
+            let originalMethod = class_getInstanceMethod(cls, originalSelector);
+            let swizzledMethod = class_getInstanceMethod(cls, swizzledSelector);
+            method_exchangeImplementations(originalMethod!, swizzledMethod!)
+        }
+    }
+}
+
 
 /// getsture type, default is .edgeLeft
 enum SJNavigationPopGestureType {
@@ -38,11 +95,11 @@ public extension UINavigationController {
      **/
     public var sj_backgroundColor: UIColor? {
         get {
-            return objc_getAssociatedObject(self, &kSJBackgroundColor) as? UIColor
+            return objc_getAssociatedObject(self, &SJAssociatedKeys.kSJBackgroundColor) as? UIColor
         }
         
         set {
-            objc_setAssociatedObject(self, &kSJBackgroundColor, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &SJAssociatedKeys.kSJBackgroundColor, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     
@@ -53,13 +110,17 @@ public extension UINavigationController {
      *  0.0 .. 1.0
      *  偏移多少, 触发pop.
      **/
-    public var sj_maxOffset: CGFloat? {
+    public var sj_maxOffset: CGFloat {
         get {
-            return objc_getAssociatedObject(self, &kSJMaxOffset) as? CGFloat
+            let offset = objc_getAssociatedObject(self, &SJAssociatedKeys.kSJMaxOffset) as? CGFloat
+            if ( nil == offset ) {
+                return 0.35
+            }
+            return offset!
         }
         
         set {
-            objc_setAssociatedObject(self, &kSJMaxOffset, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &SJAssociatedKeys.kSJMaxOffset, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 }
@@ -75,11 +136,11 @@ public extension UIViewController {
      **/
     public weak var sj_considerWebView: WKWebView? {
         get {
-            return objc_getAssociatedObject(self, &kSJConsiderWebView) as? WKWebView
+            return objc_getAssociatedObject(self, &SJAssociatedKeys.kSJConsiderWebView) as? WKWebView
         }
         
         set {
-            objc_setAssociatedObject(self, &kSJConsiderWebView, newValue, .OBJC_ASSOCIATION_ASSIGN)
+            objc_setAssociatedObject(self, &SJAssociatedKeys.kSJConsiderWebView, newValue, .OBJC_ASSOCIATION_ASSIGN)
         }
     }
     
@@ -92,13 +153,13 @@ public extension UIViewController {
      *  指定区域不触发手势. see `sj_fadeAreaViews` method
      *  只有设置 手势类型为 `SJFullscreenPopGestureType_Full` 的时候有用.
      **/
-    public var sj_fadeArea: [NSValue]? {
+    public var sj_fadeArea: [CGRect]? {
         get {
-            return objc_getAssociatedObject(self, &kSJFadeArea) as? [NSValue]
+            return objc_getAssociatedObject(self, &SJAssociatedKeys.kSJFadeArea) as? [CGRect]
         }
         
         set {
-            objc_setAssociatedObject(self, &kSJFadeArea, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &SJAssociatedKeys.kSJFadeArea, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     
@@ -113,11 +174,11 @@ public extension UIViewController {
      **/
     public var sj_fadeAreaViews: [UIView]? {
         get {
-            return objc_getAssociatedObject(self, &kSJFadeAreaViews) as? [UIView]
+            return objc_getAssociatedObject(self, &SJAssociatedKeys.kSJFadeAreaViews) as? [UIView]
         }
         
         set {
-            objc_setAssociatedObject(self, &kSJFadeAreaViews, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &SJAssociatedKeys.kSJFadeAreaViews, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     
@@ -128,42 +189,145 @@ public extension UIViewController {
      **/
     public var sj_disableGestures: Bool? {
         get {
-            return objc_getAssociatedObject(self, &kSJDisableGestures) as? Bool
+            return objc_getAssociatedObject(self, &SJAssociatedKeys.kSJDisableGestures) as? Bool
         }
         
         set {
-            objc_setAssociatedObject(self, &kSJDisableGestures, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &SJAssociatedKeys.kSJDisableGestures, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     
     public var sj_viewWillBeginDragging: ((UIViewController) -> Void)? {
         get {
-            return objc_getAssociatedObject(self, &kSJViewWillBeginDragging) as? ((UIViewController) -> Void)
+            return objc_getAssociatedObject(self, &SJAssociatedKeys.kSJViewWillBeginDragging) as? ((UIViewController) -> Void)
         }
         
         set {
-            objc_setAssociatedObject(self, &kSJViewWillBeginDragging, newValue, .OBJC_ASSOCIATION_COPY)
+            objc_setAssociatedObject(self, &SJAssociatedKeys.kSJViewWillBeginDragging, newValue, .OBJC_ASSOCIATION_COPY)
         }
     }
     
     public var sj_viewDidDrag: ((UIViewController) -> Void)? {
         get {
-            return objc_getAssociatedObject(self, &kSJViewDidDrag) as? ((UIViewController) -> Void)
+            return objc_getAssociatedObject(self, &SJAssociatedKeys.kSJViewDidDrag) as? ((UIViewController) -> Void)
         }
         
         set {
-            objc_setAssociatedObject(self, &kSJViewDidDrag, newValue, .OBJC_ASSOCIATION_COPY)
+            objc_setAssociatedObject(self, &SJAssociatedKeys.kSJViewDidDrag, newValue, .OBJC_ASSOCIATION_COPY)
         }
     }
     
     public var sj_viewDidEndDragging: ((UIViewController) -> Void)? {
         get {
-            return objc_getAssociatedObject(self, &kSJViewDidEndDragging) as? ((UIViewController) -> Void)
+            return objc_getAssociatedObject(self, &SJAssociatedKeys.kSJViewDidEndDragging) as? ((UIViewController) -> Void)
         }
         
         set {
-            objc_setAssociatedObject(self, &kSJViewDidEndDragging, newValue, .OBJC_ASSOCIATION_COPY)
+            objc_setAssociatedObject(self, &SJAssociatedKeys.kSJViewDidEndDragging, newValue, .OBJC_ASSOCIATION_COPY)
         }
+    }
+}
+
+
+private extension UIViewController {
+    @objc func sj_present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Swift.Void)? = nil) {
+        
+        if ( viewControllerToPresent.isKind(of: UIAlertController.self) != true ) {
+            print(#function)
+            
+            SJ_updateScreenshot()
+        }
+        
+        self.sj_present(viewControllerToPresent, animated: flag, completion: completion)
+    }
+    
+    @objc func sj_dismiss(animated flag: Bool, completion: (() -> Swift.Void)? = nil) {
+        
+        if ( self.presentedViewController?.isKind(of: UIAlertController.self) != true ) {
+            
+            print(#function)
+            
+            if ( self.isKind(of: UINavigationController.self) == true &&
+                 self.presentingViewController != nil ) {
+                SJ_dumpingScreenshot(self.childViewControllers.count)
+            }
+            else if ( self.navigationController != nil &&
+                self.presentingViewController != nil ) {
+                SJ_dumpingScreenshot((self.navigationController?.childViewControllers.count)! + 1)
+            }
+            else {
+                SJ_dumpingScreenshot(1)
+            }
+        }
+        
+        self.sj_dismiss(animated: flag, completion: completion)
+    }
+}
+
+private extension UINavigationController {
+    
+    var SJ_tookOver: Bool! {
+        get {
+            let tookOver = objc_getAssociatedObject(self, &SJAssociatedKeys.kSJTookOver) as? Bool
+            if ( tookOver != nil ) {
+                return tookOver
+            }
+            return false
+        }
+        
+        set {
+            objc_setAssociatedObject(self, &SJAssociatedKeys.kSJTookOver, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    
+    func sj_navSettings() -> Void {
+        self.SJ_tookOver = true
+        self.interactivePopGestureRecognizer?.isEnabled = false
+        self.view.addGestureRecognizer(self.SJ_pan)
+        self.view.addGestureRecognizer(self.SJ_edgePan)
+        let type = self.SJ_selectedType
+        self.SJ_selectedType = type // update
+        
+        // border shadow
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        self.view.layer.shadowOffset = CGSize.init(width: 0.5, height: 0);
+        self.view.layer.shadowColor = UIColor.init(white: 0.2, alpha: 1).cgColor
+        self.view.layer.shadowOpacity = 1;
+        self.view.layer.shadowRadius = 2;
+        self.view.layer.shadowPath = UIBezierPath.init(rect: self.view.bounds).cgPath
+        CATransaction.commit()
+    }
+    
+    @objc func sj_pushViewController(_ viewController: UIViewController, animated: Bool) {
+        if ( self.interactivePopGestureRecognizer != nil &&
+             self.SJ_tookOver == false  ) {
+            self.sj_navSettings()
+        }
+        SJ_updateScreenshot()
+        self.sj_pushViewController(viewController, animated: animated) // note: If Crash, please confirm that `viewController 'is ` UIViewController'(`UINavigationController` cannot be pushed).
+    }
+    
+    @objc func sj_popViewController(animated: Bool) -> UIViewController? {
+        SJ_dumpingScreenshot(1)
+        return self.sj_popViewController(animated: animated)
+    }
+    
+    @objc func sj_popToRootViewController(animated: Bool) -> [UIViewController]? {
+        SJ_dumpingScreenshot(self.childViewControllers.count - 1)
+        return self.sj_popToRootViewController(animated: animated)
+    }
+    
+    @objc func sj_popToViewController(_ viewController: UIViewController, animated: Bool) -> [UIViewController]? {
+        
+        for i in 0...(self.childViewControllers.count - 1) {
+            let subVC = self.childViewControllers[i]
+            if ( subVC == viewController ) {
+                SJ_dumpingScreenshot(self.childViewControllers.count - 1 - i)
+                break
+            }
+        }
+        return self.sj_popToViewController(viewController, animated: animated)
     }
 }
 
@@ -190,31 +354,275 @@ private func SJ_updateScreenshot() -> Void {
     }
 }
 
-//extension UIViewController {
-//    override open class func load() {
-//        super.load()
-//    }
-//}
-
-private extension UIViewController {
+private func SJ_dumpingScreenshot(_ num: Int) -> Void {
+    if ( num <= 0 || num >= static_snapshotsM.count ) {
+        return
+    }
     
-   
-//    let sel = [Selector("presentViewController:animated:completion:"),
-//               Selector("SJ_presentViewController:animated:completion:"),
-//               Selector("dismissViewControllerAnimated:completion:"),
-//               Selector("SJ_dismissViewControllerAnimated:completion:")]
-//    let `class`: AnyClass = type(of: self)
-//    i += 1
-//    i += 1
-//    var i = 0
-//    while i < MemoryLayout<sel>.size / MemoryLayout<Selector>.size {
-//    let originalSelector: Selector = sel[i]
-//    let swizzledSelector: Selector = sel[i]
-//    let originalMethod = class_getInstanceMethod(`class`, originalSelector)
-//    let swizzledMethod = class_getInstanceMethod(`class`, swizzledSelector)
-//    method_exchangeImplementations(originalMethod, swizzledMethod)
-//
-//    }
+    static_snapshotsM.removeSubrange(Range.init(NSRange.init(location: static_snapshotsM.count - num, length: num))!)
+}
+
+
+// MARK: - Handle Pop Gesture
+extension UINavigationController : UIGestureRecognizerDelegate {
+    
+    private var SJ_selectedType: SJNavigationPopGestureType {
+        get {
+            let type = objc_getAssociatedObject(self, &SJAssociatedKeys.kSJSelectedType) as? SJNavigationPopGestureType
+            if ( nil == type ) {
+                return SJNavigationPopGestureType.edgeLeft
+            }
+            return type!
+        }
+        
+        set {
+            objc_setAssociatedObject(self, &SJAssociatedKeys.kSJSelectedType, newValue, .OBJC_ASSOCIATION_RETAIN)
+            switch newValue {
+            case .edgeLeft:
+                self.SJ_pan.isEnabled = false
+                self.SJ_edgePan.isEnabled = true
+                
+            case .full:
+                self.SJ_pan.isEnabled = true
+                self.SJ_edgePan.isEnabled = false
+            }
+        }
+    }
+    
+    private var SJ_pan: UIPanGestureRecognizer {
+        get {
+            var pan = objc_getAssociatedObject(self, &SJAssociatedKeys.kSJPan) as? UIPanGestureRecognizer
+            if ( pan == nil ) {
+                pan = UIPanGestureRecognizer.init(target: self, action: #selector(SJ_handlePanGR(_:)))
+                pan?.delegate = self
+                objc_setAssociatedObject(self, &SJAssociatedKeys.kSJPan, pan, .OBJC_ASSOCIATION_RETAIN)
+            }
+            return pan!
+        }
+    }
+    
+    private var SJ_edgePan: UIScreenEdgePanGestureRecognizer {
+        get {
+            var pan = objc_getAssociatedObject(self, &SJAssociatedKeys.kSJPan) as? UIScreenEdgePanGestureRecognizer
+            if ( pan == nil ) {
+                pan = UIScreenEdgePanGestureRecognizer.init(target: self, action: #selector(SJ_handlePanGR(_:)))
+                pan?.edges = UIRectEdge.left
+                pan?.delegate = self
+                objc_setAssociatedObject(self, &SJAssociatedKeys.kSJEdgePan, pan, .OBJC_ASSOCIATION_RETAIN)
+            }
+            return pan!
+        }
+    }
+    
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        let isTransitioning = self.value(forKey: "_isTransitioning") as! Bool
+        if ( self.topViewController?.sj_disableGestures == true ||
+             isTransitioning == true ||
+             self.topViewController?.sj_considerWebView?.canGoBack == true ) {
+            return false
+        }
+        else if ( self.childViewControllers.count <= 1 ) {
+            return false
+        }
+        else {
+            return true
+        }
+    }
+    
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIPanGestureRecognizer) -> Bool {
+        if ( self.SJ_selectedType == .edgeLeft ) {
+            return true
+        }
+        
+        if ( SJ_isFadeArea(gestureRecognizer.location(in: self.view)) ) {
+            return false
+        }
+        
+        let translate = gestureRecognizer.translation(in: self.view)
+        if ( translate.x > 0 && 0 == translate.y ) {
+            return true
+        }
+        return false
+    }
+    
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        if ( gestureRecognizer.state == UIGestureRecognizerState.failed ||
+             gestureRecognizer.state == UIGestureRecognizerState.cancelled ) {
+            return true
+        }
+            
+        else if ( otherGestureRecognizer.isMember(of: NSClassFromString("UIScrollViewPanGestureRecognizer")!) == true ||
+                  otherGestureRecognizer.isMember(of: NSClassFromString("UIScrollViewPagingSwipeGestureRecognizer")!) == true ||
+                  otherGestureRecognizer.isMember(of: UIScrollView.self) == true ) {
+            
+        }
+        
+        return true
+    }
+    
+    private func SJ_isFadeArea(_ point: CGPoint) -> Bool {
+        var isFadeArea = false
+        let topView = self.topViewController?.view
+        var rect = CGRect.init()
+        
+        if ( 0 != self.topViewController?.sj_fadeArea?.count ) {
+            for r in (self.topViewController!.sj_fadeArea)! {
+                if ( self.isNavigationBarHidden == false ) {
+                    rect = self.view.convert(r, from: topView)
+                }
+                if ( rect.contains(point) == true ) {
+                    isFadeArea = true
+                    break
+                }
+            }
+        }
+        
+        if ( isFadeArea != true &&
+             0 != self.topViewController?.sj_fadeAreaViews?.count ) {
+            for subView in self.topViewController!.sj_fadeAreaViews! {
+                let r = subView.frame
+                if ( self.isNavigationBarHidden == false ) {
+                    rect = self.view.convert(r, from: topView)
+                }
+                if ( rect.contains(point) == true ) {
+                    isFadeArea = true
+                    break
+                }
+            }
+        }
+        
+        return isFadeArea
+    }
+    
+    private func SJ_considerScrollView(_ scrollView: UIScrollView, _ gestureRecognizer: UIPanGestureRecognizer, _ otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        if ( scrollView.isKind(of: NSClassFromString("_UIQueuingScrollView")!) == true ) {
+            return SJ_considerQueuingScrollView(scrollView, gestureRecognizer, otherGestureRecognizer)
+        }
+        else if ( 0 != scrollView.contentOffset.x + scrollView.contentInset.left ) {
+            return false
+        }
+        else if ( gestureRecognizer.translation(in: self.view).x <= 0 ) {
+            return false
+        }
+        
+        return true
+    }
+    
+    private func SJ_considerQueuingScrollView(_ scrollView: UIScrollView, _ gestureRecognizer: UIGestureRecognizer, _ otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        let pageVC = SJ_findingPageViewController(scrollView)
+        if ( pageVC == nil ) {
+            SJ_cancellGesture(otherGestureRecognizer)   // 取消other, 触发 pop
+            return false
+        }
+        
+        let dataSource = pageVC!.dataSource
+        if ( dataSource == nil ||
+             0 == pageVC!.viewControllers?.count ) {
+            SJ_cancellGesture(otherGestureRecognizer)   // 取消other, 触发pop
+            return false
+        }
+        else if ( 0 != pageVC!.viewControllers?.count ) {
+            if ( dataSource?.pageViewController(pageVC!, viewControllerBefore:pageVC!.viewControllers!.first!) != nil ) {
+                SJ_cancellGesture(gestureRecognizer)  // 取消pop手势, 触发other
+                return true
+            }
+        }
+        
+        SJ_cancellGesture(otherGestureRecognizer)   // 默认 触发pop手势, 取消other
+        return false
+    }
+    
+    private func SJ_findingPageViewController(_ scrollView: UIScrollView) -> UIPageViewController? {
+        var responder = scrollView.next
+        while responder?.isKind(of: UIPageViewController.self) == false {
+            responder = responder?.next
+            if ( responder?.isMember(of: UIResponder.self) == true ||
+                 nil == responder ) {
+                responder = nil;
+                break;
+            }
+        }
+        return responder as? UIPageViewController
+    }
+    
+    private func SJ_cancellGesture(_ gesture: UIGestureRecognizer) -> Void {
+        gesture.setValue(UIGestureRecognizerState.cancelled, forKey: "state")
+    }
+    
+    @objc private func SJ_handlePanGR(_ pan:UIPanGestureRecognizer) -> Void {
+        let offset = pan.translation(in: self.view).x
+        switch pan.state {
+        case .possible: break
+        case .began:
+            SJ_ViewWillBeginDragging(offset)
+        case .changed:
+            SJ_ViewDidDrag(offset)
+        case .ended, .cancelled, .failed:
+            SJ_ViewDidEndDragging(offset)
+        }
+    }
+    
+    private func SJ_ViewWillBeginDragging(_ offset: CGFloat) -> Void {
+        self.view.endEditing(true)
+        self.view.superview?.insertSubview(static_screenshotView, at: 0)
+        
+        static_screenshotView.isHidden = false
+        static_screenshotView.beginTrnsition(snapshot: static_snapshotsM.last)
+        if ( self.topViewController?.sj_viewWillBeginDragging != nil ) {
+            self.topViewController?.sj_viewWillBeginDragging!(self.topViewController!)
+        }
+        self.SJ_ViewDidDrag(offset)
+    }
+    
+    private func SJ_ViewDidDrag(_ off: CGFloat) -> Void {
+        var offset = off
+
+        if ( offset < 0 ) {
+            offset = 0
+        }
+        
+        self.view.transform = CGAffineTransform.init(translationX: offset, y: 0)
+        static_screenshotView.transitiongWithOffset(offset: offset)
+        if ( self.topViewController?.sj_viewDidDrag != nil ) {
+            self.topViewController?.sj_viewDidDrag!(self.topViewController!)
+        }
+    }
+    
+    private func SJ_ViewDidEndDragging(_ offset: CGFloat) -> Void {
+        let maxWidth = self.view.frame.width
+        if ( 0 == maxWidth ) {
+            return
+        }
+        
+        let rate = offset / maxWidth
+        let maxOffset = self.sj_maxOffset
+        let pop: Bool = (rate > maxOffset) == true
+        var duration = CGFloat(0.25)
+        if ( pop == false ) {
+            duration = duration * ( offset / (maxOffset * maxWidth) )  + 0.05
+        }
+        
+        UIView.animate(withDuration: TimeInterval(duration), animations: {
+            if ( pop ) {
+                self.view.transform = CGAffineTransform.init(translationX: self.view.frame.width, y: 0)
+                static_screenshotView.finishedTransition()
+            }
+            else {
+                self.view.transform = CGAffineTransform.identity
+                static_screenshotView.reset()
+            }
+        }) { (finished) in
+            if ( pop ) {
+                self.popViewController(animated: false)
+                self.view.transform = CGAffineTransform.identity
+            }
+            
+            static_screenshotView.isHidden = true
+            if ( self.topViewController?.sj_viewDidEndDragging != nil ) {
+                self.topViewController?.sj_viewDidEndDragging!(self.topViewController!)
+            }
+        }
+    }
 }
 
 fileprivate class _SJScreenshotView : UIView {
@@ -319,13 +727,23 @@ fileprivate class _SJScreenshotView : UIView {
     }
 }
 
-private var kSJBackgroundColor: String?
-private var kSJMaxOffset: String?
-
-private var kSJConsiderWebView: String?
-private var kSJFadeArea: String?
-private var kSJFadeAreaViews: String?
-private var kSJDisableGestures: String?
-private var kSJViewWillBeginDragging: String?
-private var kSJViewDidDrag: String?
-private var kSJViewDidEndDragging: String?
+/// Note the use of static var in a private nested struct—this pattern creates the static associated object key we need but doesn’t muck up the global namespace. ref: http://nshipster.com/swift-objc-runtime/
+fileprivate struct SJAssociatedKeys {
+    
+    static var kSJTookOver: String?
+    
+    static var kSJSelectedType: String?
+    static var kSJPan: String?
+    static var kSJEdgePan: String?
+    
+    static var kSJBackgroundColor: String?
+    static var kSJMaxOffset: String?
+    
+    static var kSJConsiderWebView: String?
+    static var kSJFadeArea: String?
+    static var kSJFadeAreaViews: String?
+    static var kSJDisableGestures: String?
+    static var kSJViewWillBeginDragging: String?
+    static var kSJViewDidDrag: String?
+    static var kSJViewDidEndDragging: String?
+}

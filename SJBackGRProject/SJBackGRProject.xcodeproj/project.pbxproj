@@ -28,6 +28,8 @@
 		77D9B7841F7E944100E35746 /* SJScreenshotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D9B77F1F7E944100E35746 /* SJScreenshotView.m */; };
 		77D9B7851F7E944100E35746 /* UINavigationController+SJVideoPlayerAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D9B7811F7E944100E35746 /* UINavigationController+SJVideoPlayerAdd.m */; };
 		77D9B7861F7E944100E35746 /* UIViewController+SJVideoPlayerAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D9B7831F7E944100E35746 /* UIViewController+SJVideoPlayerAdd.m */; };
+		77DA950F20416450007A9EE8 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77DA950D20416450007A9EE8 /* TestViewController.swift */; };
+		77DA951020416450007A9EE8 /* TestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77DA950E20416450007A9EE8 /* TestViewController.xib */; };
 		77DB5340200384A800A6AD9F /* SJFullscreenPopGesture.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 77DB533F200384A800A6AD9F /* SJFullscreenPopGesture.podspec */; };
 		A6A0A90020410F2C003DB0A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A0A8FF20410F2C003DB0A0 /* AppDelegate.swift */; };
 		A6A0A90220410F2C003DB0A0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A0A90120410F2C003DB0A0 /* ViewController.swift */; };
@@ -94,6 +96,8 @@
 		77D9B7811F7E944100E35746 /* UINavigationController+SJVideoPlayerAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+SJVideoPlayerAdd.m"; sourceTree = "<group>"; };
 		77D9B7821F7E944100E35746 /* UIViewController+SJVideoPlayerAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SJVideoPlayerAdd.h"; sourceTree = "<group>"; };
 		77D9B7831F7E944100E35746 /* UIViewController+SJVideoPlayerAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SJVideoPlayerAdd.m"; sourceTree = "<group>"; };
+		77DA950D20416450007A9EE8 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		77DA950E20416450007A9EE8 /* TestViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestViewController.xib; sourceTree = "<group>"; };
 		77DB533F200384A800A6AD9F /* SJFullscreenPopGesture.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SJFullscreenPopGesture.podspec; path = ../SJFullscreenPopGesture.podspec; sourceTree = "<group>"; };
 		7EC039F4F8BF7EF7E3CBF732 /* libPods-SJBackGRProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SJBackGRProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6A0A8FD20410F2B003DB0A0 /* SwiftVersion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftVersion.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -285,6 +289,8 @@
 			children = (
 				A6A0A8FF20410F2C003DB0A0 /* AppDelegate.swift */,
 				A6A0A90120410F2C003DB0A0 /* ViewController.swift */,
+				77DA950D20416450007A9EE8 /* TestViewController.swift */,
+				77DA950E20416450007A9EE8 /* TestViewController.xib */,
 				A6A0A92B20410F99003DB0A0 /* SJNavigationPopGesture.swift */,
 				A6A0A90320410F2C003DB0A0 /* Main.storyboard */,
 				A6A0A90620410F2C003DB0A0 /* Assets.xcassets */,
@@ -470,6 +476,7 @@
 			files = (
 				A6A0A90A20410F2C003DB0A0 /* LaunchScreen.storyboard in Resources */,
 				A6A0A90720410F2C003DB0A0 /* Assets.xcassets in Resources */,
+				77DA951020416450007A9EE8 /* TestViewController.xib in Resources */,
 				A6A0A90520410F2C003DB0A0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -569,6 +576,7 @@
 			files = (
 				A6A0A92C20410F99003DB0A0 /* SJNavigationPopGesture.swift in Sources */,
 				A6A0A90220410F2C003DB0A0 /* ViewController.swift in Sources */,
+				77DA950F20416450007A9EE8 /* TestViewController.swift in Sources */,
 				A6A0A90020410F2C003DB0A0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -790,8 +798,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SanJiang.SwiftVersion;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a317fe74-1a78-4494-b955-994f23dd28be";
-				PROVISIONING_PROFILE_SPECIFIER = sanjiang17macDev;
+				PROVISIONING_PROFILE = "acd2453e-e396-4ccf-bf56-508276824c6c";
+				PROVISIONING_PROFILE_SPECIFIER = SanJiangDevelopment;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
