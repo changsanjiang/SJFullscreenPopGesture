@@ -18,10 +18,19 @@ enum SJNavigationPopGestureType {
     case full
 }
 
+
+/// pop转场模式
+///
+/// - shifting: 做偏移
+/// - shadeAndShifting: 阴影遮盖并且偏移
 enum SJTransitionMode {
     case shifting
     case shadeAndShifting
 }
+
+
+fileprivate var cls_screenshotView: _SJScreenshotView?
+
 
 public extension UINavigationController {
     
@@ -56,7 +65,30 @@ public extension UINavigationController {
             objc_setAssociatedObject(self, &kSJMaxOffset, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
+//    
+//    fileprivate class var SJ_screenshotView: _SJScreenshotView {
+//        get {
+//            if ( nil != cls_screenshotView ) {
+//                return cls_screenshotView!
+//            }
+//            else {
+//                cls_screenshotView = _SJScreenshotView()
+//                let bounds = UIScreen.main.bounds
+//                let width = min(bounds.width, bounds.height)
+//                let height = max(bounds.width, bounds.height)
+//                cls_screenshotView!.frame = CGRect.init(x: 0, y: 0, width: width, height: height)
+//                return cls_screenshotView!
+//            }
+//        }
+//    }
+//    
+//    fileprivate var SJ_screenshotView: _SJScreenshotView {
+//        get {
+//            
+//        }
+//    }
 }
+
 
 public extension UIViewController {
     
