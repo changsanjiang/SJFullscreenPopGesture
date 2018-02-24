@@ -29,9 +29,6 @@ enum SJTransitionMode {
 }
 
 
-fileprivate var cls_screenshotView: _SJScreenshotView?
-
-
 public extension UINavigationController {
     
     /**
@@ -65,28 +62,6 @@ public extension UINavigationController {
             objc_setAssociatedObject(self, &kSJMaxOffset, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
-//    
-//    fileprivate class var SJ_screenshotView: _SJScreenshotView {
-//        get {
-//            if ( nil != cls_screenshotView ) {
-//                return cls_screenshotView!
-//            }
-//            else {
-//                cls_screenshotView = _SJScreenshotView()
-//                let bounds = UIScreen.main.bounds
-//                let width = min(bounds.width, bounds.height)
-//                let height = max(bounds.width, bounds.height)
-//                cls_screenshotView!.frame = CGRect.init(x: 0, y: 0, width: width, height: height)
-//                return cls_screenshotView!
-//            }
-//        }
-//    }
-//    
-//    fileprivate var SJ_screenshotView: _SJScreenshotView {
-//        get {
-//            
-//        }
-//    }
 }
 
 
@@ -192,8 +167,54 @@ public extension UIViewController {
     }
 }
 
+private var static_screenshotView: _SJScreenshotView = {
+    let view = _SJScreenshotView()
+    let bounds = UIScreen.main.bounds
+    let width = min(bounds.width, bounds.height)
+    let height = max(bounds.width, bounds.height)
+    view.frame = CGRect.init(x: 0, y: 0, width: width, height: height)
+    return view
+}()
+
+private var static_snapshotsM: [UIView] = [UIView]()
+
+private var static_window: UIWindow = {
+    let delegate = UIApplication.shared.delegate as AnyObject
+    return delegate.value(forKey: "window") as! UIWindow
+}()
+
+private func SJ_updateScreenshot() -> Void {
+    let view = static_window.snapshotView(afterScreenUpdates: false)
+    if ( nil != view ) {
+        static_snapshotsM.append(view!)
+    }
+}
+
+//extension UIViewController {
+//    override open class func load() {
+//        super.load()
+//    }
+//}
+
 private extension UIViewController {
     
+   
+//    let sel = [Selector("presentViewController:animated:completion:"),
+//               Selector("SJ_presentViewController:animated:completion:"),
+//               Selector("dismissViewControllerAnimated:completion:"),
+//               Selector("SJ_dismissViewControllerAnimated:completion:")]
+//    let `class`: AnyClass = type(of: self)
+//    i += 1
+//    i += 1
+//    var i = 0
+//    while i < MemoryLayout<sel>.size / MemoryLayout<Selector>.size {
+//    let originalSelector: Selector = sel[i]
+//    let swizzledSelector: Selector = sel[i]
+//    let originalMethod = class_getInstanceMethod(`class`, originalSelector)
+//    let swizzledMethod = class_getInstanceMethod(`class`, swizzledSelector)
+//    method_exchangeImplementations(originalMethod, swizzledMethod)
+//
+//    }
 }
 
 fileprivate class _SJScreenshotView : UIView {
