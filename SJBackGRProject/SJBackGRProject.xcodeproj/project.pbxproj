@@ -34,6 +34,8 @@
 		A6243BF020427AE700A0096F /* TestViewControllerNav.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6243BEF20427AE700A0096F /* TestViewControllerNav.swift */; };
 		A6243BF220427AEE00A0096F /* TestViewControllerModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6243BF120427AEE00A0096F /* TestViewControllerModal.swift */; };
 		A6243BF420427CB400A0096F /* NavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6243BF320427CB400A0096F /* NavViewController.swift */; };
+		A6243C032042841E00A0096F /* SJNavigationPopGesture.podspec in Resources */ = {isa = PBXBuildFile; fileRef = A6243C022042841E00A0096F /* SJNavigationPopGesture.podspec */; };
+		A6243C05204284B100A0096F /* SJNavigationPopGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6243C04204284B100A0096F /* SJNavigationPopGesture.swift */; };
 		A6A0A90020410F2C003DB0A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A0A8FF20410F2C003DB0A0 /* AppDelegate.swift */; };
 		A6A0A90220410F2C003DB0A0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A0A90120410F2C003DB0A0 /* ViewController.swift */; };
 		A6A0A90520410F2C003DB0A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6A0A90320410F2C003DB0A0 /* Main.storyboard */; };
@@ -41,7 +43,6 @@
 		A6A0A90A20410F2C003DB0A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6A0A90820410F2C003DB0A0 /* LaunchScreen.storyboard */; };
 		A6A0A91520410F2C003DB0A0 /* SwiftVersionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A0A91420410F2C003DB0A0 /* SwiftVersionTests.swift */; };
 		A6A0A92020410F2C003DB0A0 /* SwiftVersionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A0A91F20410F2C003DB0A0 /* SwiftVersionUITests.swift */; };
-		A6A0A92C20410F99003DB0A0 /* SJNavigationPopGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A0A92B20410F99003DB0A0 /* SJNavigationPopGesture.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +107,8 @@
 		A6243BEF20427AE700A0096F /* TestViewControllerNav.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewControllerNav.swift; sourceTree = "<group>"; };
 		A6243BF120427AEE00A0096F /* TestViewControllerModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewControllerModal.swift; sourceTree = "<group>"; };
 		A6243BF320427CB400A0096F /* NavViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavViewController.swift; sourceTree = "<group>"; };
+		A6243C022042841E00A0096F /* SJNavigationPopGesture.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SJNavigationPopGesture.podspec; path = ../SJNavigationPopGesture.podspec; sourceTree = "<group>"; };
+		A6243C04204284B100A0096F /* SJNavigationPopGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SJNavigationPopGesture.swift; path = ../../SJNavigationPopGesture/SJNavigationPopGesture.swift; sourceTree = "<group>"; };
 		A6A0A8FD20410F2B003DB0A0 /* SwiftVersion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftVersion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6A0A8FF20410F2C003DB0A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A6A0A90120410F2C003DB0A0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -119,7 +122,6 @@
 		A6A0A91B20410F2C003DB0A0 /* SwiftVersionUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftVersionUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6A0A91F20410F2C003DB0A0 /* SwiftVersionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftVersionUITests.swift; sourceTree = "<group>"; };
 		A6A0A92120410F2C003DB0A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A6A0A92B20410F99003DB0A0 /* SJNavigationPopGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SJNavigationPopGesture.swift; sourceTree = "<group>"; };
 		B1904B4F007A4F6AE8248B29 /* Pods-SJBackGRProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SJBackGRProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-SJBackGRProject/Pods-SJBackGRProject.release.xcconfig"; sourceTree = "<group>"; };
 		DAB5A6048AC4F05C43F589A5 /* Pods-SwiftVersion.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftVersion.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftVersion/Pods-SwiftVersion.release.xcconfig"; sourceTree = "<group>"; };
 		EBD88913D66022964300A900 /* Pods-SwiftVersion.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftVersion.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftVersion/Pods-SwiftVersion.debug.xcconfig"; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 		77D9B75A1F7E941A00E35746 = {
 			isa = PBXGroup;
 			children = (
+				A6243C022042841E00A0096F /* SJNavigationPopGesture.podspec */,
 				77DB533F200384A800A6AD9F /* SJFullscreenPopGesture.podspec */,
 				779177811FC539C100E2AFF7 /* README.md */,
 				77D9B7651F7E941A00E35746 /* SJBackGRProject */,
@@ -298,13 +301,13 @@
 		A6A0A8FE20410F2C003DB0A0 /* SwiftVersion */ = {
 			isa = PBXGroup;
 			children = (
+				A6243C04204284B100A0096F /* SJNavigationPopGesture.swift */,
 				A6A0A8FF20410F2C003DB0A0 /* AppDelegate.swift */,
 				A6A0A90120410F2C003DB0A0 /* ViewController.swift */,
 				A6243BEF20427AE700A0096F /* TestViewControllerNav.swift */,
 				A6243BF320427CB400A0096F /* NavViewController.swift */,
 				A6243BF120427AEE00A0096F /* TestViewControllerModal.swift */,
 				77DA950E20416450007A9EE8 /* TestViewController.xib */,
-				A6A0A92B20410F99003DB0A0 /* SJNavigationPopGesture.swift */,
 				A6A0A90320410F2C003DB0A0 /* Main.storyboard */,
 				A6A0A90620410F2C003DB0A0 /* Assets.xcassets */,
 				A6A0A90820410F2C003DB0A0 /* LaunchScreen.storyboard */,
@@ -482,6 +485,7 @@
 				77D9B7761F7E941A00E35746 /* LaunchScreen.storyboard in Resources */,
 				77D9B7731F7E941A00E35746 /* Assets.xcassets in Resources */,
 				779177821FC539C100E2AFF7 /* README.md in Resources */,
+				A6243C032042841E00A0096F /* SJNavigationPopGesture.podspec in Resources */,
 				77D9B7711F7E941A00E35746 /* Main.storyboard in Resources */,
 				772D239C200B7B3A00E332B9 /* ex1.gif in Resources */,
 			);
@@ -650,8 +654,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A6243C05204284B100A0096F /* SJNavigationPopGesture.swift in Sources */,
 				A6243BF220427AEE00A0096F /* TestViewControllerModal.swift in Sources */,
-				A6A0A92C20410F99003DB0A0 /* SJNavigationPopGesture.swift in Sources */,
 				A6243BF020427AE700A0096F /* TestViewControllerNav.swift in Sources */,
 				A6A0A90220410F2C003DB0A0 /* ViewController.swift in Sources */,
 				A6243BF420427CB400A0096F /* NavViewController.swift in Sources */,

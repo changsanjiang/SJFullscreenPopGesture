@@ -35,8 +35,12 @@ class TestViewControllerNav: UIViewController {
         return btn
     }()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "Close", style: .plain, target: self, action: #selector(close))
+        
         self.view.backgroundColor = UIColor.init(red: CGFloat(arc4random() % 256) / 255.0, green: CGFloat(arc4random() % 256) / 255.0, blue: CGFloat(arc4random() % 256) / 255.0, alpha: 1)
 
         var frame = CGRect.init(x: 100, y: 200, width: 100, height: 30)
@@ -62,6 +66,15 @@ class TestViewControllerNav: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @objc private func close() -> Void {
+        if ( self.navigationController?.presentingViewController != nil ) {
+            self.dismiss(animated: true, completion: nil)
+        }
+        else {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     @objc private func push() -> Void {

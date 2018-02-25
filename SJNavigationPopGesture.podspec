@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   #  summary should be tweet-length, and the description more in depth.
   #
 
-  s.name         = "SJFullscreenPopGesture"
+  s.name         = "SJNavigationPopGesture"
   s.version      = "1.3.7"
   s.summary      = "fullscreen pop gestures."
 
@@ -24,7 +24,7 @@ Pod::Spec.new do |s|
   #   * Try to keep it short, snappy and to the point.
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
-  s.description  = 'fullscreen pop gesture. System native gestures and custom gestures are free to switch.'
+  s.description  = 'Fullscreen pop gesture. It is very suitable for the application of the video player.'
 
 
   s.homepage     = "https://github.com/changsanjiang/SJFullscreenPopGesture"
@@ -90,10 +90,7 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "SJFullscreenPopGesture/*.{h,m}"
-  s.subspec 'View' do |ss|
-        ss.source_files = 'SJFullscreenPopGesture/View/*.{h,m}'
-  end
+  s.source_files  = "SJNavigationPopGesture/*.swift"
 
   # s.exclude_files = "Classes/Exclude"
 
@@ -120,7 +117,7 @@ Pod::Spec.new do |s|
   #  the lib prefix of their name.
   #
 
-  # s.framework  = "SomeFramework"
+  s.framework  = "UIKit"
   # s.frameworks = "SomeFramework", "AnotherFramework"
 
   # s.library   = "iconv"

@@ -14,6 +14,7 @@ class NavViewController: UINavigationController {
         super.viewDidLoad()
 
         self.sj_gestureType = .full
+
         // Do any additional setup after loading the view.
     }
 
