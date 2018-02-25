@@ -35,6 +35,14 @@ class TestViewControllerNav: UIViewController {
         return btn
     }()
     
+    private var alertBtn: UIButton = {
+        let btn = UIButton.init(type: .custom)
+        btn.setTitleColor(UIColor.orange, for: .normal)
+        btn.setTitle("Alert", for: .normal)
+        btn.addTarget(self, action: #selector(alert), for: UIControlEvents.touchUpInside)
+        return btn
+    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +63,10 @@ class TestViewControllerNav: UIViewController {
         frame.origin.y += frame.height + 10
         self.view.addSubview(modal_Nav_Btn)
         modal_Nav_Btn.frame = frame
+        
+        frame.origin.y += frame.height + 10
+        self.view.addSubview(alertBtn)
+        alertBtn.frame = frame
         
         // Do any additional setup after loading the view.
     }
@@ -93,5 +105,12 @@ class TestViewControllerNav: UIViewController {
     @objc private func modal_Nav() -> Void {
         let nav = NavViewController.init(rootViewController: TestViewControllerNav())
         self.present(nav, animated: true, completion: nil)
+    }
+    
+    @objc private func alert() -> Void {
+        let alertVC = UIAlertController.init(title: "Test", message: nil, preferredStyle: .alert)
+        let cancelAction = UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil)
+        alertVC.addAction(cancelAction)
+        self.present(alertVC, animated: true, completion: nil)
     }
 }

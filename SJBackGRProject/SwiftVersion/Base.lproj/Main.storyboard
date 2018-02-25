@@ -26,14 +26,6 @@
                                     <action selector="push:" destination="BYZ-38-t0r" eventType="touchUpInside" id="T5M-Rj-uDO"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e9F-0u-AlN">
-                                <rect key="frame" x="171" y="305" width="33" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Alert"/>
-                                <connections>
-                                    <action selector="alert:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Yj7-3j-WcZ"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>

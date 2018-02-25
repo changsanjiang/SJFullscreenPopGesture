@@ -26,13 +26,5 @@ class ViewController: UIViewController {
     @IBAction func push(_ sender: Any) {
         self.navigationController?.pushViewController(TestViewControllerNav(), animated: true)
     }
-    
-    
-    @IBAction func alert(_ sender: Any) {
-        let alertVC = UIAlertController.init(title: "Test", message: nil, preferredStyle: .alert)
-        let cancelAction = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
-        alertVC.addAction(cancelAction)
-        self.present(alertVC, animated: true, completion: nil)
-    }
 }
 
