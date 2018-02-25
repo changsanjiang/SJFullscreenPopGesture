@@ -315,32 +315,33 @@ static inline void SJ_updateScreenshot() {
     if ( [scrollView isKindOfClass:NSClassFromString(@"_UIQueuingScrollView")] ) {
         return [self SJ_considerQueuingScrollView:scrollView gestureRecognizer:gestureRecognizer otherGestureRecognizer:otherGestureRecognizer];
     }
-    else if ( 0 != scrollView.contentOffset.x + scrollView.contentInset.left ) return NO;
-    else if ( [(UIPanGestureRecognizer *)gestureRecognizer translationInView:self.view].x <= 0 ) return NO;
     
-    return YES;
+    if ( 0 == scrollView.contentOffset.x + scrollView.contentInset.left && !scrollView.decelerating ) {
+        [self _sjCancellGesture:otherGestureRecognizer];
+        return NO;
+    }
+    else {
+        [self _sjCancellGesture:gestureRecognizer];
+        return YES;
+    }
 }
 
 - (BOOL)SJ_considerQueuingScrollView:(UIScrollView *)scrollView gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer otherGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     UIPageViewController *pageVC = [self SJ_findingPageViewControllerWithQueueingScrollView:scrollView];
-    if ( !pageVC ) {
-        [self _sjCancellGesture:otherGestureRecognizer];    // 取消other, 触发pop
-        return NO;
+
+    id<UIPageViewControllerDataSource> dataSource = pageVC.dataSource;
+    UIViewController *beforeViewController = nil;
+    
+    if ( 0 != pageVC.viewControllers.count ) {
+        beforeViewController = [dataSource pageViewController:pageVC viewControllerBeforeViewController:pageVC.viewControllers.firstObject];
     }
     
-    id<UIPageViewControllerDataSource> dataSource = pageVC.dataSource;
-    if ( !pageVC.dataSource ||
-         0 == pageVC.viewControllers.count ) {
-        [self _sjCancellGesture:otherGestureRecognizer];    // 取消other, 触发pop
-        return NO;
-    }
-    else if ( 0 != pageVC.viewControllers.count &&
-              [dataSource pageViewController:pageVC viewControllerBeforeViewController:pageVC.viewControllers.firstObject] ) {
+    if ( beforeViewController || scrollView.decelerating ) {
         [self _sjCancellGesture:gestureRecognizer];         // 取消pop, 触发 other
         return YES;
     }
     else {
-        [self _sjCancellGesture:otherGestureRecognizer];    // 默认 取消other, 触发pop
+        [self _sjCancellGesture:otherGestureRecognizer];    // 取消other, 触发pop ---> default
         return NO;
     }
 }
