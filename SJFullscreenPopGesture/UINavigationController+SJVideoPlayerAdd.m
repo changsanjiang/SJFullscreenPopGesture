@@ -283,7 +283,7 @@ static inline void SJ_updateScreenshot() {
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     if ( UIGestureRecognizerStateFailed ==  gestureRecognizer.state ||
-        UIGestureRecognizerStateCancelled == gestureRecognizer.state ) return YES;
+         UIGestureRecognizerStateCancelled == gestureRecognizer.state ) return NO;
     else if ( ([otherGestureRecognizer isMemberOfClass:NSClassFromString(@"UIScrollViewPanGestureRecognizer")] ||
                [otherGestureRecognizer isMemberOfClass:NSClassFromString(@"UIScrollViewPagingSwipeGestureRecognizer")])
              && [otherGestureRecognizer.view isKindOfClass:[UIScrollView class]] ) {
@@ -292,10 +292,10 @@ static inline void SJ_updateScreenshot() {
                     otherGestureRecognizer:otherGestureRecognizer];
     }
     else if ( [otherGestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]] )  {
-        [self _sjCancellGesture:gestureRecognizer];
-        return YES;
+        return NO;  // pop手势不触发
     }
     
+    // 除 pan 手势, 其他手势同时触发
     return YES;
 }
 
@@ -334,12 +334,10 @@ static inline void SJ_updateScreenshot() {
     
     if ( 0 == scrollView.contentOffset.x + scrollView.contentInset.left && !scrollView.decelerating ) {
         [self _sjCancellGesture:otherGestureRecognizer];
-        return NO;
-    }
-    else {
-        [self _sjCancellGesture:gestureRecognizer];
         return YES;
     }
+    
+    return NO;
 }
 
 - (BOOL)SJ_considerQueuingScrollView:(UIScrollView *)scrollView gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer otherGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
@@ -353,12 +351,11 @@ static inline void SJ_updateScreenshot() {
     }
     
     if ( beforeViewController || scrollView.decelerating ) {
-        [self _sjCancellGesture:gestureRecognizer];         // 取消pop, 触发 other
-        return YES;
+        return NO;
     }
     else {
-        [self _sjCancellGesture:otherGestureRecognizer];    // 取消other, 触发pop ---> default
-        return NO;
+        [self _sjCancellGesture:otherGestureRecognizer];
+        return YES;
     }
 }
 

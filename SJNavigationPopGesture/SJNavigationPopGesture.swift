@@ -481,7 +481,7 @@ extension UINavigationController : UIGestureRecognizerDelegate {
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         if ( gestureRecognizer.state == UIGestureRecognizerState.failed ||
              gestureRecognizer.state == UIGestureRecognizerState.cancelled ) {
-            return true
+            return false
         }
             
         else if ( otherGestureRecognizer.isMember(of: NSClassFromString("UIScrollViewPanGestureRecognizer")!) == true ||
@@ -493,8 +493,7 @@ extension UINavigationController : UIGestureRecognizerDelegate {
         }
         
         else if ( otherGestureRecognizer.isKind(of: UIPanGestureRecognizer.self) ) {
-           SJ_cancellGesture(gestureRecognizer)
-            return true
+            return false
         }
         
         return true
@@ -541,11 +540,10 @@ extension UINavigationController : UIGestureRecognizerDelegate {
         
         if ( 0 == scrollView.contentOffset.x + scrollView.contentInset.left && !scrollView.isDecelerating ) {
             SJ_cancellGesture(otherGestureRecognizer)
-            return false
+            return true
         }
         
-        SJ_cancellGesture(gestureRecognizer)
-        return true
+        return false
     }
     
     private func SJ_considerQueuingScrollView(_ scrollView: UIScrollView, _ gestureRecognizer: UIGestureRecognizer, _ otherGestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -557,11 +555,11 @@ extension UINavigationController : UIGestureRecognizerDelegate {
         }
         
         if ( beforeViewController != nil || scrollView.isDecelerating ) {
-            SJ_cancellGesture(gestureRecognizer)
-            return true
+            return false
         }
+        
         SJ_cancellGesture(otherGestureRecognizer)
-        return false
+        return true
     }
     
     private func SJ_findingPageViewController(_ scrollView: UIScrollView) -> UIPageViewController? {
