@@ -9,15 +9,18 @@
 import UIKit
 import WebKit
 
-public class SJNavigationPopGestureManager : NSObject {
+public class SJNavigationPopGesture {
 
-    private static var sharedInstance: SJNavigationPopGestureManager?
+    private static var installed: Bool?
     
-    @objc @discardableResult
-    public class func launching() -> SJNavigationPopGestureManager {
-        if ( nil == sharedInstance ) {
-            sharedInstance = SJNavigationPopGestureManager()
+    public class func install() -> Void {
+        if ( nil != installed ) {
+            return
         }
+        
+        installed = true
+
+        var cls = UIViewController.self
         var selArr = [
             [
                 #selector(UIViewController.present(_:animated:completion:)),
@@ -28,9 +31,10 @@ public class SJNavigationPopGestureManager : NSObject {
                 #selector(UIViewController.sj_dismiss(animated:completion:))
             ]
         ]
-        var cls = UIViewController.self
-        _exchangeImp(selArr, cls)
+        _exchangeImp(cls, selArr)
         
+        
+        cls = UINavigationController.self
         selArr = [
             [
                 #selector(UINavigationController.pushViewController(_:animated:)),
@@ -49,13 +53,10 @@ public class SJNavigationPopGestureManager : NSObject {
                 #selector(UINavigationController.sj_popToRootViewController(animated:))
             ],
         ]
-        cls = UINavigationController.self
-        _exchangeImp(selArr, cls)
-        
-        return sharedInstance!
+        _exchangeImp(cls, selArr)
     }
     
-    private class func _exchangeImp(_ selArr: [[Selector]], _ cls: AnyClass) -> Void {
+    private class func _exchangeImp(_ cls: AnyClass, _ selArr: [[Selector]]) -> Void {
         for sel in selArr {
             let originalSelector = sel[0]
             let swizzledSelector = sel[1]
@@ -67,8 +68,8 @@ public class SJNavigationPopGestureManager : NSObject {
 }
 
 
-/// getsture type, default is .edgeLeft
-enum SJNavigationPopGestureType {
+/// getsture type, default is .edgeLeft.  手势类型, 默认是边缘触发
+public enum SJNavigationPopGestureType {
     
     case edgeLeft
     
@@ -76,11 +77,11 @@ enum SJNavigationPopGestureType {
 }
 
 
-/// pop转场模式
+/// pop 转场方式
 ///
 /// - shifting: 做偏移
 /// - shadeAndShifting: 阴影遮盖并且偏移
-enum SJTransitionMode {
+public enum SJTransitionMode {
     case shifting
     case shadeAndShifting
 }
@@ -88,11 +89,43 @@ enum SJTransitionMode {
 
 public extension UINavigationController {
     
-    /**
-     *  bar Color. If there is a black top on the navigation bar, set it.
-     *
-     *  如果导航栏上出现了黑底, 请设置他.
-     **/
+    /// 手势类型, default is `edgeLeft`
+    public var sj_gestureType: SJNavigationPopGestureType {
+        get {
+            return self.SJ_selectedType
+        }
+        
+        set {
+            self.SJ_selectedType = newValue
+        }
+    }
+    
+    /// pop 转场方式, default is `shifting`
+    public var sj_transitionMode: SJTransitionMode {
+        get {
+            return static_screenshotView.transitionMode
+        }
+        
+        set {
+            static_screenshotView.transitionMode = newValue
+        }
+    }
+    
+    /// pop gesture state.
+    public var sj_popGestureState: UIGestureRecognizerState {
+        get {
+            var gesture: UIGestureRecognizer?
+            switch SJ_selectedType {
+            case .edgeLeft:
+                gesture = self.SJ_edgePan
+            case .full:
+                gesture = self.SJ_pan
+            }
+            return gesture!.state
+        }
+    }
+    
+    /// bar Color. If there is a black top on the navigation bar, set it. 如果导航栏上出现了黑底, 可以设置他.
     public var sj_backgroundColor: UIColor? {
         get {
             return objc_getAssociatedObject(self, &SJAssociatedKeys.kSJBackgroundColor) as? UIColor
@@ -100,6 +133,8 @@ public extension UINavigationController {
         
         set {
             objc_setAssociatedObject(self, &SJAssociatedKeys.kSJBackgroundColor, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            self.navigationBar.barTintColor = sj_backgroundColor
+            self.navigationBar.backgroundColor = sj_backgroundColor
         }
     }
     
@@ -233,8 +268,6 @@ private extension UIViewController {
     @objc func sj_present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Swift.Void)? = nil) {
         
         if ( viewControllerToPresent.isKind(of: UIAlertController.self) != true ) {
-            print(#function)
-            
             SJ_updateScreenshot()
         }
         
@@ -244,8 +277,6 @@ private extension UIViewController {
     @objc func sj_dismiss(animated flag: Bool, completion: (() -> Swift.Void)? = nil) {
         
         if ( self.presentedViewController?.isKind(of: UIAlertController.self) != true ) {
-            
-            print(#function)
             
             if ( self.isKind(of: UINavigationController.self) == true &&
                  self.presentingViewController != nil ) {
@@ -283,10 +314,8 @@ private extension UINavigationController {
     func sj_navSettings() -> Void {
         self.SJ_tookOver = true
         self.interactivePopGestureRecognizer?.isEnabled = false
-        self.view.addGestureRecognizer(self.SJ_pan)
-        self.view.addGestureRecognizer(self.SJ_edgePan)
         let type = self.SJ_selectedType
-        self.SJ_selectedType = type // update
+        self.SJ_selectedType = type // need update
         
         // border shadow
         CATransaction.begin()
@@ -377,14 +406,15 @@ extension UINavigationController : UIGestureRecognizerDelegate {
         
         set {
             objc_setAssociatedObject(self, &SJAssociatedKeys.kSJSelectedType, newValue, .OBJC_ASSOCIATION_RETAIN)
+            
             switch newValue {
             case .edgeLeft:
-                self.SJ_pan.isEnabled = false
-                self.SJ_edgePan.isEnabled = true
+                self.view.addGestureRecognizer(self.SJ_edgePan)
+                self.view.removeGestureRecognizer(self.SJ_pan)
                 
             case .full:
-                self.SJ_pan.isEnabled = true
-                self.SJ_edgePan.isEnabled = false
+                self.view.addGestureRecognizer(self.SJ_pan)
+                self.view.removeGestureRecognizer(self.SJ_edgePan)
             }
         }
     }
@@ -395,6 +425,7 @@ extension UINavigationController : UIGestureRecognizerDelegate {
             if ( pan == nil ) {
                 pan = UIPanGestureRecognizer.init(target: self, action: #selector(SJ_handlePanGR(_:)))
                 pan?.delegate = self
+                pan?.delaysTouchesBegan = true
                 objc_setAssociatedObject(self, &SJAssociatedKeys.kSJPan, pan, .OBJC_ASSOCIATION_RETAIN)
             }
             return pan!
@@ -406,8 +437,9 @@ extension UINavigationController : UIGestureRecognizerDelegate {
             var pan = objc_getAssociatedObject(self, &SJAssociatedKeys.kSJPan) as? UIScreenEdgePanGestureRecognizer
             if ( pan == nil ) {
                 pan = UIScreenEdgePanGestureRecognizer.init(target: self, action: #selector(SJ_handlePanGR(_:)))
-                pan?.edges = UIRectEdge.left
                 pan?.delegate = self
+                pan?.delaysTouchesBegan = true
+                pan?.edges = UIRectEdge.left
                 objc_setAssociatedObject(self, &SJAssociatedKeys.kSJEdgePan, pan, .OBJC_ASSOCIATION_RETAIN)
             }
             return pan!
@@ -454,7 +486,14 @@ extension UINavigationController : UIGestureRecognizerDelegate {
         else if ( otherGestureRecognizer.isMember(of: NSClassFromString("UIScrollViewPanGestureRecognizer")!) == true ||
                   otherGestureRecognizer.isMember(of: NSClassFromString("UIScrollViewPagingSwipeGestureRecognizer")!) == true ||
                   otherGestureRecognizer.isMember(of: UIScrollView.self) == true ) {
-            
+            let scrollView = otherGestureRecognizer.view as! UIScrollView
+            let panGesture = gestureRecognizer as! UIPanGestureRecognizer
+            return SJ_considerScrollView(scrollView, panGesture, otherGestureRecognizer)
+        }
+        
+        else if ( otherGestureRecognizer.isKind(of: UIPanGestureRecognizer.self) ) {
+           SJ_cancellGesture(gestureRecognizer)
+            return true
         }
         
         return true
@@ -498,37 +537,29 @@ extension UINavigationController : UIGestureRecognizerDelegate {
         if ( scrollView.isKind(of: NSClassFromString("_UIQueuingScrollView")!) == true ) {
             return SJ_considerQueuingScrollView(scrollView, gestureRecognizer, otherGestureRecognizer)
         }
-        else if ( 0 != scrollView.contentOffset.x + scrollView.contentInset.left ) {
-            return false
-        }
-        else if ( gestureRecognizer.translation(in: self.view).x <= 0 ) {
+        
+        if ( 0 == scrollView.contentOffset.x + scrollView.contentInset.left && !scrollView.isDecelerating ) {
+            SJ_cancellGesture(otherGestureRecognizer)
             return false
         }
         
+        SJ_cancellGesture(gestureRecognizer)
         return true
     }
     
     private func SJ_considerQueuingScrollView(_ scrollView: UIScrollView, _ gestureRecognizer: UIGestureRecognizer, _ otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         let pageVC = SJ_findingPageViewController(scrollView)
-        if ( pageVC == nil ) {
-            SJ_cancellGesture(otherGestureRecognizer)   // 取消other, 触发 pop
-            return false
+        let dataSource = pageVC?.dataSource
+        var beforeViewController: UIViewController?
+        if ( dataSource != nil && 0 != pageVC?.viewControllers?.count ) {
+            beforeViewController = dataSource?.pageViewController(pageVC!, viewControllerBefore: (pageVC?.viewControllers?.first)!)
         }
         
-        let dataSource = pageVC!.dataSource
-        if ( dataSource == nil ||
-             0 == pageVC!.viewControllers?.count ) {
-            SJ_cancellGesture(otherGestureRecognizer)   // 取消other, 触发pop
-            return false
+        if ( beforeViewController != nil || scrollView.isDecelerating ) {
+            SJ_cancellGesture(gestureRecognizer)
+            return true
         }
-        else if ( 0 != pageVC!.viewControllers?.count ) {
-            if ( dataSource?.pageViewController(pageVC!, viewControllerBefore:pageVC!.viewControllers!.first!) != nil ) {
-                SJ_cancellGesture(gestureRecognizer)  // 取消pop手势, 触发other
-                return true
-            }
-        }
-        
-        SJ_cancellGesture(otherGestureRecognizer)   // 默认 触发pop手势, 取消other
+        SJ_cancellGesture(otherGestureRecognizer)
         return false
     }
     
@@ -652,7 +683,7 @@ fileprivate class _SJScreenshotView : UIView {
     }()
     
     private lazy var shift: CGFloat = {
-        return UIScreen.main.bounds.width
+        return -floor(UIScreen.main.bounds.width * 0.382)
     }()
     
     private lazy var shadeView: UIView = {
@@ -693,7 +724,7 @@ fileprivate class _SJScreenshotView : UIView {
         if ( 0 == width ) {
             return
         }
-        
+
         let rate = offset / width
         containerView.transform = CGAffineTransform.init(translationX: self.shift * ( 1 - rate ), y: 0)
         switch transitionMode {

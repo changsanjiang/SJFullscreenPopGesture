@@ -23,9 +23,9 @@ extern BOOL SJ_is_iPhoneX(void);
 
 @interface SJUIFactory : NSObject
 
-+ (UIFont *_Nullable)getFontWithViewHeight:(CGFloat)height;
++ (UIFont *)getFontWithViewHeight:(CGFloat)height;
 
-+ (UIFont *_Nullable)getBoldFontWithViewHeight:(CGFloat)height;
++ (UIFont *)getBoldFontWithViewHeight:(CGFloat)height;
 
 + (void)commonShadowWithView:(UIView *)view;
 
@@ -111,7 +111,7 @@ extern BOOL SJ_is_iPhoneX(void);
 
 
 
-+ (__kindof UITableView *_Nullable)tableViewWithSubClass:(Class)subClass
++ (__kindof UITableView *)tableViewWithSubClass:(Class)subClass
                                           style:(UITableViewStyle)style
                                 backgroundColor:(UIColor * __nullable )backgroundColor
                                  separatorStyle:(UITableViewCellSeparatorStyle)separatorStyle

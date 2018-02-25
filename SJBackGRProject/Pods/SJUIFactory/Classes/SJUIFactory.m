@@ -316,7 +316,7 @@ static void _SJ_Round(UIView *view, float cornerRadius) {
           showsVerticalScrollIndicator:(BOOL)showsVerticalScrollIndicator
                               delegate:(id<UITableViewDelegate>)delegate
                             dataSource:(id<UITableViewDataSource>)dataSource {
-    if ( ![subClass isKindOfClass:[UITableView class]] ) return nil;
+    if ( [subClass isKindOfClass:[UITableView class]] ) return nil;
     UITableView *tableView = [[subClass alloc] initWithFrame:CGRectZero style:style];
     if ( !backgroundColor ) backgroundColor = [UIColor clearColor];
     tableView.backgroundColor = backgroundColor;

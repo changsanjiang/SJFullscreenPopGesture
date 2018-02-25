@@ -1,0 +1,6 @@
+framework module SJLabel {
+  umbrella header "SJLabel-framework-umbrella.h"
+
+  export *
+  module * { export * }
+}

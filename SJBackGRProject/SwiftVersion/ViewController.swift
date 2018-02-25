@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
-        
+
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -24,7 +24,7 @@ class ViewController: UIViewController {
 
     
     @IBAction func push(_ sender: Any) {
-        self.navigationController?.pushViewController(ViewController(), animated: true)
+        self.navigationController?.pushViewController(TestViewControllerNav(), animated: true)
     }
     
     
@@ -34,20 +34,5 @@ class ViewController: UIViewController {
         alertVC.addAction(cancelAction)
         self.present(alertVC, animated: true, completion: nil)
     }
-    
-    @IBAction func close(_ sender: Any) {
-        if ( self.presentedViewController != nil ) {
-            self.dismiss(animated: true, completion: nil)
-        }
-        else {
-            self.navigationController?.popViewController(animated: true)
-        }
-    }
-    
-    
-    @IBAction func modal(_ sender: Any) {
-        self.present(TestViewController(), animated: true, completion: nil)
-    }
-    
 }
 

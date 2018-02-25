@@ -1,0 +1,9 @@
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Masonry-framework" "${PODS_CONFIGURATION_BUILD_DIR}/SJAttributesFactory-framework" "${PODS_CONFIGURATION_BUILD_DIR}/SJLabel-framework" "${PODS_CONFIGURATION_BUILD_DIR}/SJScrollEntriesView-framework" "${PODS_CONFIGURATION_BUILD_DIR}/SJUIFactory-framework"
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
+OTHER_CFLAGS = $(inherited) -iquote "${PODS_CONFIGURATION_BUILD_DIR}/Masonry-framework/Masonry.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/SJAttributesFactory-framework/SJAttributesFactory.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/SJLabel-framework/SJLabel.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/SJScrollEntriesView-framework/SJScrollEntriesView.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/SJUIFactory-framework/SJUIFactory.framework/Headers"
+OTHER_LDFLAGS = $(inherited) -framework "Masonry" -framework "SJAttributesFactory" -framework "SJLabel" -framework "SJScrollEntriesView" -framework "SJUIFactory"
+PODS_BUILD_DIR = ${BUILD_DIR}
+PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+PODS_PODFILE_DIR_PATH = ${SRCROOT}/.
+PODS_ROOT = ${SRCROOT}/Pods
