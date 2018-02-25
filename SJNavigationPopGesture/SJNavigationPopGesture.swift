@@ -176,6 +176,7 @@ public extension UIViewController {
         
         set {
             objc_setAssociatedObject(self, &SJAssociatedKeys.kSJConsiderWebView, newValue, .OBJC_ASSOCIATION_ASSIGN)
+            newValue?.allowsBackForwardNavigationGestures = true
         }
     }
     
