@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "61CBEF0FF3966FA1CF058F7A3EA64A94"
+               BlueprintIdentifier = "03B96D7C3780CCDDB2A84100FA52551B"
                BuildableName = "libSJTransitionAnimator.a"
                BlueprintName = "SJTransitionAnimator"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "61CBEF0FF3966FA1CF058F7A3EA64A94"
+            BlueprintIdentifier = "03B96D7C3780CCDDB2A84100FA52551B"
             BuildableName = "libSJTransitionAnimator.a"
             BlueprintName = "SJTransitionAnimator"
             ReferencedContainer = "container:Pods.xcodeproj">

@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "087B5D15C23124826D0F29270D95B49A"
-               BuildableName = "libSJObserverHelper.a"
-               BlueprintName = "SJObserverHelper"
+               BlueprintIdentifier = "C579CAB37A0334AA802DC88CA33873B1"
+               BuildableName = "SJScrollEntriesView.framework"
+               BlueprintName = "SJScrollEntriesView-framework"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -47,9 +47,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "087B5D15C23124826D0F29270D95B49A"
-            BuildableName = "libSJObserverHelper.a"
-            BlueprintName = "SJObserverHelper"
+            BlueprintIdentifier = "C579CAB37A0334AA802DC88CA33873B1"
+            BuildableName = "SJScrollEntriesView.framework"
+            BlueprintName = "SJScrollEntriesView-framework"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

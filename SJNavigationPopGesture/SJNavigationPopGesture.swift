@@ -538,7 +538,8 @@ extension UINavigationController : UIGestureRecognizerDelegate {
             return SJ_considerQueuingScrollView(scrollView, gestureRecognizer, otherGestureRecognizer)
         }
         
-        if ( 0 == scrollView.contentOffset.x + scrollView.contentInset.left && !scrollView.isDecelerating ) {
+        let translate = gestureRecognizer.translation(in: gestureRecognizer.view)
+        if ( 0 == scrollView.contentOffset.x + scrollView.contentInset.left && !scrollView.isDecelerating && translate.x > 0 && translate.y == 0 ) {
             SJ_cancellGesture(otherGestureRecognizer)
             return true
         }

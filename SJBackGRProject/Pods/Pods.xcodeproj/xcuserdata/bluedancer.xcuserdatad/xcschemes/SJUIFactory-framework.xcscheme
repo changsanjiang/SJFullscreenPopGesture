@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9DC8D9E02903E93BD0B2FEC9D846EA20"
-               BuildableName = "libMasonry.a"
-               BlueprintName = "Masonry"
+               BlueprintIdentifier = "335ADACAC36DF350CEAC5DD66656830B"
+               BuildableName = "SJUIFactory.framework"
+               BlueprintName = "SJUIFactory-framework"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -47,9 +47,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9DC8D9E02903E93BD0B2FEC9D846EA20"
-            BuildableName = "libMasonry.a"
-            BlueprintName = "Masonry"
+            BlueprintIdentifier = "335ADACAC36DF350CEAC5DD66656830B"
+            BuildableName = "SJUIFactory.framework"
+            BlueprintName = "SJUIFactory-framework"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
