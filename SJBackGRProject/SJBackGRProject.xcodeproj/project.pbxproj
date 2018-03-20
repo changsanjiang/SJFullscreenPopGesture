@@ -434,7 +434,7 @@
 				TargetAttributes = {
 					77D9B7621F7E941A00E35746 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = DB5B5F2RH5;
+						DevelopmentTeam = U5A7L7SMNP;
 						ProvisioningStyle = Manual;
 					};
 					A6A0A8FC20410F2B003DB0A0 = {
@@ -839,14 +839,14 @@
 			baseConfigurationReference = 39202E5F7055D8AC447FC6B4 /* Pods-SJBackGRProject.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = DB5B5F2RH5;
+				DEVELOPMENT_TEAM = U5A7L7SMNP;
 				INFOPLIST_FILE = SJBackGRProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SanJiang.SJBackGRProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "acd2453e-e396-4ccf-bf56-508276824c6c";
-				PROVISIONING_PROFILE_SPECIFIER = SanJiangDevelopment;
+				PROVISIONING_PROFILE = "ca8186e4-0d11-4c23-9f2f-50f3a29199fd";
+				PROVISIONING_PROFILE_SPECIFIER = WildcardProfile;
 			};
 			name = Debug;
 		};
