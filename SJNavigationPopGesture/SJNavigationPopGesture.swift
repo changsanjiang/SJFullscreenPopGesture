@@ -268,7 +268,7 @@ public extension UIViewController {
 private extension UIViewController {
     @objc func sj_present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Swift.Void)? = nil) {
         
-        if ( viewControllerToPresent.isKind(of: UIAlertController.self) != true ) {
+        if ( viewControllerToPresent.isKind(of: UIAlertController.self) == false ) {
             SJ_updateScreenshot()
         }
         
@@ -277,7 +277,7 @@ private extension UIViewController {
     
     @objc func sj_dismiss(animated flag: Bool, completion: (() -> Swift.Void)? = nil) {
         
-        if ( self.presentedViewController?.isKind(of: UIAlertController.self) != true ) {
+        if ( self.isKind(of: UIAlertController.self) == false && self.presentedViewController?.isKind(of: UIAlertController.self) == false ) {
             
             if ( self.isKind(of: UINavigationController.self) == true &&
                  self.presentingViewController != nil ) {
