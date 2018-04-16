@@ -20,6 +20,10 @@ typedef NS_ENUM(NSUInteger, SJPreViewDisplayMode) {
 
 @interface UIViewController (SJVideoPlayerAdd)
 
+/**
+ Pre view display mode when the pop gesture triggering.
+ 当手势触发时, 之前视图(将要返回的那个视图)的显示模式, 目前有两种: `SJPreViewDisplayMode_Origin` 使用原视图, `SJPreViewDisplayMode_Snapshot` 使用原视图的快照
+ */
 @property (nonatomic) SJPreViewDisplayMode sj_displayMode;
 
 @property (nonatomic, readonly) UIGestureRecognizerState sj_fullscreenGestureState;
