@@ -92,13 +92,19 @@ static const char *kSJSnapshot = "kSJSnapshot";
     switch ( vc.sj_displayMode ) {
         case SJPreViewDisplayMode_Origin: {
             UIView *preView = _nav.childViewControllers[_index].view;
-            // fix
-            if ( vc.edgesForExtendedLayout != UIRectEdgeNone ) {
+            [_preViewContainerView insertSubview:preView atIndex:0];
+            
+            if ( @available(iOS 11, *) ) { /**/ break; }
+            else {
+                if ( !vc.automaticallyAdjustsScrollViewInsets || vc.edgesForExtendedLayout == UIRectEdgeNone ) break;
+                UIScrollView *scrollView = [self _searchScrollViewWithTarget:vc.view];
+                if ( !scrollView ) break;
+                // fix frame
                 CGRect frame = preView.frame;
-                frame.origin.y = _nav_bar_snapshotView.frame.size.height - 1;
+                frame.origin.y = _nav.navigationBar.frame.origin.y + _nav.navigationBar.frame.size.height;
                 preView.frame = frame;
             }
-            [_preViewContainerView insertSubview:preView atIndex:0];
+            
         }
             break;
         case SJPreViewDisplayMode_Snapshot: {
@@ -111,6 +117,20 @@ static const char *kSJSnapshot = "kSJSnapshot";
     [_preViewContainerView.subviews.firstObject removeFromSuperview];
 }
 
+#pragma mark -
+- (UIScrollView *)_searchScrollViewWithTarget:(UIView *)target {
+    if ( [target isKindOfClass:[UIScrollView class]] ) return (UIScrollView *)target;
+    __block UIView *scrollView = nil;
+    [target.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ( [obj isKindOfClass:[UIScrollView class]] ) {
+            if ( CGRectEqualToRect(obj.frame, target.frame) ) {
+                *stop = YES;
+                scrollView = obj;
+            }
+        }
+    }];
+    return (UIScrollView *)scrollView;
+}
 @end
 
 @interface SJSnapshotServer ()
