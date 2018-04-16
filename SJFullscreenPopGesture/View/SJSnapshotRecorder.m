@@ -8,7 +8,7 @@
 
 #import "SJSnapshotRecorder.h"
 #import <objc/message.h>
-#import <UIViewController+SJVideoPlayerAdd.h>
+#import "UIViewController+SJVideoPlayerAdd.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
