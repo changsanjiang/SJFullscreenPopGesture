@@ -92,6 +92,12 @@ static const char *kSJSnapshot = "kSJSnapshot";
     switch ( vc.sj_displayMode ) {
         case SJPreViewDisplayMode_Origin: {
             UIView *preView = _nav.childViewControllers[_index].view;
+            // fix
+            if ( vc.edgesForExtendedLayout != UIRectEdgeNone ) {
+                CGRect frame = preView.frame;
+                frame.origin.y = _nav_bar_snapshotView.frame.size.height - 1;
+                preView.frame = frame;
+            }
             [_preViewContainerView insertSubview:preView atIndex:0];
         }
             break;
