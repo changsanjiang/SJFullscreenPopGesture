@@ -199,9 +199,6 @@
 		776F3BAB2012F28100C23949 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				77A7162A2012EF1A00278C95 /* SJScreenshotTransitionMode.h */,
-				77F987152084828C00BB125F /* SJSnapshotRecorder.h */,
-				77F987162084828C00BB125F /* SJSnapshotRecorder.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -281,6 +278,9 @@
 				77D9B7811F7E944100E35746 /* UINavigationController+SJVideoPlayerAdd.m */,
 				77D9B7821F7E944100E35746 /* UIViewController+SJVideoPlayerAdd.h */,
 				77D9B7831F7E944100E35746 /* UIViewController+SJVideoPlayerAdd.m */,
+				77A7162A2012EF1A00278C95 /* SJScreenshotTransitionMode.h */,
+				77F987152084828C00BB125F /* SJSnapshotRecorder.h */,
+				77F987162084828C00BB125F /* SJSnapshotRecorder.m */,
 				776F3BAB2012F28100C23949 /* View */,
 			);
 			name = SJFullscreenPopGesture;

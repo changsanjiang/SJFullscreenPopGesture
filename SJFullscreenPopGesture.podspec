@@ -91,9 +91,6 @@ Pod::Spec.new do |s|
   #
 
   s.source_files  = "SJFullscreenPopGesture/*.{h,m}"
-  s.subspec 'View' do |ss|
-        ss.source_files = 'SJFullscreenPopGesture/View/*.{h,m}'
-  end
 
   # s.exclude_files = "Classes/Exclude"
 
