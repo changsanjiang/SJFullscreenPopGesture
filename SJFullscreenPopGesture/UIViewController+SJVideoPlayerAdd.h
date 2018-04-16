@@ -13,7 +13,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class WKWebView;
 
+typedef NS_ENUM(NSUInteger, SJPreViewDisplayMode) {
+    SJPreViewDisplayMode_Origin,
+    SJPreViewDisplayMode_Snapshot,
+};
+
 @interface UIViewController (SJVideoPlayerAdd)
+
+@property (nonatomic) SJPreViewDisplayMode sj_displayMode;
 
 @property (nonatomic, readonly) UIGestureRecognizerState sj_fullscreenGestureState;
 

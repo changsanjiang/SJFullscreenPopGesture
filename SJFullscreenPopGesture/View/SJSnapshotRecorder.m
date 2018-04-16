@@ -8,6 +8,7 @@
 
 #import "SJSnapshotRecorder.h"
 #import <objc/message.h>
+#import <UIViewController+SJVideoPlayerAdd.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,7 +16,8 @@ static const char *kSJSnapshot = "kSJSnapshot";
 
 @interface SJSnapshotRecorder : NSObject
 @property (nonatomic, strong, readonly) UIView *rootView;
-@property (nonatomic, strong, readonly) UIView *bar_snapshotView;
+@property (nonatomic, strong, readonly) UIView *nav_bar_snapshotView;
+@property (nonatomic, strong, readonly) UIView *tab_bar_snapshotView;
 @property (nonatomic, strong, readonly) UIView *preViewContainerView;
 @property (nonatomic, strong, readonly) UIView *shadeView;
 - (instancetype)initWithNavigationController:(__weak UINavigationController *__nullable)nav index:(NSInteger)index;
@@ -45,12 +47,30 @@ static const char *kSJSnapshot = "kSJSnapshot";
     _preViewContainerView.frame = _rootView.bounds;
     [_rootView addSubview:_preViewContainerView];
     
-    // bar
-    if ( nav ) {
-        if ( !nav.navigationBarHidden ) {
-             _bar_snapshotView = [nav.view resizableSnapshotViewFromRect:CGRectMake(0, 0, nav.navigationBar.frame.size.width, nav.navigationBar.frame.size.height - nav.navigationBar.subviews.firstObject.frame.origin.y + [UIScreen mainScreen].scale) afterScreenUpdates:NO withCapInsets:UIEdgeInsetsZero];
-            [_rootView addSubview:_bar_snapshotView];
+    
+    switch ( nav.childViewControllers[index].sj_displayMode ) {
+        case SJPreViewDisplayMode_Origin: {
+            // nav bar
+            if ( nav ) {
+                if ( !nav.navigationBarHidden ) {
+                    _nav_bar_snapshotView = [nav.view.window resizableSnapshotViewFromRect:CGRectMake(0, 0, nav.navigationBar.frame.size.width, nav.navigationBar.frame.size.height - nav.navigationBar.subviews.firstObject.frame.origin.y + 1) afterScreenUpdates:NO withCapInsets:UIEdgeInsetsZero];
+                    [_rootView addSubview:_nav_bar_snapshotView];
+                }
+            }
+            
+            // tab bar
+            UITabBar *tabBar = nav.tabBarController.tabBar;
+            if ( !tabBar.hidden ) {
+                _tab_bar_snapshotView = [nav.view.window resizableSnapshotViewFromRect:CGRectMake(0, nav.view.bounds.size.height - tabBar.frame.size.height - 1, tabBar.bounds.size.width, tabBar.bounds.size.height + 1) afterScreenUpdates:NO withCapInsets:UIEdgeInsetsZero];
+                _tab_bar_snapshotView.frame = CGRectMake(0, nav.view.bounds.size.height - tabBar.bounds.size.height - 1, tabBar.bounds.size.width, tabBar.bounds.size.height);
+                [_rootView addSubview:_tab_bar_snapshotView];
+            }
         }
+            break;
+        case SJPreViewDisplayMode_Snapshot: {
+            [_preViewContainerView addSubview:[nav.view.window snapshotViewAfterScreenUpdates:NO]];
+        }
+            break;
     }
     
     _shadeView = [UIView new];
@@ -60,14 +80,21 @@ static const char *kSJSnapshot = "kSJSnapshot";
     
     _nav = nav;
     _index = index;
-    
+
     return self;
 }
 
 - (void)preparePopViewController {
-    if ( _nav ) {
-        UIView *preView = _nav.childViewControllers[_index].view;
-        [_preViewContainerView insertSubview:preView atIndex:0];
+    if ( !_nav ) return;
+    
+    UIViewController *vc = _nav.childViewControllers[_index];
+    switch ( vc.sj_displayMode ) {
+        case SJPreViewDisplayMode_Origin: {
+            UIView *preView = _nav.childViewControllers[_index].view;
+            [_preViewContainerView insertSubview:preView atIndex:0];
+        }
+            break;
+        case SJPreViewDisplayMode_Snapshot: { } break;
     }
 }
 
@@ -101,7 +128,11 @@ static const char *kSJSnapshot = "kSJSnapshot";
 
 #pragma mark - action
 - (void)nav:(UINavigationController *)nav pushViewController:(UIViewController *)viewController {
-    SJSnapshotRecorder *recorder = [[SJSnapshotRecorder alloc] initWithNavigationController:nav index:nav.childViewControllers.count - 1];
+    if ( nav.childViewControllers.count == 0 ) return;
+    NSInteger currentIndex = nav.childViewControllers.count - 1;
+    UIViewController *currentVC = nav.childViewControllers[currentIndex];
+    if ( [nav isKindOfClass:[UIImagePickerController class]] ) currentVC.sj_displayMode = SJPreViewDisplayMode_Snapshot;
+    SJSnapshotRecorder *recorder = [[SJSnapshotRecorder alloc] initWithNavigationController:nav index:currentIndex];
     objc_setAssociatedObject(viewController, kSJSnapshot, recorder, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
