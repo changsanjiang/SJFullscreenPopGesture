@@ -31,6 +31,7 @@
 		77DA951020416450007A9EE8 /* TestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77DA950E20416450007A9EE8 /* TestViewController.xib */; };
 		77DB5340200384A800A6AD9F /* SJFullscreenPopGesture.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 77DB533F200384A800A6AD9F /* SJFullscreenPopGesture.podspec */; };
 		77F987172084828C00BB125F /* SJSnapshotRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F987162084828C00BB125F /* SJSnapshotRecorder.m */; };
+		77F9871920849AC300BB125F /* loading.gif in Resources */ = {isa = PBXBuildFile; fileRef = 77F9871820849AC300BB125F /* loading.gif */; };
 		A6243BF020427AE700A0096F /* TestViewControllerNav.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6243BEF20427AE700A0096F /* TestViewControllerNav.swift */; };
 		A6243BF220427AEE00A0096F /* TestViewControllerModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6243BF120427AEE00A0096F /* TestViewControllerModal.swift */; };
 		A6243BF420427CB400A0096F /* NavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6243BF320427CB400A0096F /* NavViewController.swift */; };
@@ -103,6 +104,7 @@
 		77DB533F200384A800A6AD9F /* SJFullscreenPopGesture.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SJFullscreenPopGesture.podspec; path = ../SJFullscreenPopGesture.podspec; sourceTree = "<group>"; };
 		77F987152084828C00BB125F /* SJSnapshotRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJSnapshotRecorder.h; sourceTree = "<group>"; };
 		77F987162084828C00BB125F /* SJSnapshotRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJSnapshotRecorder.m; sourceTree = "<group>"; };
+		77F9871820849AC300BB125F /* loading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading.gif; sourceTree = "<group>"; };
 		7EC039F4F8BF7EF7E3CBF732 /* libPods-SJBackGRProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SJBackGRProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6243BEF20427AE700A0096F /* TestViewControllerNav.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewControllerNav.swift; sourceTree = "<group>"; };
 		A6243BF120427AEE00A0096F /* TestViewControllerModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewControllerModal.swift; sourceTree = "<group>"; };
@@ -245,6 +247,7 @@
 				77D9B77D1F7E944100E35746 /* SJFullscreenPopGesture */,
 				77D9B76C1F7E941A00E35746 /* ViewController.h */,
 				77D9B76D1F7E941A00E35746 /* ViewController.m */,
+				77F9871820849AC300BB125F /* loading.gif */,
 				772D239B200B7B3A00E332B9 /* ex1.gif */,
 				775A29FF201974E100327470 /* ex2.gif */,
 				77D9B76F1F7E941A00E35746 /* Main.storyboard */,
@@ -478,6 +481,7 @@
 				77D9B7731F7E941A00E35746 /* Assets.xcassets in Resources */,
 				779177821FC539C100E2AFF7 /* README.md in Resources */,
 				A6243C032042841E00A0096F /* SJNavigationPopGesture.podspec in Resources */,
+				77F9871920849AC300BB125F /* loading.gif in Resources */,
 				77D9B7711F7E941A00E35746 /* Main.storyboard in Resources */,
 				772D239C200B7B3A00E332B9 /* ex1.gif in Resources */,
 			);

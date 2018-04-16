@@ -34,11 +34,15 @@
 
 @property (nonatomic, strong, readonly) UIButton *pageVC;
 
+@property (nonatomic, strong, readonly) UIButton *changeBackDisplayModeBtn;
+
 @property (nonatomic, strong, readonly) UIScrollView *backgroundScrollView;
 
 @property (nonatomic, strong, readonly) UIView *testPanBackgroundView;
 
 @property (nonatomic, strong, readonly) UIView *testOtherGestureView;
+
+@property (nonatomic, strong, readonly) UIImageView *testGIFImageView;
 
 @end
 
@@ -53,9 +57,11 @@
 @synthesize testOtherGestureView = _testOtherGestureView;
 @synthesize modalBtn_NoNav = _modalBtn_NoNav;
 @synthesize pageVC = _pageVC;
+@synthesize changeBackDisplayModeBtn = _changeBackDisplayModeBtn;
+@synthesize testGIFImageView = _testGIFImageView;
 
 - (void)dealloc {
-    NSLog(@"%s - %zd", __func__, __LINE__);
+    NSLog(@"%s - %d", __func__, (int)__LINE__);
 }
 
 - (void)viewDidLoad {
@@ -74,6 +80,12 @@
     [_label sizeToFit];
     _label.center = CGPointMake(self.view.frame.size.width * 0.5, 100);
     [self.view addSubview:_label];
+    
+    self.testGIFImageView.frame = CGRectMake(8, _label.frame.origin.y + 80, 200, 50);
+    [self.view addSubview:self.testGIFImageView];
+    [self.view addSubview:self.changeBackDisplayModeBtn];
+    _changeBackDisplayModeBtn.frame = CGRectMake(8, _testGIFImageView.frame.origin.y + 60, 200, 30);
+    
     
     self.testPanBackgroundView.frame = CGRectMake(self.view.frame.size.width * 0.5, 130, 100, 100);
     [self.view addSubview:self.testPanBackgroundView];
@@ -150,6 +162,8 @@
     _pageVC.frame = frame;
     [_pageVC sizeToFit];
     
+    
+    
     #pragma mark - Fade Area
     
     UIView *testFadeAreaView = [UIView new];
@@ -194,14 +208,45 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark - Views
+
+- (UIButton *)popToRootVCBtn {
+    if ( _popToRootVCBtn ) return _popToRootVCBtn;
+    _popToRootVCBtn = [UIButton new];
+    [_popToRootVCBtn setTitle:@"PopToRootVC" forState:UIControlStateNormal];
+    [_popToRootVCBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [_popToRootVCBtn addTarget:self action:@selector(clickedPopToRootVCBtn:) forControlEvents:UIControlEventTouchUpInside];
+    return _popToRootVCBtn;
+}
+
 - (void)clickedPopToRootVCBtn:(UIButton *)btn {
     [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+#pragma mark -
+- (UIButton *)popToVCBtn {
+    if ( _popToVCBtn ) return _popToVCBtn;
+    _popToVCBtn = [UIButton new];
+    [_popToVCBtn setTitle:@"PopToVC" forState:UIControlStateNormal];
+    [_popToVCBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [_popToVCBtn addTarget:self action:@selector(clickedPopToVCBtn:) forControlEvents:UIControlEventTouchUpInside];
+    return _popToVCBtn;
 }
 
 - (void)clickedPopToVCBtn:(UIButton *)btn {
     NSInteger random = arc4random() % self.navigationController.childViewControllers.count - 1;
     if ( random < 0 ) random = 0;
     [self.navigationController popToViewController:self.navigationController.childViewControllers[random] animated:YES];
+}
+
+#pragma mark -
+- (UIButton *)disableBtn {
+    if ( _disableBtn ) return _disableBtn;
+    _disableBtn = [UIButton new];
+    [_disableBtn setTitle:@"Disable Gesture" forState:UIControlStateNormal];
+    [_disableBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [_disableBtn addTarget:self action:@selector(clickedDisableBtn:) forControlEvents:UIControlEventTouchUpInside];
+    return _disableBtn;
 }
 
 - (void)clickedDisableBtn:(UIButton *)btn {
@@ -214,53 +259,7 @@
     }
 }
 
-- (void)clickedAlbumBtn:(UIButton *)btn {
-    [[SJUIImagePickerControllerFactory shared] alterPickerViewControllerWithController:self alertTitle:@"" msg:@"" photoLibrary:^(UIImage *selectedImage) {
-        [btn setBackgroundImage:selectedImage forState:UIControlStateNormal];
-    } camera:^(UIImage *selectedImage) {
-        [btn setBackgroundImage:selectedImage forState:UIControlStateNormal];
-    }];
-}
-
-- (void)clickedModal_NoNavBtn:(UIButton *)btn {
-    NoNavViewController * vc = [NoNavViewController new];
-    [self presentViewController:vc animated:YES completion:nil];
-}
-
-- (void)clickedPageVC:(UIButton *)btn {
-    TestPageViewController *vc = [TestPageViewController new];
-    [self.navigationController pushViewController:vc animated:YES];
-}
-
-#pragma mark - Views
-
-- (UIButton *)popToRootVCBtn {
-    if ( _popToRootVCBtn ) return _popToRootVCBtn;
-    _popToRootVCBtn = [UIButton new];
-    [_popToRootVCBtn setTitle:@"PopToRootVC" forState:UIControlStateNormal];
-    [_popToRootVCBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    [_popToRootVCBtn addTarget:self action:@selector(clickedPopToRootVCBtn:) forControlEvents:UIControlEventTouchUpInside];
-    return _popToRootVCBtn;
-}
-
-- (UIButton *)popToVCBtn {
-    if ( _popToVCBtn ) return _popToVCBtn;
-    _popToVCBtn = [UIButton new];
-    [_popToVCBtn setTitle:@"PopToVC" forState:UIControlStateNormal];
-    [_popToVCBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    [_popToVCBtn addTarget:self action:@selector(clickedPopToVCBtn:) forControlEvents:UIControlEventTouchUpInside];
-    return _popToVCBtn;
-}
-
-- (UIButton *)disableBtn {
-    if ( _disableBtn ) return _disableBtn;
-    _disableBtn = [UIButton new];
-    [_disableBtn setTitle:@"Disable Gesture" forState:UIControlStateNormal];
-    [_disableBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    [_disableBtn addTarget:self action:@selector(clickedDisableBtn:) forControlEvents:UIControlEventTouchUpInside];
-    return _disableBtn;
-}
-
+#pragma mark -
 - (UIButton *)albumBtn {
     if ( _albumBtn ) return _albumBtn;
     _albumBtn = [UIButton new];
@@ -270,6 +269,15 @@
     return _albumBtn;
 }
 
+- (void)clickedAlbumBtn:(UIButton *)btn {
+    [[SJUIImagePickerControllerFactory shared] alterPickerViewControllerWithController:self alertTitle:@"" msg:@"" photoLibrary:^(UIImage *selectedImage) {
+        [btn setBackgroundImage:selectedImage forState:UIControlStateNormal];
+    } camera:^(UIImage *selectedImage) {
+        [btn setBackgroundImage:selectedImage forState:UIControlStateNormal];
+    }];
+}
+
+#pragma mark -
 - (UIButton *)modalBtn_NoNav {
     if ( _modalBtn_NoNav ) return _modalBtn_NoNav;
     _modalBtn_NoNav = [UIButton new];
@@ -279,6 +287,12 @@
     return _modalBtn_NoNav;
 }
 
+- (void)clickedModal_NoNavBtn:(UIButton *)btn {
+    NoNavViewController * vc = [NoNavViewController new];
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
+#pragma mark -
 - (UIButton *)pageVC {
     if ( _pageVC ) return _pageVC;
     _pageVC = [UIButton new];
@@ -288,6 +302,34 @@
     return _pageVC;
 }
 
+- (void)clickedPageVC:(UIButton *)btn {
+    TestPageViewController *vc = [TestPageViewController new];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark -
+- (UIButton *)changeBackDisplayModeBtn {
+    if ( _changeBackDisplayModeBtn ) return _changeBackDisplayModeBtn;
+    _changeBackDisplayModeBtn = [UIButton new];
+    [_changeBackDisplayModeBtn setTitle:@"ChangeBackDisplayModeBtn" forState:UIControlStateNormal];
+    [_changeBackDisplayModeBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [_changeBackDisplayModeBtn addTarget:self action:@selector(clickedChangeBackDisplayModeBtn:) forControlEvents:UIControlEventTouchUpInside];
+    return _changeBackDisplayModeBtn;
+}
+
+- (void)clickedChangeBackDisplayModeBtn:(UIButton *)btn {
+    btn.selected = !btn.isSelected;
+    [_changeBackDisplayModeBtn setTitle:@"SJPreViewDisplayMode_Origin" forState:UIControlStateNormal];
+    [_changeBackDisplayModeBtn setTitle:@"SJPreViewDisplayMode_Snapshot" forState:UIControlStateSelected];
+    if ( btn.selected ) {
+        self.sj_displayMode = SJPreViewDisplayMode_Snapshot;
+    }
+    else {
+        self.sj_displayMode = SJPreViewDisplayMode_Origin;
+    }
+}
+
+#pragma mark -
 - (UIScrollView *)backgroundScrollView {
     if ( _backgroundScrollView ) return _backgroundScrollView;
     _backgroundScrollView = [UIScrollView new];
@@ -306,7 +348,7 @@
         
         UILabel *label = [UILabel new];
         label.font = [UIFont boldSystemFontOfSize:30];
-        label.text = [NSString stringWithFormat:@"%zd", i];
+        label.text = [NSString stringWithFormat:@"%d", i];
         label.frame = CGRectMake(20, 20, 0, 0);
         [label sizeToFit];
         [view addSubview:label];
@@ -329,7 +371,7 @@
 }
 
 - (void)handleTestPan:(UIPanGestureRecognizer *)pan {
-    NSLog(@"%zd - %s", __LINE__, __func__);
+    NSLog(@"%d - %s", __LINE__, __func__);
 }
 
 - (UIView *)testOtherGestureView {
@@ -345,7 +387,136 @@
 }
 
 - (void)handleTestTap:(UITapGestureRecognizer *)tap {
-    NSLog(@"%zd - %s", __LINE__, __func__);
+    NSLog(@"%d - %s", __LINE__, __func__);
+}
+
+- (UIImageView *)testGIFImageView {
+    if ( _testGIFImageView ) return _testGIFImageView;
+    _testGIFImageView = [SJUIImageViewFactory imageViewWithViewMode:UIViewContentModeScaleAspectFit];
+    _testGIFImageView.image = getImage([NSData dataWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"loading" withExtension:@"gif"]], UIScreen.mainScreen.scale);
+    return _testGIFImageView;
+}
+/**
+ ref: YYKit
+ UIImage(YYAdd)
+ */
+static UIImage *getImage(NSData *data, CGFloat scale) {
+    CGImageSourceRef source = CGImageSourceCreateWithData((__bridge CFTypeRef)(data), NULL);
+    if (!source) return nil;
+    
+    size_t count = CGImageSourceGetCount(source);
+    if (count <= 1) {
+        CFRelease(source);
+        return [UIImage imageWithData:data scale:scale];
+    }
+    
+    NSUInteger frames[count];
+    double oneFrameTime = 1 / 50.0; // 50 fps
+    NSTimeInterval totalTime = 0;
+    NSUInteger totalFrame = 0;
+    NSUInteger gcdFrame = 0;
+    for (size_t i = 0; i < count; i++) {
+        NSTimeInterval delay = _yy_CGImageSourceGetGIFFrameDelayAtIndex(source, i);
+        totalTime += delay;
+        NSInteger frame = lrint(delay / oneFrameTime);
+        if (frame < 1) frame = 1;
+        frames[i] = frame;
+        totalFrame += frames[i];
+        if (i == 0) gcdFrame = frames[i];
+        else {
+            NSUInteger frame = frames[i], tmp;
+            if (frame < gcdFrame) {
+                tmp = frame; frame = gcdFrame; gcdFrame = tmp;
+            }
+            while (true) {
+                tmp = frame % gcdFrame;
+                if (tmp == 0) break;
+                frame = gcdFrame;
+                gcdFrame = tmp;
+            }
+        }
+    }
+    NSMutableArray *array = [NSMutableArray new];
+    for (size_t i = 0; i < count; i++) {
+        CGImageRef imageRef = CGImageSourceCreateImageAtIndex(source, i, NULL);
+        if (!imageRef) {
+            CFRelease(source);
+            return nil;
+        }
+        size_t width = CGImageGetWidth(imageRef);
+        size_t height = CGImageGetHeight(imageRef);
+        if (width == 0 || height == 0) {
+            CFRelease(source);
+            CFRelease(imageRef);
+            return nil;
+        }
+        
+        CGImageAlphaInfo alphaInfo = CGImageGetAlphaInfo(imageRef) & kCGBitmapAlphaInfoMask;
+        BOOL hasAlpha = NO;
+        if (alphaInfo == kCGImageAlphaPremultipliedLast ||
+            alphaInfo == kCGImageAlphaPremultipliedFirst ||
+            alphaInfo == kCGImageAlphaLast ||
+            alphaInfo == kCGImageAlphaFirst) {
+            hasAlpha = YES;
+        }
+        // BGRA8888 (premultiplied) or BGRX8888
+        // same as UIGraphicsBeginImageContext() and -[UIView drawRect:]
+        CGBitmapInfo bitmapInfo = kCGBitmapByteOrder32Host;
+        bitmapInfo |= hasAlpha ? kCGImageAlphaPremultipliedFirst : kCGImageAlphaNoneSkipFirst;
+        CGColorSpaceRef space = CGColorSpaceCreateDeviceRGB();
+        CGContextRef context = CGBitmapContextCreate(NULL, width, height, 8, 0, space, bitmapInfo);
+        CGColorSpaceRelease(space);
+        if (!context) {
+            CFRelease(source);
+            CFRelease(imageRef);
+            return nil;
+        }
+        CGContextDrawImage(context, CGRectMake(0, 0, width, height), imageRef); // decode
+        CGImageRef decoded = CGBitmapContextCreateImage(context);
+        CFRelease(context);
+        if (!decoded) {
+            CFRelease(source);
+            CFRelease(imageRef);
+            return nil;
+        }
+        UIImage *image = [UIImage imageWithCGImage:decoded scale:scale orientation:UIImageOrientationUp];
+        CGImageRelease(imageRef);
+        CGImageRelease(decoded);
+        if (!image) {
+            CFRelease(source);
+            return nil;
+        }
+        for (size_t j = 0, max = frames[i] / gcdFrame; j < max; j++) {
+            [array addObject:image];
+        }
+    }
+    CFRelease(source);
+    UIImage *image = [UIImage animatedImageWithImages:array duration:totalTime];
+    return image;
+}
+
+/**
+ ref: YYKit
+ UIImage(YYAdd)
+ */
+static NSTimeInterval _yy_CGImageSourceGetGIFFrameDelayAtIndex(CGImageSourceRef source, size_t index) {
+    NSTimeInterval delay = 0;
+    CFDictionaryRef dic = CGImageSourceCopyPropertiesAtIndex(source, index, NULL);
+    if (dic) {
+        CFDictionaryRef dicGIF = CFDictionaryGetValue(dic, kCGImagePropertyGIFDictionary);
+        if (dicGIF) {
+            NSNumber *num = CFDictionaryGetValue(dicGIF, kCGImagePropertyGIFUnclampedDelayTime);
+            if (num.doubleValue <= __FLT_EPSILON__) {
+                num = CFDictionaryGetValue(dicGIF, kCGImagePropertyGIFDelayTime);
+            }
+            delay = num.doubleValue;
+        }
+        CFRelease(dic);
+    }
+    
+    // http://nullsleep.tumblr.com/post/16524517190/animated-gif-minimum-frame-delay-browser-compatibility
+    if (delay < 0.02) delay = 0.1;
+    return delay;
 }
 
 @end

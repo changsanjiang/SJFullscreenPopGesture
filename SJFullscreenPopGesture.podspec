@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "SJFullscreenPopGesture"
-  s.version      = "1.4.0"
+  s.version      = "1.4.0.1"
   s.summary      = "fullscreen pop gestures."
   s.description  = 'fullscreen pop gesture. System native gestures and custom gestures are free to switch.'
 

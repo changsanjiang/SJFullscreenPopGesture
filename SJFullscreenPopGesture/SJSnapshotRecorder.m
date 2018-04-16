@@ -16,8 +16,9 @@ static const char *kSJSnapshot = "kSJSnapshot";
 
 @interface SJSnapshotRecorder : NSObject
 @property (nonatomic, strong, readonly) UIView *rootView;
-@property (nonatomic, strong, readonly) UIView *nav_bar_snapshotView;
-@property (nonatomic, strong, readonly) UIView *tab_bar_snapshotView;
+@property (nonatomic, strong, readonly, nullable) UIView *nav_bar_snapshotView;
+@property (nonatomic, strong, readonly, nullable) UIView *tab_bar_snapshotView;
+@property (nonatomic, strong, readonly, nullable) UIView *preSnapshotView;
 @property (nonatomic, strong, readonly) UIView *preViewContainerView;
 @property (nonatomic, strong, readonly) UIView *shadeView;
 - (instancetype)initWithNavigationController:(__weak UINavigationController *__nullable)nav index:(NSInteger)index;
@@ -68,7 +69,7 @@ static const char *kSJSnapshot = "kSJSnapshot";
         }
             break;
         case SJPreViewDisplayMode_Snapshot: {
-            [_preViewContainerView addSubview:[nav.view.window snapshotViewAfterScreenUpdates:NO]];
+            _preSnapshotView = [nav.view.window snapshotViewAfterScreenUpdates:NO];
         }
             break;
     }
@@ -94,7 +95,9 @@ static const char *kSJSnapshot = "kSJSnapshot";
             [_preViewContainerView insertSubview:preView atIndex:0];
         }
             break;
-        case SJPreViewDisplayMode_Snapshot: { } break;
+        case SJPreViewDisplayMode_Snapshot: {
+            [_preViewContainerView addSubview:_preSnapshotView];
+        } break;
     }
 }
 
