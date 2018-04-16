@@ -26,11 +26,11 @@
 		77D9B7711F7E941A00E35746 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77D9B76F1F7E941A00E35746 /* Main.storyboard */; };
 		77D9B7731F7E941A00E35746 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77D9B7721F7E941A00E35746 /* Assets.xcassets */; };
 		77D9B7761F7E941A00E35746 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77D9B7741F7E941A00E35746 /* LaunchScreen.storyboard */; };
-		77D9B7841F7E944100E35746 /* SJScreenshotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D9B77F1F7E944100E35746 /* SJScreenshotView.m */; };
 		77D9B7851F7E944100E35746 /* UINavigationController+SJVideoPlayerAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D9B7811F7E944100E35746 /* UINavigationController+SJVideoPlayerAdd.m */; };
 		77D9B7861F7E944100E35746 /* UIViewController+SJVideoPlayerAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D9B7831F7E944100E35746 /* UIViewController+SJVideoPlayerAdd.m */; };
 		77DA951020416450007A9EE8 /* TestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77DA950E20416450007A9EE8 /* TestViewController.xib */; };
 		77DB5340200384A800A6AD9F /* SJFullscreenPopGesture.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 77DB533F200384A800A6AD9F /* SJFullscreenPopGesture.podspec */; };
+		77F987172084828C00BB125F /* SJSnapshotRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F987162084828C00BB125F /* SJSnapshotRecorder.m */; };
 		A6243BF020427AE700A0096F /* TestViewControllerNav.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6243BEF20427AE700A0096F /* TestViewControllerNav.swift */; };
 		A6243BF220427AEE00A0096F /* TestViewControllerModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6243BF120427AEE00A0096F /* TestViewControllerModal.swift */; };
 		A6243BF420427CB400A0096F /* NavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6243BF320427CB400A0096F /* NavViewController.swift */; };
@@ -95,14 +95,14 @@
 		77D9B7721F7E941A00E35746 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		77D9B7751F7E941A00E35746 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		77D9B7771F7E941A00E35746 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		77D9B77E1F7E944100E35746 /* SJScreenshotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJScreenshotView.h; sourceTree = "<group>"; };
-		77D9B77F1F7E944100E35746 /* SJScreenshotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJScreenshotView.m; sourceTree = "<group>"; };
 		77D9B7801F7E944100E35746 /* UINavigationController+SJVideoPlayerAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+SJVideoPlayerAdd.h"; sourceTree = "<group>"; };
 		77D9B7811F7E944100E35746 /* UINavigationController+SJVideoPlayerAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+SJVideoPlayerAdd.m"; sourceTree = "<group>"; };
 		77D9B7821F7E944100E35746 /* UIViewController+SJVideoPlayerAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SJVideoPlayerAdd.h"; sourceTree = "<group>"; };
 		77D9B7831F7E944100E35746 /* UIViewController+SJVideoPlayerAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SJVideoPlayerAdd.m"; sourceTree = "<group>"; };
 		77DA950E20416450007A9EE8 /* TestViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestViewController.xib; sourceTree = "<group>"; };
 		77DB533F200384A800A6AD9F /* SJFullscreenPopGesture.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SJFullscreenPopGesture.podspec; path = ../SJFullscreenPopGesture.podspec; sourceTree = "<group>"; };
+		77F987152084828C00BB125F /* SJSnapshotRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJSnapshotRecorder.h; sourceTree = "<group>"; };
+		77F987162084828C00BB125F /* SJSnapshotRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJSnapshotRecorder.m; sourceTree = "<group>"; };
 		7EC039F4F8BF7EF7E3CBF732 /* libPods-SJBackGRProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SJBackGRProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6243BEF20427AE700A0096F /* TestViewControllerNav.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewControllerNav.swift; sourceTree = "<group>"; };
 		A6243BF120427AEE00A0096F /* TestViewControllerModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewControllerModal.swift; sourceTree = "<group>"; };
@@ -199,9 +199,9 @@
 		776F3BAB2012F28100C23949 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				77D9B77E1F7E944100E35746 /* SJScreenshotView.h */,
-				77D9B77F1F7E944100E35746 /* SJScreenshotView.m */,
 				77A7162A2012EF1A00278C95 /* SJScreenshotTransitionMode.h */,
+				77F987152084828C00BB125F /* SJSnapshotRecorder.h */,
+				77F987162084828C00BB125F /* SJSnapshotRecorder.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -434,7 +434,7 @@
 				TargetAttributes = {
 					77D9B7621F7E941A00E35746 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = U5A7L7SMNP;
+						DevelopmentTeam = DB5B5F2RH5;
 						ProvisioningStyle = Manual;
 					};
 					A6A0A8FC20410F2B003DB0A0 = {
@@ -645,7 +645,7 @@
 				7706E1331FF78EA2006E0B56 /* SJTest2ViewController.m in Sources */,
 				771FFBBF1F7E94C40076EEB0 /* NextViewController.m in Sources */,
 				77D9B7681F7E941A00E35746 /* main.m in Sources */,
-				77D9B7841F7E944100E35746 /* SJScreenshotView.m in Sources */,
+				77F987172084828C00BB125F /* SJSnapshotRecorder.m in Sources */,
 				7706354420255EC400A7710F /* TestPageTitle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -839,14 +839,14 @@
 			baseConfigurationReference = 39202E5F7055D8AC447FC6B4 /* Pods-SJBackGRProject.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = U5A7L7SMNP;
+				DEVELOPMENT_TEAM = DB5B5F2RH5;
 				INFOPLIST_FILE = SJBackGRProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SanJiang.SJBackGRProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ca8186e4-0d11-4c23-9f2f-50f3a29199fd";
-				PROVISIONING_PROFILE_SPECIFIER = WildcardProfile;
+				PROVISIONING_PROFILE = "64c214b3-450d-41eb-b05e-df636dfa28c8";
+				PROVISIONING_PROFILE_SPECIFIER = SanJiangDevelopment;
 			};
 			name = Debug;
 		};
