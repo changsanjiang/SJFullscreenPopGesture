@@ -196,13 +196,6 @@
 			path = Test;
 			sourceTree = "<group>";
 		};
-		776F3BAB2012F28100C23949 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		77BF68372016F3D10040AAC3 /* WebTest */ = {
 			isa = PBXGroup;
 			children = (
@@ -281,7 +274,6 @@
 				77A7162A2012EF1A00278C95 /* SJScreenshotTransitionMode.h */,
 				77F987152084828C00BB125F /* SJSnapshotRecorder.h */,
 				77F987162084828C00BB125F /* SJSnapshotRecorder.m */,
-				776F3BAB2012F28100C23949 /* View */,
 			);
 			name = SJFullscreenPopGesture;
 			path = ../../SJFullscreenPopGesture;
