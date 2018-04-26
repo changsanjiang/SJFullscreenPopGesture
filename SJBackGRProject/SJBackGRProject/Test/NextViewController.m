@@ -64,6 +64,16 @@
     NSLog(@"%s - %d", __func__, (int)__LINE__);
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if ( self.sj_DisableGestures ) {
+        [_disableBtn setTitle:@"Enable gesture" forState:UIControlStateNormal];
+    }
+    else {
+        [_disableBtn setTitle:@"Disable gesture" forState:UIControlStateNormal];
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -178,16 +188,6 @@
 //    self.sj_fadeArea = @[@(_pushBtn.frame), @(testFadeAreaView.frame)];
     self.sj_fadeAreaViews = @[testFadeAreaView];
     
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    if ( self.sj_DisableGestures ) {
-        [_disableBtn setTitle:@"Enable gesture" forState:UIControlStateNormal];
-    }
-    else {
-        [_disableBtn setTitle:@"Disable gesture" forState:UIControlStateNormal];
-    }
 }
 
 - (IBAction)pushNextVC:(id)sender {
@@ -319,14 +319,15 @@
 
 - (void)clickedChangeBackDisplayModeBtn:(UIButton *)btn {
     btn.selected = !btn.isSelected;
-    [_changeBackDisplayModeBtn setTitle:@"SJPreViewDisplayMode_Origin" forState:UIControlStateNormal];
-    [_changeBackDisplayModeBtn setTitle:@"SJPreViewDisplayMode_Snapshot" forState:UIControlStateSelected];
+    [_changeBackDisplayModeBtn setTitle:@"SJPreViewDisplayMode_Snapshot" forState:UIControlStateNormal];
+    [_changeBackDisplayModeBtn setTitle:@"SJPreViewDisplayMode_Origin" forState:UIControlStateSelected];
     if ( btn.selected ) {
-        self.sj_displayMode = SJPreViewDisplayMode_Snapshot;
-    }
-    else {
         self.sj_displayMode = SJPreViewDisplayMode_Origin;
     }
+    else {
+        self.sj_displayMode = SJPreViewDisplayMode_Snapshot;
+    }
+    [self pushNextVC:nil];
 }
 
 #pragma mark -
