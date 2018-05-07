@@ -23,17 +23,21 @@ public enum SJNavigationPopGestureType {
 /// - shifting: 做偏移
 /// - shadeAndShifting: 阴影遮盖并且偏移
 public enum SJTransitionMode {
+    
     case shifting
+    
     case shadeAndShifting
 }
 
 
 /// 返回时, 前视图的显示模式
 ///
-/// - snapshot: 采用截屏
-/// - origin: 采用源视图
+/// - snapshot: use screenshot view
+/// - origin: use origin view. If you use it, I will change `edgesForExtendedLayout` to `none` of viewController. 采用原始图, 如果使用它, 我会改变控制器的 edgesForExtendedLayout 为 none.
 public enum SJPreViewDisplayMode {
+    
     case snapshot
+    
     case origin
 }
 
@@ -163,6 +167,9 @@ public extension UIViewController {
         
         set {
             objc_setAssociatedObject(self, &SJAssociatedKeys.kSJPreViewDisplayMode, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            if ( newValue == SJPreViewDisplayMode.origin ) {
+                self.edgesForExtendedLayout = UIRectEdge()
+            }
         }
     }
     
