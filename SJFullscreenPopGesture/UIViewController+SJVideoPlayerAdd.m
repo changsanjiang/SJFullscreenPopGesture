@@ -13,10 +13,6 @@
 
 @implementation UIViewController (SJVideoPlayerAdd)
 
-- (UIRectEdge)edgesForExtendedLayout {
-    return UIRectEdgeNone;
-}
-
 - (void)setSj_displayMode:(SJPreViewDisplayMode)sj_displayMode {
     objc_setAssociatedObject(self, @selector(sj_displayMode), @(sj_displayMode), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     if ( sj_displayMode == SJPreViewDisplayMode_Origin ) {
