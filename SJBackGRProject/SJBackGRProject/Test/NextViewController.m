@@ -82,7 +82,8 @@
                                                  blue:1.0 * (arc4random() % 256 / 255.0)
                                                 alpha:1];
     
-    self.edgesForExtendedLayout = UIRectEdgeNone;
+//    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.sj_displayMode = SJPreViewDisplayMode_Origin;
     [self.view addSubview:self.backgroundScrollView];
     
     self.label = [UILabel new];

@@ -11,7 +11,7 @@ import SJUIFactory
 
 class TestViewControllerNav: UIViewController {
 
-    private var pushBtn: UIButton = {
+    private let pushBtn: UIButton = {
         let btn = UIButton.init(type: .custom)
         btn.setTitleColor(UIColor.orange, for: .normal)
         btn.setTitle("Push", for: .normal)
@@ -19,7 +19,7 @@ class TestViewControllerNav: UIViewController {
         return btn
     }()
     
-    private var albumBtn: UIButton = {
+    private let albumBtn: UIButton = {
         let btn = UIButton.init(type: .custom)
         btn.setTitleColor(UIColor.orange, for: .normal)
         btn.setTitle("Album", for: .normal)
@@ -27,7 +27,7 @@ class TestViewControllerNav: UIViewController {
         return btn
     }()
     
-    private var modal_Nav_Btn: UIButton = {
+    private let modal_Nav_Btn: UIButton = {
         let btn = UIButton.init(type: .custom)
         btn.setTitleColor(UIColor.orange, for: .normal)
         btn.setTitle("modal_Nav", for: .normal)
@@ -35,7 +35,7 @@ class TestViewControllerNav: UIViewController {
         return btn
     }()
     
-    private var alertBtn: UIButton = {
+    private let alertBtn: UIButton = {
         let btn = UIButton.init(type: .custom)
         btn.setTitleColor(UIColor.orange, for: .normal)
         btn.setTitle("Alert", for: .normal)
@@ -43,14 +43,30 @@ class TestViewControllerNav: UIViewController {
         return btn
     }()
     
+    private var scrollView: UIScrollView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.sj_displayMode = .origin
+        self.edgesForExtendedLayout = UIRectEdge()
+        
+        scrollView = UIScrollView.init()
+        scrollView?.frame = self.view.bounds
+        scrollView?.isPagingEnabled = true
+        scrollView?.contentSize = CGSize.init(width: self.view.bounds.width * 3, height: self.view.bounds.height * 2);
+        self.view.addSubview(scrollView!)
+        
+        for i in 0...2 {
+            let scrollSubview = UIView.init()
+            scrollSubview.backgroundColor = UIColor.init(red: CGFloat(arc4random() % 256) / 255.0, green: CGFloat(arc4random() % 256) / 255.0, blue: CGFloat(arc4random() % 256) / 255.0, alpha: 1)
+            scrollSubview.frame = CGRect.init(x: self.view.bounds.width * CGFloat(i), y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
+            scrollView!.addSubview(scrollSubview)
+        }
+        
+        
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "Close", style: .plain, target: self, action: #selector(close))
         
-        self.view.backgroundColor = UIColor.init(red: CGFloat(arc4random() % 256) / 255.0, green: CGFloat(arc4random() % 256) / 255.0, blue: CGFloat(arc4random() % 256) / 255.0, alpha: 1)
-
         var frame = CGRect.init(x: 100, y: 200, width: 100, height: 30)
         
         self.view.addSubview(pushBtn)
@@ -68,6 +84,7 @@ class TestViewControllerNav: UIViewController {
         self.view.addSubview(alertBtn)
         alertBtn.frame = frame
         
+       
         // Do any additional setup after loading the view.
     }
 

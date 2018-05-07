@@ -875,7 +875,7 @@
 				INFOPLIST_FILE = SwiftVersion/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.SanJiang.SwiftVersion;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sanjiang.ddd;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "acd2453e-e396-4ccf-bf56-508276824c6c";
 				PROVISIONING_PROFILE_SPECIFIER = SanJiangDevelopment;
@@ -900,7 +900,7 @@
 				INFOPLIST_FILE = SwiftVersion/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.SanJiang.SwiftVersion;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sanjiang.ddd;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";

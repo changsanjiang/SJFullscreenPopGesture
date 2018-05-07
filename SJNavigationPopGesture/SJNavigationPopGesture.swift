@@ -9,65 +9,6 @@
 import UIKit
 import WebKit
 
-public class SJNavigationPopGesture {
-
-    private static var installed: Bool?
-    
-    public class func install() -> Void {
-        if ( nil != installed ) {
-            return
-        }
-        
-        installed = true
-
-        var cls = UIViewController.self
-        var selArr = [
-            [
-                #selector(UIViewController.present(_:animated:completion:)),
-                #selector(UIViewController.sj_present(_:animated:completion:))
-            ],
-            [
-                #selector(UIViewController.dismiss(animated:completion:)),
-                #selector(UIViewController.sj_dismiss(animated:completion:))
-            ]
-        ]
-        _exchangeImp(cls, selArr)
-        
-        
-        cls = UINavigationController.self
-        selArr = [
-            [
-                #selector(UINavigationController.pushViewController(_:animated:)),
-                #selector(UINavigationController.sj_pushViewController(_:animated:))
-            ],
-            [
-                #selector(UINavigationController.popViewController(animated:)),
-                #selector(UINavigationController.sj_popViewController(animated:))
-            ],
-            [
-                #selector(UINavigationController.popToViewController(_:animated:)),
-                #selector(UINavigationController.sj_popToViewController(_:animated:))
-            ],
-            [
-                #selector(UINavigationController.popToRootViewController(animated:)),
-                #selector(UINavigationController.sj_popToRootViewController(animated:))
-            ],
-        ]
-        _exchangeImp(cls, selArr)
-    }
-    
-    private class func _exchangeImp(_ cls: AnyClass, _ selArr: [[Selector]]) -> Void {
-        for sel in selArr {
-            let originalSelector = sel[0]
-            let swizzledSelector = sel[1]
-            let originalMethod = class_getInstanceMethod(cls, originalSelector);
-            let swizzledMethod = class_getInstanceMethod(cls, swizzledSelector);
-            method_exchangeImplementations(originalMethod!, swizzledMethod!)
-        }
-    }
-}
-
-
 /// getsture type, default is .edgeLeft.  手势类型, 默认是边缘触发
 public enum SJNavigationPopGestureType {
     
@@ -87,6 +28,48 @@ public enum SJTransitionMode {
 }
 
 
+/// 返回时, 前视图的显示模式
+///
+/// - snapshot: 采用截屏
+/// - origin: 采用源视图
+public enum SJPreViewDisplayMode {
+    case snapshot
+    case origin
+}
+
+
+public class SJNavigationPopGesture {
+
+    private static var installed: Bool?
+    
+    public class func install() -> Void {
+        if ( nil != installed ) {
+            return
+        }
+        
+        installed = true
+        
+        let cls = UINavigationController.self
+        let selArr = [
+            [
+                #selector(UINavigationController.pushViewController(_:animated:)),
+                #selector(UINavigationController.sj_pushViewController(_:animated:)),
+            ]
+        ]
+        _exchangeImp(cls, selArr)
+    }
+    
+    private class func _exchangeImp(_ cls: AnyClass, _ selArr: [[Selector]]) -> Void {
+        for sel in selArr {
+            let originalSelector = sel[0]
+            let swizzledSelector = sel[1]
+            let originalMethod = class_getInstanceMethod(cls, originalSelector);
+            let swizzledMethod = class_getInstanceMethod(cls, swizzledSelector);
+            method_exchangeImplementations(originalMethod!, swizzledMethod!)
+        }
+    }
+}
+
 public extension UINavigationController {
     
     /// 手势类型, default is `edgeLeft`
@@ -103,11 +86,15 @@ public extension UINavigationController {
     /// pop 转场方式, default is `shifting`
     public var sj_transitionMode: SJTransitionMode {
         get {
-            return static_screenshotView.transitionMode
+            let mode = objc_getAssociatedObject(self, &SJAssociatedKeys.kSJTransitionMode) as? SJTransitionMode
+            if ( nil == mode ) {
+                return SJTransitionMode.shifting
+            }
+            return mode!
         }
         
         set {
-            static_screenshotView.transitionMode = newValue
+            objc_setAssociatedObject(self, &SJAssociatedKeys.kSJTransitionMode, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     
@@ -162,6 +149,22 @@ public extension UINavigationController {
 
 
 public extension UIViewController {
+    
+    /// Pre view display mode when the pop gesture triggering
+    /// 当手势触发时, 之前视图(将要返回的那个视图)的显示模式
+    public var sj_displayMode: SJPreViewDisplayMode {
+        get {
+            let mode = objc_getAssociatedObject(self, &SJAssociatedKeys.kSJPreViewDisplayMode) as? SJPreViewDisplayMode
+            if ( mode != nil ) {
+                return mode!
+            }
+            return SJPreViewDisplayMode.snapshot
+        }
+        
+        set {
+            objc_setAssociatedObject(self, &SJAssociatedKeys.kSJPreViewDisplayMode, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
     
     /**
      *  Consider `webview`.
@@ -264,38 +267,6 @@ public extension UIViewController {
     }
 }
 
-
-private extension UIViewController {
-    @objc func sj_present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Swift.Void)? = nil) {
-        
-        if ( viewControllerToPresent.isKind(of: UIAlertController.self) == false ) {
-            SJ_updateScreenshot()
-        }
-        
-        self.sj_present(viewControllerToPresent, animated: flag, completion: completion)
-    }
-    
-    @objc func sj_dismiss(animated flag: Bool, completion: (() -> Swift.Void)? = nil) {
-        
-        if ( self.isKind(of: UIAlertController.self) == false && self.presentedViewController?.isKind(of: UIAlertController.self) == false ) {
-            
-            if ( self.isKind(of: UINavigationController.self) == true &&
-                 self.presentingViewController != nil ) {
-                SJ_dumpingScreenshot(self.childViewControllers.count)
-            }
-            else if ( self.navigationController != nil &&
-                self.presentingViewController != nil ) {
-                SJ_dumpingScreenshot((self.navigationController?.childViewControllers.count)! + 1)
-            }
-            else {
-                SJ_dumpingScreenshot(1)
-            }
-        }
-        
-        self.sj_dismiss(animated: flag, completion: completion)
-    }
-}
-
 private extension UINavigationController {
     
     var SJ_tookOver: Bool! {
@@ -334,64 +305,12 @@ private extension UINavigationController {
              self.SJ_tookOver == false  ) {
             self.sj_navSettings()
         }
-        SJ_updateScreenshot()
+        
+        _SJSnapshotServer.nav(self, pushViewController: viewController)
+        
         self.sj_pushViewController(viewController, animated: animated) // note: If Crash, please confirm that `viewController 'is ` UIViewController'(`UINavigationController` cannot be pushed).
     }
-    
-    @objc func sj_popViewController(animated: Bool) -> UIViewController? {
-        SJ_dumpingScreenshot(1)
-        return self.sj_popViewController(animated: animated)
-    }
-    
-    @objc func sj_popToRootViewController(animated: Bool) -> [UIViewController]? {
-        SJ_dumpingScreenshot(self.childViewControllers.count - 1)
-        return self.sj_popToRootViewController(animated: animated)
-    }
-    
-    @objc func sj_popToViewController(_ viewController: UIViewController, animated: Bool) -> [UIViewController]? {
-        
-        for i in 0...(self.childViewControllers.count - 1) {
-            let subVC = self.childViewControllers[i]
-            if ( subVC == viewController ) {
-                SJ_dumpingScreenshot(self.childViewControllers.count - 1 - i)
-                break
-            }
-        }
-        return self.sj_popToViewController(viewController, animated: animated)
-    }
 }
-
-private var static_screenshotView: _SJScreenshotView = {
-    let view = _SJScreenshotView()
-    let bounds = UIScreen.main.bounds
-    let width = min(bounds.width, bounds.height)
-    let height = max(bounds.width, bounds.height)
-    view.frame = CGRect.init(x: 0, y: 0, width: width, height: height)
-    return view
-}()
-
-private var static_snapshotsM: [UIView] = [UIView]()
-
-private var static_window: UIWindow = {
-    let delegate = UIApplication.shared.delegate as AnyObject
-    return delegate.value(forKey: "window") as! UIWindow
-}()
-
-private func SJ_updateScreenshot() -> Void {
-    let view = static_window.snapshotView(afterScreenUpdates: false)
-    if ( nil != view ) {
-        static_snapshotsM.append(view!)
-    }
-}
-
-private func SJ_dumpingScreenshot(_ num: Int) -> Void {
-    if ( num <= 0 || num >= static_snapshotsM.count ) {
-        return
-    }
-    
-    static_snapshotsM.removeSubrange(Range.init(NSRange.init(location: static_snapshotsM.count - num, length: num))!)
-}
-
 
 // MARK: - Handle Pop Gesture
 extension UINavigationController : UIGestureRecognizerDelegate {
@@ -575,7 +494,7 @@ extension UINavigationController : UIGestureRecognizerDelegate {
     }
     
     private func SJ_cancellGesture(_ gesture: UIGestureRecognizer) -> Void {
-        gesture.setValue(UIGestureRecognizerState.cancelled, forKey: "state")
+        gesture.setValue(UIGestureRecognizerState.cancelled.rawValue, forKey: "state")
     }
     
     @objc private func SJ_handlePanGR(_ pan:UIPanGestureRecognizer) -> Void {
@@ -593,10 +512,9 @@ extension UINavigationController : UIGestureRecognizerDelegate {
     
     private func SJ_ViewWillBeginDragging(_ offset: CGFloat) -> Void {
         self.view.endEditing(true)
-        self.view.superview?.insertSubview(static_screenshotView, at: 0)
         
-        static_screenshotView.isHidden = false
-        static_screenshotView.beginTrnsition(snapshot: static_snapshotsM.last)
+        _SJSnapshotServer.nav(self, preparePopViewController: self.childViewControllers.last!)
+        
         if ( self.topViewController?.sj_viewWillBeginDragging != nil ) {
             self.topViewController?.sj_viewWillBeginDragging!(self.topViewController!)
         }
@@ -611,7 +529,7 @@ extension UINavigationController : UIGestureRecognizerDelegate {
         }
         
         self.view.transform = CGAffineTransform.init(translationX: offset, y: 0)
-        static_screenshotView.transitiongWithOffset(offset: offset)
+        _SJSnapshotServer.nav(self, poppingViewController: self.childViewControllers.last!, offset: offset)
         if ( self.topViewController?.sj_viewDidDrag != nil ) {
             self.topViewController?.sj_viewDidDrag!(self.topViewController!)
         }
@@ -632,21 +550,20 @@ extension UINavigationController : UIGestureRecognizerDelegate {
         }
         
         UIView.animate(withDuration: TimeInterval(duration), animations: {
+            _SJSnapshotServer .nav(self, willEndPopViewController: self.childViewControllers.last!, pop: pop)
             if ( pop ) {
                 self.view.transform = CGAffineTransform.init(translationX: self.view.frame.width, y: 0)
-                static_screenshotView.finishedTransition()
             }
             else {
                 self.view.transform = CGAffineTransform.identity
-                static_screenshotView.reset()
             }
         }) { (finished) in
+            _SJSnapshotServer.nav(self, endPopViewController: self.childViewControllers.last!)
             if ( pop ) {
                 self.popViewController(animated: false)
                 self.view.transform = CGAffineTransform.identity
             }
             
-            static_screenshotView.isHidden = true
             if ( self.topViewController?.sj_viewDidEndDragging != nil ) {
                 self.topViewController?.sj_viewDidEndDragging!(self.topViewController!)
             }
@@ -756,23 +673,236 @@ fileprivate class _SJScreenshotView : UIView {
     }
 }
 
+
+fileprivate class _SJSnapshotServer {
+    class var shift: CGFloat {
+        return -UIScreen.main.bounds.width * 0.382
+    }
+    
+    // MARK: nav action
+    class func nav(_ nav: UINavigationController, pushViewController: UIViewController) {
+        if ( nav.childViewControllers.count == 0 ) {
+            return
+        }
+
+        let index = nav.childViewControllers.count - 1
+        let currentVC = nav.childViewControllers[index]
+        if ( nav.isKind(of: UIImagePickerController.self) ) {
+            currentVC.sj_displayMode = .snapshot
+        }
+
+        let recorder = _SJSnapshotRecorder.init(nav: nav, index: index)
+        objc_setAssociatedObject(pushViewController, &SJAssociatedKeys.kSJSnapshotRecorder, recorder, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+    }
+    
+    // MARK: gesture
+    class func nav(_ nav: UINavigationController, preparePopViewController: UIViewController) {
+        let recorder = objc_getAssociatedObject(preparePopViewController, &SJAssociatedKeys.kSJSnapshotRecorder) as? _SJSnapshotRecorder
+        if ( recorder == nil ) {
+            return
+        }
+        
+        recorder!.preparePopViewController()
+        nav.view.superview?.insertSubview(recorder!.rootView, at: 0)
+        recorder?.rootView.transform = CGAffineTransform.init(translationX:  shift, y: 0)
+        
+        switch  nav.sj_transitionMode {
+        case .shifting:
+            break
+        case .shadeAndShifting:
+            let width = recorder!.rootView.frame.width
+            recorder!.shadeView!.transform = CGAffineTransform.init(translationX: -(shift + width), y: 0)
+            break
+        }
+    }
+    
+    class func nav(_ nav: UINavigationController, poppingViewController: UIViewController, offset: CGFloat) {
+        let recorder = objc_getAssociatedObject(poppingViewController, &SJAssociatedKeys.kSJSnapshotRecorder) as? _SJSnapshotRecorder
+        if ( recorder == nil ) {
+            return
+        }
+        
+        let width = recorder!.rootView.frame.width
+        let rate = offset / width
+        switch  nav.sj_transitionMode {
+        case .shifting:
+            break
+        case .shadeAndShifting:
+            recorder!.shadeView!.alpha = 1 - rate
+            break
+        }
+        
+        recorder!.rootView.transform = CGAffineTransform.init(translationX: shift * ( 1 - rate ), y: 0)
+    }
+    
+    class func nav(_ nav: UINavigationController, willEndPopViewController:UIViewController, pop: Bool) {
+        let recorder = objc_getAssociatedObject(willEndPopViewController, &SJAssociatedKeys.kSJSnapshotRecorder) as? _SJSnapshotRecorder
+        if ( recorder == nil ) {
+            return
+        }
+        
+        if ( pop ) {
+            recorder!.rootView.transform = CGAffineTransform.identity
+            recorder!.shadeView?.transform = CGAffineTransform.identity
+            recorder!.shadeView?.alpha = 1
+        }
+        else {
+
+        }
+        
+        switch nav.sj_transitionMode {
+        case .shifting:
+            break
+        case .shadeAndShifting:
+            recorder?.shadeView?.alpha = 1
+            let width = recorder!.rootView.frame.width
+            recorder?.shadeView?.transform = CGAffineTransform.init(translationX: -(shift + width), y: 0)
+            break
+        }
+    }
+    
+    class func nav(_ nav: UINavigationController, endPopViewController: UIViewController) {
+        let recorder = objc_getAssociatedObject(endPopViewController, &SJAssociatedKeys.kSJSnapshotRecorder) as? _SJSnapshotRecorder
+        if ( recorder == nil ) {
+            return
+        }
+        
+        recorder?.endPop()
+    }
+}
+
+fileprivate class _SJSnapshotRecorder {
+    var rootView: UIView
+    var nav_bar_snapshotView: UIView?
+    var tab_bar_snapshotView: UIView?
+    var pre_container: UIView?
+    var pre_snapshot: UIView?
+    var shadeView: UIView?
+    
+    var nav: UINavigationController
+    var index: Int
+    
+    func preparePopViewController() {
+        let vc = nav.childViewControllers[index]
+        switch vc.sj_displayMode {
+        case .origin:
+            let preview = vc.view
+            pre_container?.insertSubview(preview!, at: 0)
+            
+//            if #available(iOS 11, *) {
+//                /**/
+//                break
+//            }
+//            else {
+//                if ( !vc.automaticallyAdjustsScrollViewInsets || vc.edgesForExtendedLayout == .none ) {
+//                    break
+//                }
+//
+//                if ( nav_bar_snapshotView == nil ) {
+//                    break
+//                }
+//
+//                let scrollView = searchScrollView(target: vc.view)
+//                if ( scrollView == nil ) {
+//                    break
+//                }
+//
+//                var frame = preview!.frame
+//                frame.origin.y = nav.navigationBar.frame.origin.y + nav.navigationBar.frame.size.height
+//                preview?.frame = frame
+//            }
+            break
+        case .snapshot:
+            pre_container?.addSubview(pre_snapshot!)
+            break
+        }
+    }
+    
+    func endPop() {
+        rootView.removeFromSuperview()
+        pre_container?.subviews.first?.removeFromSuperview()
+    }
+    
+    func searchScrollView(target: UIView) -> UIScrollView? {
+        if ( target.isKind(of: UIScrollView.self) ) {
+            return target as? UIScrollView
+        }
+        
+        var scrollView: UIScrollView?
+        for subview in target.subviews {
+            if ( subview .isKind(of: UIScrollView.self) ) {
+                if ( subview.frame.equalTo(target.frame) ) {
+                    scrollView = subview as? UIScrollView
+                    break
+                }
+            }
+        }
+        
+        return scrollView
+    }
+    
+    init(nav: UINavigationController, index: Int) {
+        self.nav = nav
+        self.index = index
+        
+        rootView = UIView.init(frame: UIScreen.main.bounds)
+        pre_container = UIView.init(frame: rootView.bounds)
+        
+        rootView.addSubview(pre_container!)
+        
+        let vc = nav.childViewControllers[index]
+        switch vc.sj_displayMode {
+        case .snapshot:
+            pre_snapshot = nav.view.window?.snapshotView(afterScreenUpdates: false)
+            break
+        case .origin:
+            if ( !nav.isNavigationBarHidden ) {
+                nav_bar_snapshotView = nav.view.window?.resizableSnapshotView(from: CGRect.init(x: 0, y: 0, width: nav.navigationBar.frame.width, height: nav.navigationBar.frame.height - nav.navigationBar.subviews.first!.frame.origin.y + 1), afterScreenUpdates: false, withCapInsets: UIEdgeInsets.zero)
+                rootView.addSubview(nav_bar_snapshotView!)
+            }
+            
+            let tabBar = nav.tabBarController?.tabBar
+            if ( tabBar != nil ) {
+                if ( !tabBar!.isHidden ) {
+                    tab_bar_snapshotView = nav.view.window?.resizableSnapshotView(from: CGRect.init(x: 0, y: nav.view.bounds.height - tabBar!.frame.height - 1, width: tabBar!.bounds.width, height: tabBar!.bounds.size.height + 1), afterScreenUpdates: false, withCapInsets: UIEdgeInsets.zero)
+                    rootView.addSubview(tab_bar_snapshotView!)
+                }
+            }
+            break
+        }
+        
+        if ( nav.sj_transitionMode == SJTransitionMode.shadeAndShifting ) {
+            shadeView = UIView.init()
+            shadeView!.frame = rootView.bounds
+            shadeView!.backgroundColor = UIColor.init(white: 0.0, alpha: 0.8)
+            rootView.addSubview(shadeView!)
+        }
+    }
+    
+}
+
+
 /// Note the use of static var in a private nested struct—this pattern creates the static associated object key we need but doesn’t muck up the global namespace. ref: http://nshipster.com/swift-objc-runtime/
 fileprivate struct SJAssociatedKeys {
     
-    static var kSJTookOver: String?
+    static var kSJTookOver: String = "kSJTookOver"
     
-    static var kSJSelectedType: String?
-    static var kSJPan: String?
-    static var kSJEdgePan: String?
+    static var kSJTransitionMode: String = "kSJTransitionMode"
+    static var kSJSelectedType: String = "kSJTookOver"
+    static var kSJPan: String = "kSJPan"
+    static var kSJEdgePan: String = "kSJEdgePan"
     
-    static var kSJBackgroundColor: String?
-    static var kSJMaxOffset: String?
+    static var kSJBackgroundColor: String = "kSJBackgroundColor"
+    static var kSJMaxOffset: String = "kSJMaxOffset"
     
-    static var kSJConsiderWebView: String?
-    static var kSJFadeArea: String?
-    static var kSJFadeAreaViews: String?
-    static var kSJDisableGestures: String?
-    static var kSJViewWillBeginDragging: String?
-    static var kSJViewDidDrag: String?
-    static var kSJViewDidEndDragging: String?
+    static var kSJPreViewDisplayMode: String = "kSJPreViewDisplayMode"
+    static var kSJConsiderWebView: String = "kSJConsiderWebView"
+    static var kSJFadeArea: String = "kSJFadeArea"
+    static var kSJFadeAreaViews: String = "kSJFadeAreaViews"
+    static var kSJDisableGestures: String = "kSJDisableGestures"
+    static var kSJViewWillBeginDragging: String = "kSJViewWillBeginDragging"
+    static var kSJViewDidDrag: String = "kSJViewDidDrag"
+    static var kSJViewDidEndDragging: String = "kSJViewDidEndDragging"
+    
+    static var kSJSnapshotRecorder: String = "kSJSnapshotRecorder"
 }
