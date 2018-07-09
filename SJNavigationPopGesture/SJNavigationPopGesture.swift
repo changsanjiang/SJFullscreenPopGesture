@@ -67,9 +67,15 @@ public class SJNavigationPopGesture {
         for sel in selArr {
             let originalSelector = sel[0]
             let swizzledSelector = sel[1]
-            let originalMethod = class_getInstanceMethod(cls, originalSelector);
-            let swizzledMethod = class_getInstanceMethod(cls, swizzledSelector);
-            method_exchangeImplementations(originalMethod!, swizzledMethod!)
+            let originalMethod = class_getInstanceMethod(cls, originalSelector)!;
+            let swizzledMethod = class_getInstanceMethod(cls, swizzledSelector)!;
+            let added = class_addMethod(cls, originalSelector, method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod))
+            if ( added ) {
+                class_replaceMethod(cls, swizzledSelector, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod));
+            }
+            else {
+                method_exchangeImplementations(originalMethod, swizzledMethod)
+            }
         }
     }
 }

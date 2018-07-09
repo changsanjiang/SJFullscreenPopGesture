@@ -46,7 +46,13 @@
             SEL swizzledSelector = sel[++ i];
             Method originalMethod = class_getInstanceMethod(nav, originalSelector);
             Method swizzledMethod = class_getInstanceMethod(nav, swizzledSelector);
-            method_exchangeImplementations(originalMethod, swizzledMethod);
+            BOOL added = class_addMethod([self class], originalSelector, method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod));
+            if ( added ) {
+                class_replaceMethod([self class], swizzledSelector, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod));
+            }
+            else {
+                method_exchangeImplementations(originalMethod, swizzledMethod);
+            }
         }
     });
 }
