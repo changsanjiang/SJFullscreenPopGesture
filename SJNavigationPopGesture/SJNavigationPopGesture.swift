@@ -389,6 +389,9 @@ extension UINavigationController : UIGestureRecognizerDelegate {
         else if ( self.childViewControllers.count <= 1 ) {
             return false
         }
+        else if ( self.childViewControllers.last?.isKind(of: UINavigationController.self) )! {
+            return false
+        }
         else {
             return true
         }
@@ -716,7 +719,7 @@ fileprivate class _SJSnapshotServer {
         }
         
         recorder!.preparePopViewController()
-        nav.view.superview?.insertSubview(recorder!.rootView, at: 0)
+        nav.view.superview?.insertSubview(recorder!.rootView, belowSubview: nav.view)
         recorder?.rootView.transform = CGAffineTransform.init(translationX:  shift, y: 0)
         
         switch  nav.sj_transitionMode {
