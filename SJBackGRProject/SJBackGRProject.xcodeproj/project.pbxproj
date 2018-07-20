@@ -20,6 +20,7 @@
 		779177821FC539C100E2AFF7 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 779177811FC539C100E2AFF7 /* README.md */; };
 		779177851FC53F6D00E2AFF7 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 779177841FC53F6D00E2AFF7 /* NavigationController.m */; };
 		77BF683A2016F3DD0040AAC3 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77BF68392016F3DD0040AAC3 /* WebViewController.m */; };
+		77C426F621017816006C97F6 /* TestMapViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C426F521017816006C97F6 /* TestMapViewViewController.m */; };
 		77D9B7681F7E941A00E35746 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D9B7671F7E941A00E35746 /* main.m */; };
 		77D9B76B1F7E941A00E35746 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D9B76A1F7E941A00E35746 /* AppDelegate.m */; };
 		77D9B76E1F7E941A00E35746 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D9B76D1F7E941A00E35746 /* ViewController.m */; };
@@ -86,6 +87,8 @@
 		77A7162A2012EF1A00278C95 /* SJScreenshotTransitionMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SJScreenshotTransitionMode.h; sourceTree = "<group>"; };
 		77BF68382016F3DD0040AAC3 /* WebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		77BF68392016F3DD0040AAC3 /* WebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
+		77C426F421017816006C97F6 /* TestMapViewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestMapViewViewController.h; sourceTree = "<group>"; };
+		77C426F521017816006C97F6 /* TestMapViewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestMapViewViewController.m; sourceTree = "<group>"; };
 		77D9B7631F7E941A00E35746 /* SJBackGRProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SJBackGRProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77D9B7671F7E941A00E35746 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		77D9B7691F7E941A00E35746 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -207,6 +210,15 @@
 			path = WebTest;
 			sourceTree = "<group>";
 		};
+		77C426F321017803006C97F6 /* TestMapView */ = {
+			isa = PBXGroup;
+			children = (
+				77C426F421017816006C97F6 /* TestMapViewViewController.h */,
+				77C426F521017816006C97F6 /* TestMapViewViewController.m */,
+			);
+			path = TestMapView;
+			sourceTree = "<group>";
+		};
 		77D9B75A1F7E941A00E35746 = {
 			isa = PBXGroup;
 			children = (
@@ -241,6 +253,7 @@
 				77D9B76A1F7E941A00E35746 /* AppDelegate.m */,
 				779177831FC53F6D00E2AFF7 /* NavigationController.h */,
 				779177841FC53F6D00E2AFF7 /* NavigationController.m */,
+				77C426F321017803006C97F6 /* TestMapView */,
 				771FFBB91F7E94B40076EEB0 /* Test */,
 				7706E1301FF78E8E006E0B56 /* Test2 */,
 				77BF68372016F3D10040AAC3 /* WebTest */,
@@ -429,12 +442,12 @@
 				TargetAttributes = {
 					77D9B7621F7E941A00E35746 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = DB5B5F2RH5;
+						DevelopmentTeam = U5A7L7SMNP;
 						ProvisioningStyle = Manual;
 					};
 					A6A0A8FC20410F2B003DB0A0 = {
 						CreatedOnToolsVersion = 9.2;
-						DevelopmentTeam = DB5B5F2RH5;
+						DevelopmentTeam = U5A7L7SMNP;
 						ProvisioningStyle = Manual;
 					};
 					A6A0A90F20410F2C003DB0A0 = {
@@ -633,6 +646,7 @@
 				771FFBC01F7E94C70076EEB0 /* NoNavViewController.m in Sources */,
 				77BF683A2016F3DD0040AAC3 /* WebViewController.m in Sources */,
 				77D9B76E1F7E941A00E35746 /* ViewController.m in Sources */,
+				77C426F621017816006C97F6 /* TestMapViewViewController.m in Sources */,
 				770635472025603600A7710F /* UIViewController+TestAdd.m in Sources */,
 				779177851FC53F6D00E2AFF7 /* NavigationController.m in Sources */,
 				77D9B7861F7E944100E35746 /* UIViewController+SJVideoPlayerAdd.m in Sources */,
@@ -835,14 +849,14 @@
 			baseConfigurationReference = 39202E5F7055D8AC447FC6B4 /* Pods-SJBackGRProject.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = DB5B5F2RH5;
+				DEVELOPMENT_TEAM = U5A7L7SMNP;
 				INFOPLIST_FILE = SJBackGRProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SanJiang.SJBackGRProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "64c214b3-450d-41eb-b05e-df636dfa28c8";
-				PROVISIONING_PROFILE_SPECIFIER = SanJiangDevelopment;
+				PROVISIONING_PROFILE = "02be20ab-2aab-4a89-9d96-15e5d369996e";
+				PROVISIONING_PROFILE_SPECIFIER = WildcardProfile;
 			};
 			name = Debug;
 		};
@@ -870,15 +884,15 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = DB5B5F2RH5;
+				DEVELOPMENT_TEAM = U5A7L7SMNP;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = SwiftVersion/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sanjiang.ddd;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "acd2453e-e396-4ccf-bf56-508276824c6c";
-				PROVISIONING_PROFILE_SPECIFIER = SanJiangDevelopment;
+				PROVISIONING_PROFILE = "02be20ab-2aab-4a89-9d96-15e5d369996e";
+				PROVISIONING_PROFILE_SPECIFIER = WildcardProfile;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;

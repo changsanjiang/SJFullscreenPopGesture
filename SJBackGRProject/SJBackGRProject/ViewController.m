@@ -13,6 +13,7 @@
 #import <SJTransitionAnimator.h>
 #import "SJTest2ViewController.h"
 #import "WebViewController.h"
+#import "TestMapViewViewController.h"
 
 @interface ViewController ()
 
@@ -75,4 +76,7 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+- (IBAction)testMap:(id)sender {
+    [self.navigationController pushViewController:[TestMapViewViewController new] animated:YES];
+}
 @end
