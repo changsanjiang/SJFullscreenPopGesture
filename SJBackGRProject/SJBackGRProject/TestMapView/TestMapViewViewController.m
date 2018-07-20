@@ -42,7 +42,6 @@
         make.center.offset(0);
     }];
     
-    
     self.sj_fadeArea = @[[NSValue valueWithCGRect:(CGRect){CGPointMake(100, 0), self.view.frame.size}]];
     
     // Do any additional setup after loading the view.

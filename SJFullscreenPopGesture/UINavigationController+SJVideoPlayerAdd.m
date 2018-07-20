@@ -168,12 +168,7 @@
         [self _sjCancellGesture:otherGestureRecognizer];
         return YES;
     }
-    
-    if ( ![self SJ_isFadeAreaWithPoint:[gestureRecognizer locationInView:gestureRecognizer.view]] ) {
-        [self _sjCancellGesture:otherGestureRecognizer];
-        return YES;
-    }
-    
+
     if ( ([otherGestureRecognizer isMemberOfClass:NSClassFromString(@"UIScrollViewPanGestureRecognizer")] ||
           [otherGestureRecognizer isMemberOfClass:NSClassFromString(@"UIScrollViewPagingSwipeGestureRecognizer")])
        && [otherGestureRecognizer.view isKindOfClass:[UIScrollView class]] ) {
@@ -181,10 +176,14 @@
                          gestureRecognizer:(UIPanGestureRecognizer *)gestureRecognizer
                     otherGestureRecognizer:otherGestureRecognizer];
     }
-    
+    else if ( ![self SJ_isFadeAreaWithPoint:[gestureRecognizer locationInView:gestureRecognizer.view]] ) {
+        [self _sjCancellGesture:otherGestureRecognizer];
+        return YES;
+    }
     else if ( [otherGestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]] ) {
         return NO;
     }
+    
     return YES;
 }
 

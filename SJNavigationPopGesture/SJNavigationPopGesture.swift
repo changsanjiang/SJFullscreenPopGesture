@@ -424,17 +424,16 @@ extension UINavigationController : UIGestureRecognizerDelegate {
             return true
         }
 
-        if ( !SJ_isFadeArea(gestureRecognizer.location(in: gestureRecognizer.view)) ) {
-            SJ_cancellGesture(otherGestureRecognizer)
-            return true
-        }
-        
         if ( otherGestureRecognizer.isMember(of: NSClassFromString("UIScrollViewPanGestureRecognizer")!) == true ||
              otherGestureRecognizer.isMember(of: NSClassFromString("UIScrollViewPagingSwipeGestureRecognizer")!) == true
              && otherGestureRecognizer.isKind(of: UIScrollView.self) == true ) {
             let scrollView = otherGestureRecognizer.view as! UIScrollView
             let panGesture = gestureRecognizer as! UIPanGestureRecognizer
             return SJ_considerScrollView(scrollView, panGesture, otherGestureRecognizer)
+        }
+        else if ( !SJ_isFadeArea(gestureRecognizer.location(in: gestureRecognizer.view)) ) {
+            SJ_cancellGesture(otherGestureRecognizer)
+            return true
         }
         else if ( otherGestureRecognizer.isKind(of: UIPanGestureRecognizer.self) ) {
             return false
