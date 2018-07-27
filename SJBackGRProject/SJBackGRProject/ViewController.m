@@ -14,6 +14,7 @@
 #import "SJTest2ViewController.h"
 #import "WebViewController.h"
 #import "TestMapViewViewController.h"
+#import "TableViewController.h"
 
 @interface ViewController ()
 
@@ -79,4 +80,9 @@
 - (IBAction)testMap:(id)sender {
     [self.navigationController pushViewController:[TestMapViewViewController new] animated:YES];
 }
+
+- (IBAction)testTableView:(id)sender {
+    [self.navigationController pushViewController:[TableViewController new] animated:YES];
+}
+
 @end

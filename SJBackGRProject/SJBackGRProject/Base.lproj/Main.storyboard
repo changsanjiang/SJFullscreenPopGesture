@@ -43,12 +43,21 @@
                                     <action selector="testMap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8MV-sD-hTk"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="leR-4A-O0d">
+                                <rect key="frame" x="139" y="608" width="98" height="30"/>
+                                <state key="normal" title="TestTableView"/>
+                                <connections>
+                                    <action selector="testTableView:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KE5-bf-wEK"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="leR-4A-O0d" firstAttribute="top" secondItem="x35-qR-7OW" secondAttribute="bottom" constant="8" id="3Xl-VP-hMo"/>
                             <constraint firstItem="x35-qR-7OW" firstAttribute="top" secondItem="3ql-wO-ZWR" secondAttribute="bottom" constant="17" id="97l-mn-ev8"/>
                             <constraint firstItem="x35-qR-7OW" firstAttribute="centerX" secondItem="3ql-wO-ZWR" secondAttribute="centerX" id="NmP-a7-tVS"/>
                             <constraint firstItem="3ql-wO-ZWR" firstAttribute="top" secondItem="AEb-Os-sMu" secondAttribute="bottom" constant="7.5" id="PmZ-PJ-WBC"/>
+                            <constraint firstItem="leR-4A-O0d" firstAttribute="centerX" secondItem="x35-qR-7OW" secondAttribute="centerX" id="T7u-I9-hPl"/>
                             <constraint firstItem="3ql-wO-ZWR" firstAttribute="centerX" secondItem="AEb-Os-sMu" secondAttribute="centerX" id="Wsb-OE-9jU"/>
                             <constraint firstItem="AEb-Os-sMu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="h68-DD-sL9"/>
                             <constraint firstItem="AEb-Os-sMu" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="1.5" id="vJT-eJ-nTy"/>

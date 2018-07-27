@@ -16,6 +16,7 @@
 		771FFBBF1F7E94C40076EEB0 /* NextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 771FFBBB1F7E94B40076EEB0 /* NextViewController.m */; };
 		771FFBC01F7E94C70076EEB0 /* NoNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 771FFBBD1F7E94B40076EEB0 /* NoNavViewController.m */; };
 		772D239C200B7B3A00E332B9 /* ex1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 772D239B200B7B3A00E332B9 /* ex1.gif */; };
+		775229C1210AE30B00D58AC1 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 775229C0210AE30B00D58AC1 /* TableViewController.m */; };
 		775A2A00201974E100327470 /* ex2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 775A29FF201974E100327470 /* ex2.gif */; };
 		779177821FC539C100E2AFF7 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 779177811FC539C100E2AFF7 /* README.md */; };
 		779177851FC53F6D00E2AFF7 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 779177841FC53F6D00E2AFF7 /* NavigationController.m */; };
@@ -80,6 +81,8 @@
 		771FFBBC1F7E94B40076EEB0 /* NoNavViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoNavViewController.h; sourceTree = "<group>"; };
 		771FFBBD1F7E94B40076EEB0 /* NoNavViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoNavViewController.m; sourceTree = "<group>"; };
 		772D239B200B7B3A00E332B9 /* ex1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ex1.gif; sourceTree = "<group>"; };
+		775229BF210AE30B00D58AC1 /* TableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
+		775229C0210AE30B00D58AC1 /* TableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
 		775A29FF201974E100327470 /* ex2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ex2.gif; sourceTree = "<group>"; };
 		779177811FC539C100E2AFF7 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		779177831FC53F6D00E2AFF7 /* NavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
@@ -201,6 +204,15 @@
 			path = Test;
 			sourceTree = "<group>";
 		};
+		775229BE210AE2FC00D58AC1 /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				775229BF210AE30B00D58AC1 /* TableViewController.h */,
+				775229C0210AE30B00D58AC1 /* TableViewController.m */,
+			);
+			path = TableView;
+			sourceTree = "<group>";
+		};
 		77BF68372016F3D10040AAC3 /* WebTest */ = {
 			isa = PBXGroup;
 			children = (
@@ -253,6 +265,7 @@
 				77D9B76A1F7E941A00E35746 /* AppDelegate.m */,
 				779177831FC53F6D00E2AFF7 /* NavigationController.h */,
 				779177841FC53F6D00E2AFF7 /* NavigationController.m */,
+				775229BE210AE2FC00D58AC1 /* TableView */,
 				77C426F321017803006C97F6 /* TestMapView */,
 				771FFBB91F7E94B40076EEB0 /* Test */,
 				7706E1301FF78E8E006E0B56 /* Test2 */,
@@ -649,6 +662,7 @@
 				77C426F621017816006C97F6 /* TestMapViewViewController.m in Sources */,
 				770635472025603600A7710F /* UIViewController+TestAdd.m in Sources */,
 				779177851FC53F6D00E2AFF7 /* NavigationController.m in Sources */,
+				775229C1210AE30B00D58AC1 /* TableViewController.m in Sources */,
 				77D9B7861F7E944100E35746 /* UIViewController+SJVideoPlayerAdd.m in Sources */,
 				77D9B76B1F7E941A00E35746 /* AppDelegate.m in Sources */,
 				7706353E2025577700A7710F /* TestPageViewController.m in Sources */,
