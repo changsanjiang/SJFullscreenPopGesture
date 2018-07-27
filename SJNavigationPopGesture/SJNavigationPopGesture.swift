@@ -431,13 +431,7 @@ extension UINavigationController : UIGestureRecognizerDelegate {
             let panGesture = gestureRecognizer as! UIPanGestureRecognizer
             return SJ_considerScrollView(scrollView, panGesture, otherGestureRecognizer)
         }
-//        else if ( !SJ_isFadeArea(gestureRecognizer.location(in: gestureRecognizer.view)) ) {
-//            SJ_cancellGesture(otherGestureRecognizer)
-//            return true
-//        }
-//        else if ( otherGestureRecognizer.isKind(of: UIPanGestureRecognizer.self) ) {
-//            return false
-//        }
+        
         if ( otherGestureRecognizer.isKind(of: UIPanGestureRecognizer.self) ) {
             if ( otherGestureRecognizer.view!.isKind(of: NSClassFromString("_MKMapContentView")!) ) {
                 return false
@@ -445,8 +439,8 @@ extension UINavigationController : UIGestureRecognizerDelegate {
             
             // if `MKMapContentView`
             let point = gestureRecognizer.location(in: gestureRecognizer.view)
-            if ( (self.sj_fadeArea != nil || self.sj_fadeAreaViews != nil)
-                && self.SJ_isFadeArea(point) ) {
+            if ( (self.topViewController?.sj_fadeArea != nil || self.topViewController?.sj_fadeAreaViews != nil)
+                 && !SJ_isFadeArea(point) ) {
                 self.SJ_cancellGesture(otherGestureRecognizer)
                 return true
             }
@@ -461,7 +455,8 @@ extension UINavigationController : UIGestureRecognizerDelegate {
             return false
         }
         
-        if ( !SJ_isFadeArea(gestureRecognizer.location(in: gestureRecognizer.view)) ) {
+        if ( (self.topViewController?.sj_fadeArea != nil || self.topViewController?.sj_fadeAreaViews != nil) &&
+             !SJ_isFadeArea(gestureRecognizer.location(in: gestureRecognizer.view)) ) {
             SJ_cancellGesture(otherGestureRecognizer)
             return true
         }
@@ -482,7 +477,7 @@ extension UINavigationController : UIGestureRecognizerDelegate {
         let topView = self.topViewController?.view
         var rect = CGRect.init()
         
-        if ( 0 != self.topViewController?.sj_fadeArea?.count ) {
+        if ( self.topViewController?.sj_fadeArea != nil ) {
             for r in (self.topViewController!.sj_fadeArea)! {
                 if ( self.isNavigationBarHidden == false ) {
                     rect = self.view.convert(r, from: topView)
@@ -495,7 +490,7 @@ extension UINavigationController : UIGestureRecognizerDelegate {
         }
         
         if ( isFadeArea != true &&
-             0 != self.topViewController?.sj_fadeAreaViews?.count ) {
+             self.topViewController?.sj_fadeAreaViews != nil ) {
             for subView in self.topViewController!.sj_fadeAreaViews! {
                 let r = subView.frame
                 if ( self.isNavigationBarHidden == false ) {
