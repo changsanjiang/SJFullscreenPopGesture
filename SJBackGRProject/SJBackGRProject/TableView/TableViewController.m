@@ -55,6 +55,7 @@ static NSString *const UITableViewCellID = @"UITableViewCell";
 #ifdef DEBUG
     NSLog(@"%d - %s", (int)__LINE__, __func__);
 #endif
+    [self.navigationController pushViewController:[[self class] new] animated:YES];
 }
 
 - (BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath NS_AVAILABLE_IOS(5_0) {
