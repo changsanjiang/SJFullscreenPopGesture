@@ -319,16 +319,17 @@
 }
 
 - (void)clickedChangeBackDisplayModeBtn:(UIButton *)btn {
-    btn.selected = !btn.isSelected;
-    [_changeBackDisplayModeBtn setTitle:@"SJPreViewDisplayMode_Snapshot" forState:UIControlStateNormal];
-    [_changeBackDisplayModeBtn setTitle:@"SJPreViewDisplayMode_Origin" forState:UIControlStateSelected];
-    if ( btn.selected ) {
+    if ( self.sj_displayMode == SJPreViewDisplayMode_Snapshot ) {
         self.sj_displayMode = SJPreViewDisplayMode_Origin;
+        [_changeBackDisplayModeBtn setTitle:@"SJPreViewDisplayMode_Origin" forState:UIControlStateNormal];
     }
     else {
         self.sj_displayMode = SJPreViewDisplayMode_Snapshot;
+        [_changeBackDisplayModeBtn setTitle:@"SJPreViewDisplayMode_Snapshot" forState:UIControlStateNormal];
     }
-    [self pushNextVC:nil];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self pushNextVC:nil];
+    });
 }
 
 #pragma mark -

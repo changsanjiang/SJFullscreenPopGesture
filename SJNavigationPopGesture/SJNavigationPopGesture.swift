@@ -431,15 +431,50 @@ extension UINavigationController : UIGestureRecognizerDelegate {
             let panGesture = gestureRecognizer as! UIPanGestureRecognizer
             return SJ_considerScrollView(scrollView, panGesture, otherGestureRecognizer)
         }
-        else if ( !SJ_isFadeArea(gestureRecognizer.location(in: gestureRecognizer.view)) ) {
-            SJ_cancellGesture(otherGestureRecognizer)
-            return true
-        }
-        else if ( otherGestureRecognizer.isKind(of: UIPanGestureRecognizer.self) ) {
+//        else if ( !SJ_isFadeArea(gestureRecognizer.location(in: gestureRecognizer.view)) ) {
+//            SJ_cancellGesture(otherGestureRecognizer)
+//            return true
+//        }
+//        else if ( otherGestureRecognizer.isKind(of: UIPanGestureRecognizer.self) ) {
+//            return false
+//        }
+        if ( otherGestureRecognizer.isKind(of: UIPanGestureRecognizer.self) ) {
+            if ( otherGestureRecognizer.view!.isKind(of: NSClassFromString("_MKMapContentView")!) ) {
+                return false
+            }
+            
+            // if `MKMapContentView`
+            let point = gestureRecognizer.location(in: gestureRecognizer.view)
+            if ( (self.sj_fadeArea != nil || self.sj_fadeAreaViews != nil)
+                && self.SJ_isFadeArea(point) ) {
+                self.SJ_cancellGesture(otherGestureRecognizer)
+                return true
+            }
+            
+            // map view default fade area
+            let rect = CGRect.init(origin: CGPoint.init(x: 50, y: 0), size: self.view.frame.size)
+            if ( self.rect(rect, containerPoint: point) ) {
+                self.SJ_cancellGesture(otherGestureRecognizer)
+                return true
+            }
+            
             return false
         }
         
+        if ( !SJ_isFadeArea(gestureRecognizer.location(in: gestureRecognizer.view)) ) {
+            SJ_cancellGesture(otherGestureRecognizer)
+            return true
+        }
+
         return true
+    }
+    
+    func rect(_ rect: CGRect, containerPoint point: CGPoint) -> Bool {
+        var r = rect
+        if ( self.isNavigationBarHidden ) {
+            r = self.view.convert(rect, to: self.topViewController!.view)
+        }
+        return r.contains(point)
     }
     
     private func SJ_isFadeArea(_ point: CGPoint) -> Bool {
