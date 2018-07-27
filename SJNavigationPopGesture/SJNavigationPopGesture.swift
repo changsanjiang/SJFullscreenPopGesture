@@ -461,7 +461,7 @@ extension UINavigationController : UIGestureRecognizerDelegate {
             return true
         }
 
-        return true
+        return false
     }
     
     func rect(_ rect: CGRect, containerPoint point: CGPoint) -> Bool {
