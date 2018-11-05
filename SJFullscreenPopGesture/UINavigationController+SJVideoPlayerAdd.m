@@ -338,8 +338,8 @@ static const char *k_SJFullscreenGestureDelegate = "_SJFullscreenGestureDelegate
     } completion:^(BOOL finished) {
         [[SJSnapshotServer shared] nav:self endPopViewController:self.childViewControllers.lastObject];
         if ( pop ) {
-            [self popViewControllerAnimated:NO];
             self.view.transform = CGAffineTransformIdentity;
+            [self popViewControllerAnimated:NO];
         }
         if ( self.topViewController.sj_viewDidEndDragging ) self.topViewController.sj_viewDidEndDragging(self.topViewController);
     }];

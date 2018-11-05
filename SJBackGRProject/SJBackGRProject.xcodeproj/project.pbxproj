@@ -22,6 +22,8 @@
 		779177851FC53F6D00E2AFF7 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 779177841FC53F6D00E2AFF7 /* NavigationController.m */; };
 		77BF683A2016F3DD0040AAC3 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77BF68392016F3DD0040AAC3 /* WebViewController.m */; };
 		77C426F621017816006C97F6 /* TestMapViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C426F521017816006C97F6 /* TestMapViewViewController.m */; };
+		77CEFACD21903A3100B0B4D0 /* ViewControllerTestTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CEFACC21903A3100B0B4D0 /* ViewControllerTestTableView.swift */; };
+		77CEFACF21903E4D00B0B4D0 /* ViewControllerMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CEFACE21903E4D00B0B4D0 /* ViewControllerMapView.swift */; };
 		77D9B7681F7E941A00E35746 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D9B7671F7E941A00E35746 /* main.m */; };
 		77D9B76B1F7E941A00E35746 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D9B76A1F7E941A00E35746 /* AppDelegate.m */; };
 		77D9B76E1F7E941A00E35746 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D9B76D1F7E941A00E35746 /* ViewController.m */; };
@@ -92,6 +94,8 @@
 		77BF68392016F3DD0040AAC3 /* WebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		77C426F421017816006C97F6 /* TestMapViewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestMapViewViewController.h; sourceTree = "<group>"; };
 		77C426F521017816006C97F6 /* TestMapViewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestMapViewViewController.m; sourceTree = "<group>"; };
+		77CEFACC21903A3100B0B4D0 /* ViewControllerTestTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerTestTableView.swift; sourceTree = "<group>"; };
+		77CEFACE21903E4D00B0B4D0 /* ViewControllerMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerMapView.swift; sourceTree = "<group>"; };
 		77D9B7631F7E941A00E35746 /* SJBackGRProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SJBackGRProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77D9B7671F7E941A00E35746 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		77D9B7691F7E941A00E35746 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -326,8 +330,10 @@
 				A6A0A8FF20410F2C003DB0A0 /* AppDelegate.swift */,
 				A6A0A90120410F2C003DB0A0 /* ViewController.swift */,
 				A6243BEF20427AE700A0096F /* TestViewControllerNav.swift */,
+				77CEFACC21903A3100B0B4D0 /* ViewControllerTestTableView.swift */,
 				A6243BF320427CB400A0096F /* NavViewController.swift */,
 				A6243BF120427AEE00A0096F /* TestViewControllerModal.swift */,
+				77CEFACE21903E4D00B0B4D0 /* ViewControllerMapView.swift */,
 				77DA950E20416450007A9EE8 /* TestViewController.xib */,
 				A6A0A90320410F2C003DB0A0 /* Main.storyboard */,
 				A6A0A90620410F2C003DB0A0 /* Assets.xcassets */,
@@ -681,8 +687,10 @@
 				A6243C05204284B100A0096F /* SJNavigationPopGesture.swift in Sources */,
 				A6243BF220427AEE00A0096F /* TestViewControllerModal.swift in Sources */,
 				A6243BF020427AE700A0096F /* TestViewControllerNav.swift in Sources */,
+				77CEFACD21903A3100B0B4D0 /* ViewControllerTestTableView.swift in Sources */,
 				A6A0A90220410F2C003DB0A0 /* ViewController.swift in Sources */,
 				A6243BF420427CB400A0096F /* NavViewController.swift in Sources */,
+				77CEFACF21903E4D00B0B4D0 /* ViewControllerMapView.swift in Sources */,
 				A6A0A90020410F2C003DB0A0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

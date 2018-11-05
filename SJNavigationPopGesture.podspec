@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "SJNavigationPopGesture"
-  s.version      = "1.4.5.1"
+  s.version      = "1.4.6"
   s.summary      = "fullscreen pop gestures."
 
   # This description is used to generate tags and improve search results.

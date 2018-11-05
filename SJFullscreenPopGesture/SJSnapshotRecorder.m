@@ -16,8 +16,6 @@ static const char *kSJSnapshot = "kSJSnapshot";
 
 @interface SJSnapshotRecorder : NSObject
 @property (nonatomic, strong, readonly) UIView *rootView;
-@property (nonatomic, strong, readonly, nullable) UIView *nav_bar_snapshotView;
-@property (nonatomic, strong, readonly, nullable) UIView *tab_bar_snapshotView;
 @property (nonatomic, strong, readonly, nullable) UIView *preSnapshotView;
 @property (nonatomic, strong, readonly) UIView *preViewContainerView;
 @property (nonatomic, strong, readonly) UIView *shadeView;
@@ -52,19 +50,9 @@ static const char *kSJSnapshot = "kSJSnapshot";
     switch ( nav.childViewControllers[index].sj_displayMode ) {
         case SJPreViewDisplayMode_Origin: {
             // nav bar
-            if ( nav ) {
-                if ( !nav.navigationBarHidden ) {
-                    _nav_bar_snapshotView = [nav.view.window resizableSnapshotViewFromRect:CGRectMake(0, 0, nav.navigationBar.frame.size.width, nav.navigationBar.frame.size.height - nav.navigationBar.subviews.firstObject.frame.origin.y + 1) afterScreenUpdates:NO withCapInsets:UIEdgeInsetsZero];
-                    [_rootView addSubview:_nav_bar_snapshotView];
-                }
-            }
-            
-            // tab bar
-            UITabBar *tabBar = nav.tabBarController.tabBar;
-            if ( !tabBar.hidden ) {
-                _tab_bar_snapshotView = [nav.view.window resizableSnapshotViewFromRect:CGRectMake(0, nav.view.bounds.size.height - tabBar.frame.size.height - 1, tabBar.bounds.size.width, tabBar.bounds.size.height + 1) afterScreenUpdates:NO withCapInsets:UIEdgeInsetsZero];
-                _tab_bar_snapshotView.frame = CGRectMake(0, nav.view.bounds.size.height - tabBar.bounds.size.height - 1, tabBar.bounds.size.width, tabBar.bounds.size.height);
-                [_rootView addSubview:_tab_bar_snapshotView];
+            if ( nav && !nav.navigationBarHidden ) {
+                UIView *nav_snapshot = [nav.view.window resizableSnapshotViewFromRect:CGRectMake(0, 0, nav.navigationBar.frame.size.width, nav.navigationBar.frame.size.height - nav.navigationBar.subviews.firstObject.frame.origin.y + 1) afterScreenUpdates:NO withCapInsets:UIEdgeInsetsZero];
+                [_rootView addSubview:nav_snapshot];
             }
         }
             break;
@@ -81,31 +69,16 @@ static const char *kSJSnapshot = "kSJSnapshot";
     
     _nav = nav;
     _index = index;
-
     return self;
 }
 
 - (void)preparePopViewController {
     if ( !_nav ) return;
-    
     UIViewController *vc = _nav.childViewControllers[_index];
     switch ( vc.sj_displayMode ) {
         case SJPreViewDisplayMode_Origin: {
             UIView *preView = _nav.childViewControllers[_index].view;
             [_preViewContainerView insertSubview:preView atIndex:0];
-//            if ( @available(iOS 11, *) ) { /**/ break; }
-//            else {
-//                if ( !vc.automaticallyAdjustsScrollViewInsets || vc.edgesForExtendedLayout == UIRectEdgeNone ) break;
-//
-//                UIScrollView *scrollView = [self _searchScrollViewWithTarget:vc.view];
-//                if ( !scrollView ) break;
-//                if ( _nav_bar_snapshotView ) {
-//                    // fix frame
-//                    CGRect frame = preView.frame;
-//                    frame.origin.y = _nav.navigationBar.frame.origin.y + _nav.navigationBar.frame.size.height;
-//                    preView.frame = frame;
-//                }
-//            }
         }
             break;
         case SJPreViewDisplayMode_Snapshot: {
@@ -118,20 +91,6 @@ static const char *kSJSnapshot = "kSJSnapshot";
     [_preViewContainerView.subviews.firstObject removeFromSuperview];
 }
 
-#pragma mark -
-- (UIScrollView *)_searchScrollViewWithTarget:(UIView *)target {
-    if ( [target isKindOfClass:[UIScrollView class]] ) return (UIScrollView *)target;
-    __block UIView *scrollView = nil;
-    [target.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ( [obj isKindOfClass:[UIScrollView class]] ) {
-            if ( CGRectEqualToRect(obj.frame, target.frame) ) {
-                *stop = YES;
-                scrollView = obj;
-            }
-        }
-    }];
-    return (UIScrollView *)scrollView;
-}
 @end
 
 @interface SJSnapshotServer ()

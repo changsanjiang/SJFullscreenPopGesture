@@ -367,7 +367,7 @@ extension UINavigationController : UIGestureRecognizerDelegate {
     
     private var SJ_edgePan: UIScreenEdgePanGestureRecognizer {
         get {
-            var pan = objc_getAssociatedObject(self, &SJAssociatedKeys.kSJPan) as? UIScreenEdgePanGestureRecognizer
+            var pan = objc_getAssociatedObject(self, &SJAssociatedKeys.kSJEdgePan) as? UIScreenEdgePanGestureRecognizer
             if ( pan == nil ) {
                 pan = UIScreenEdgePanGestureRecognizer.init(target: self, action: #selector(SJ_handlePanGR(_:)))
                 pan?.delegate = self
@@ -433,8 +433,10 @@ extension UINavigationController : UIGestureRecognizerDelegate {
         }
         
         if ( otherGestureRecognizer.isKind(of: UIPanGestureRecognizer.self) ) {
-            if ( otherGestureRecognizer.view!.isKind(of: NSClassFromString("_MKMapContentView")!) ) {
-                return false
+            if let cls = NSClassFromString("_MKMapContentView") {
+                if ( !otherGestureRecognizer.view!.isKind(of: cls) ) {
+                    return false
+                }
             }
             
             // if `MKMapContentView`
@@ -447,7 +449,7 @@ extension UINavigationController : UIGestureRecognizerDelegate {
             
             // map view default fade area
             let rect = CGRect.init(origin: CGPoint.init(x: 50, y: 0), size: self.view.frame.size)
-            if ( self.rect(rect, containerPoint: point) ) {
+            if ( !self.rect(rect, containerPoint: point) ) {
                 self.SJ_cancellGesture(otherGestureRecognizer)
                 return true
             }
@@ -844,29 +846,6 @@ fileprivate class _SJSnapshotRecorder {
         case .origin:
             let preview = vc.view
             pre_container?.insertSubview(preview!, at: 0)
-            
-//            if #available(iOS 11, *) {
-//                /**/
-//                break
-//            }
-//            else {
-//                if ( !vc.automaticallyAdjustsScrollViewInsets || vc.edgesForExtendedLayout == .none ) {
-//                    break
-//                }
-//
-//                if ( nav_bar_snapshotView == nil ) {
-//                    break
-//                }
-//
-//                let scrollView = searchScrollView(target: vc.view)
-//                if ( scrollView == nil ) {
-//                    break
-//                }
-//
-//                var frame = preview!.frame
-//                frame.origin.y = nav.navigationBar.frame.origin.y + nav.navigationBar.frame.size.height
-//                preview?.frame = frame
-//            }
             break
         case .snapshot:
             pre_container?.addSubview(pre_snapshot!)
@@ -915,14 +894,6 @@ fileprivate class _SJSnapshotRecorder {
             if ( !nav.isNavigationBarHidden ) {
                 nav_bar_snapshotView = nav.view.window?.resizableSnapshotView(from: CGRect.init(x: 0, y: 0, width: nav.navigationBar.frame.width, height: nav.navigationBar.frame.height - nav.navigationBar.subviews.first!.frame.origin.y + 1), afterScreenUpdates: false, withCapInsets: UIEdgeInsets.zero)
                 rootView.addSubview(nav_bar_snapshotView!)
-            }
-            
-            let tabBar = nav.tabBarController?.tabBar
-            if ( tabBar != nil ) {
-                if ( !tabBar!.isHidden ) {
-                    tab_bar_snapshotView = nav.view.window?.resizableSnapshotView(from: CGRect.init(x: 0, y: nav.view.bounds.height - tabBar!.frame.height - 1, width: tabBar!.bounds.width, height: tabBar!.bounds.size.height + 1), afterScreenUpdates: false, withCapInsets: UIEdgeInsets.zero)
-                    rootView.addSubview(tab_bar_snapshotView!)
-                }
             }
             break
         }

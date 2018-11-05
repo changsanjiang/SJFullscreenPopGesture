@@ -107,7 +107,7 @@ class TestViewControllerNav: UIViewController {
     }
     
     @objc private func push() -> Void {
-        self.navigationController?.pushViewController(TestViewControllerNav(), animated: true)
+        self.navigationController?.pushViewController(ViewControllerMapView(), animated: true)
     }
     
     
