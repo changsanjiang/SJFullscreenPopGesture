@@ -15,7 +15,7 @@ class TestViewControllerNav: UIViewController {
         let btn = UIButton.init(type: .custom)
         btn.setTitleColor(UIColor.orange, for: .normal)
         btn.setTitle("Push", for: .normal)
-        btn.addTarget(self, action: #selector(push), for: UIControlEvents.touchUpInside)
+        btn.addTarget(self, action: #selector(push), for: UIControl.Event.touchUpInside)
         return btn
     }()
     
@@ -23,7 +23,7 @@ class TestViewControllerNav: UIViewController {
         let btn = UIButton.init(type: .custom)
         btn.setTitleColor(UIColor.orange, for: .normal)
         btn.setTitle("Album", for: .normal)
-        btn.addTarget(self, action: #selector(album), for: UIControlEvents.touchUpInside)
+        btn.addTarget(self, action: #selector(album), for: UIControl.Event.touchUpInside)
         return btn
     }()
     
@@ -31,7 +31,7 @@ class TestViewControllerNav: UIViewController {
         let btn = UIButton.init(type: .custom)
         btn.setTitleColor(UIColor.orange, for: .normal)
         btn.setTitle("modal_Nav", for: .normal)
-        btn.addTarget(self, action: #selector(modal_Nav), for: UIControlEvents.touchUpInside)
+        btn.addTarget(self, action: #selector(modal_Nav), for: UIControl.Event.touchUpInside)
         return btn
     }()
     
@@ -39,7 +39,7 @@ class TestViewControllerNav: UIViewController {
         let btn = UIButton.init(type: .custom)
         btn.setTitleColor(UIColor.orange, for: .normal)
         btn.setTitle("Alert", for: .normal)
-        btn.addTarget(self, action: #selector(alert), for: UIControlEvents.touchUpInside)
+        btn.addTarget(self, action: #selector(alert), for: UIControl.Event.touchUpInside)
         return btn
     }()
     
@@ -107,7 +107,7 @@ class TestViewControllerNav: UIViewController {
     }
     
     @objc private func push() -> Void {
-        self.navigationController?.pushViewController(ViewControllerMapView(), animated: true)
+        self.navigationController?.pushViewController(ViewControllerTestTableView(), animated: true)
     }
     
     

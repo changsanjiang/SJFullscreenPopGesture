@@ -109,7 +109,7 @@ public extension UINavigationController {
     }
     
     /// pop gesture state.
-    public var sj_popGestureState: UIGestureRecognizerState {
+    public var sj_popGestureState: UIGestureRecognizer.State {
         get {
             var gesture: UIGestureRecognizer?
             switch SJ_selectedType {
@@ -386,10 +386,10 @@ extension UINavigationController : UIGestureRecognizerDelegate {
              self.topViewController?.sj_considerWebView?.canGoBack == true ) {
             return false
         }
-        else if ( self.childViewControllers.count <= 1 ) {
+        else if ( self.children.count <= 1 ) {
             return false
         }
-        else if ( self.childViewControllers.last?.isKind(of: UINavigationController.self) )! {
+        else if ( self.children.last?.isKind(of: UINavigationController.self) )! {
             return false
         }
         else {
@@ -414,8 +414,8 @@ extension UINavigationController : UIGestureRecognizerDelegate {
     }
     
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        if ( gestureRecognizer.state == UIGestureRecognizerState.failed ||
-             gestureRecognizer.state == UIGestureRecognizerState.cancelled ) {
+        if ( gestureRecognizer.state == UIGestureRecognizer.State.failed ||
+             gestureRecognizer.state == UIGestureRecognizer.State.cancelled ) {
             return false
         }
         
@@ -437,21 +437,21 @@ extension UINavigationController : UIGestureRecognizerDelegate {
                 if ( !otherGestureRecognizer.view!.isKind(of: cls) ) {
                     return false
                 }
-            }
-            
-            // if `MKMapContentView`
-            let point = gestureRecognizer.location(in: gestureRecognizer.view)
-            if ( (self.topViewController?.sj_fadeArea != nil || self.topViewController?.sj_fadeAreaViews != nil)
-                 && !SJ_isFadeArea(point) ) {
-                self.SJ_cancellGesture(otherGestureRecognizer)
-                return true
-            }
-            
-            // map view default fade area
-            let rect = CGRect.init(origin: CGPoint.init(x: 50, y: 0), size: self.view.frame.size)
-            if ( !self.rect(rect, containerPoint: point) ) {
-                self.SJ_cancellGesture(otherGestureRecognizer)
-                return true
+                
+                // if `MKMapContentView`
+                let point = gestureRecognizer.location(in: gestureRecognizer.view)
+                if ( (self.topViewController?.sj_fadeArea != nil || self.topViewController?.sj_fadeAreaViews != nil)
+                     && !SJ_isFadeArea(point) ) {
+                    self.SJ_cancellGesture(otherGestureRecognizer)
+                    return true
+                }
+                
+                // map view default fade area
+                let rect = CGRect.init(origin: CGPoint.init(x: 50, y: 0), size: self.view.frame.size)
+                if ( !self.rect(rect, containerPoint: point) ) {
+                     self.SJ_cancellGesture(otherGestureRecognizer)
+                    return true
+                }
             }
             
             return false
@@ -552,7 +552,7 @@ extension UINavigationController : UIGestureRecognizerDelegate {
     }
     
     private func SJ_cancellGesture(_ gesture: UIGestureRecognizer) -> Void {
-        gesture.setValue(UIGestureRecognizerState.cancelled.rawValue, forKey: "state")
+        gesture.setValue(UIGestureRecognizer.State.cancelled.rawValue, forKey: "state")
     }
     
     @objc private func SJ_handlePanGR(_ pan:UIPanGestureRecognizer) -> Void {
@@ -571,7 +571,7 @@ extension UINavigationController : UIGestureRecognizerDelegate {
     private func SJ_ViewWillBeginDragging(_ offset: CGFloat) -> Void {
         self.view.endEditing(true)
         
-        _SJSnapshotServer.nav(self, preparePopViewController: self.childViewControllers.last!)
+        _SJSnapshotServer.nav(self, preparePopViewController: self.children.last!)
         
         if ( self.topViewController?.sj_viewWillBeginDragging != nil ) {
             self.topViewController?.sj_viewWillBeginDragging!(self.topViewController!)
@@ -587,7 +587,7 @@ extension UINavigationController : UIGestureRecognizerDelegate {
         }
         
         self.view.transform = CGAffineTransform.init(translationX: offset, y: 0)
-        _SJSnapshotServer.nav(self, poppingViewController: self.childViewControllers.last!, offset: offset)
+        _SJSnapshotServer.nav(self, poppingViewController: self.children.last!, offset: offset)
         if ( self.topViewController?.sj_viewDidDrag != nil ) {
             self.topViewController?.sj_viewDidDrag!(self.topViewController!)
         }
@@ -608,7 +608,7 @@ extension UINavigationController : UIGestureRecognizerDelegate {
         }
         
         UIView.animate(withDuration: TimeInterval(duration), animations: {
-            _SJSnapshotServer .nav(self, willEndPopViewController: self.childViewControllers.last!, pop: pop)
+            _SJSnapshotServer .nav(self, willEndPopViewController: self.children.last!, pop: pop)
             if ( pop ) {
                 self.view.transform = CGAffineTransform.init(translationX: self.view.frame.width, y: 0)
             }
@@ -616,7 +616,7 @@ extension UINavigationController : UIGestureRecognizerDelegate {
                 self.view.transform = CGAffineTransform.identity
             }
         }) { (finished) in
-            _SJSnapshotServer.nav(self, endPopViewController: self.childViewControllers.last!)
+            _SJSnapshotServer.nav(self, endPopViewController: self.children.last!)
             if ( pop ) {
                 self.popViewController(animated: false)
                 self.view.transform = CGAffineTransform.identity
@@ -739,12 +739,12 @@ fileprivate class _SJSnapshotServer {
     
     // MARK: nav action
     class func nav(_ nav: UINavigationController, pushViewController: UIViewController) {
-        if ( nav.childViewControllers.count == 0 ) {
+        if ( nav.children.count == 0 ) {
             return
         }
 
-        let index = nav.childViewControllers.count - 1
-        let currentVC = nav.childViewControllers[index]
+        let index = nav.children.count - 1
+        let currentVC = nav.children[index]
         if ( nav.isKind(of: UIImagePickerController.self) ) {
             currentVC.sj_displayMode = .snapshot
         }
@@ -841,7 +841,7 @@ fileprivate class _SJSnapshotRecorder {
     var index: Int
     
     func preparePopViewController() {
-        let vc = nav.childViewControllers[index]
+        let vc = nav.children[index]
         switch vc.sj_displayMode {
         case .origin:
             let preview = vc.view
@@ -885,7 +885,7 @@ fileprivate class _SJSnapshotRecorder {
         
         rootView.addSubview(pre_container!)
         
-        let vc = nav.childViewControllers[index]
+        let vc = nav.children[index]
         switch vc.sj_displayMode {
         case .snapshot:
             pre_snapshot = nav.view.window?.snapshotView(afterScreenUpdates: false)

@@ -16,7 +16,7 @@ class ViewControllerTestTableView: UIViewController, UITableViewDataSource, UITa
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let tableView = UITableView.init(frame: self.view.frame, style: UITableViewStyle.plain)
+        let tableView = UITableView.init(frame: self.view.frame, style: UITableView.Style.plain)
         tableView.rowHeight = 49;
         tableView .register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCellID)
         self.view.addSubview(tableView)
