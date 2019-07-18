@@ -1,0 +1,6 @@
+framework module Pods_SJFullscreenPopGesture_Example {
+  umbrella header "Pods-SJFullscreenPopGesture_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}

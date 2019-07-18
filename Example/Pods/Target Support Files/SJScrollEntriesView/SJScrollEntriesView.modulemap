@@ -1,0 +1,6 @@
+framework module SJScrollEntriesView {
+  umbrella header "SJScrollEntriesView-umbrella.h"
+
+  export *
+  module * { export * }
+}

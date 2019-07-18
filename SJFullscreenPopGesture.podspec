@@ -9,20 +9,29 @@
 Pod::Spec.new do |s|
 
   s.name         = "SJFullscreenPopGesture"
-  s.version      = "1.4.6"
+  s.version      = "1.5.0"
   s.summary      = "fullscreen pop gestures."
-  s.description  = 'fullscreen pop gesture. System native gestures and custom gestures are free to switch.'
+  s.description  = 'https://github.com/changsanjiang/SJFullscreenPopGesture/blob/master/README.md'
 
 
   s.homepage     = "https://github.com/changsanjiang/SJFullscreenPopGesture"
-  s.license      = { :type => 'MIT', :file => 'LICENSE.md' }
+  s.license      = { :type => 'MIT', :file => 'LICENSE' }
 
   s.author             = { "SanJiang" => "changsanjiang@gmail.com" }
   s.platform     = :ios, '8.0'
 
   s.source       =   { :git => 'https://github.com/changsanjiang/SJFullscreenPopGesture.git', :tag => "v#{s.version}" }
 
-  s.source_files = "SJFullscreenPopGesture/*.{h,m}"
-
   s.requires_arc = true
+
+  s.default_subspec = 'ObjC'
+
+  s.subspec 'ObjC' do |ss|
+    ss.source_files = "SJFullscreenPopGesture/ObjC/*.{h,m}"
+  end
+
+  s.subspec 'Swift' do |ss|
+    s.swift_version = '5.0'
+    ss.source_files = "SJFullscreenPopGesture/Swift/*.swift"
+  end
 end

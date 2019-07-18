@@ -1,1 +1,0 @@
-../../../SJTransitionAnimator/Classes/SJTransitionAnimator.h

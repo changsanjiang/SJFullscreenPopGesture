@@ -1,0 +1,6 @@
+framework module SJUIFactory {
+  umbrella header "SJUIFactory-umbrella.h"
+
+  export *
+  module * { export * }
+}
