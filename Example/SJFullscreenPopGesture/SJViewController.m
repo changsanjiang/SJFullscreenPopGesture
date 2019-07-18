@@ -30,6 +30,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.sj_displayMode = SJPreViewDisplayModeOrigin;
+    
     self.view.backgroundColor = [UIColor whiteColor];
     self.pushBtn = [UIButton new];
     [_pushBtn setTitle:@"Push" forState:UIControlStateNormal];

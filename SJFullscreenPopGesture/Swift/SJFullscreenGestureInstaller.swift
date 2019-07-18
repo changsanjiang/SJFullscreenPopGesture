@@ -592,9 +592,21 @@ fileprivate class SJSnapshot {
             // nav bar snapshot
             if nav.isNavigationBarHidden == false {
                 var rect = nav.view.convert(nav.navigationBar.frame, to: nav.view.window)
-                rect.size.height += rect.origin.y;
+                rect.size.height += rect.origin.y + 1;
                 rect.origin.y = 0;
                 if let snapshot = nav.view.window?.resizableSnapshotView(from: rect, afterScreenUpdates: false, withCapInsets: UIEdgeInsets.zero) {
+                    snapshot.frame = rect
+                    rootView.addSubview(snapshot)
+                }
+            }
+            
+            // tab bar snapshot
+            if let tabBar = nav.tabBarController?.tabBar, tabBar.isHidden == false {
+                var rect = tabBar.convert(tabBar.bounds, to: nav.view.window)
+                rect.origin.y -= 1
+                rect.size.height += 1
+                if let snapshot = nav.view.window?.resizableSnapshotView(from: rect, afterScreenUpdates: false, withCapInsets: UIEdgeInsets.zero) {
+                    snapshot.frame = rect
                     rootView.addSubview(snapshot)
                 }
             }

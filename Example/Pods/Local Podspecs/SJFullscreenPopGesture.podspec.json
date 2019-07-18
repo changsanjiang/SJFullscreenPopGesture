@@ -1,8 +1,8 @@
 {
   "name": "SJFullscreenPopGesture",
-  "version": "1.4.6",
+  "version": "1.5.0",
   "summary": "fullscreen pop gestures.",
-  "description": "fullscreen pop gesture. System native gestures and custom gestures are free to switch.",
+  "description": "https://github.com/changsanjiang/SJFullscreenPopGesture/blob/master/README.md",
   "homepage": "https://github.com/changsanjiang/SJFullscreenPopGesture",
   "license": {
     "type": "MIT",
@@ -16,7 +16,7 @@
   },
   "source": {
     "git": "https://github.com/changsanjiang/SJFullscreenPopGesture.git",
-    "tag": "v1.4.6"
+    "tag": "v1.5.0"
   },
   "requires_arc": true,
   "default_subspecs": "ObjC",

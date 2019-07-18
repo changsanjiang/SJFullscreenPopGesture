@@ -13,13 +13,16 @@
 		0967598607D521318F69D7D39D517B20 /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B56E5DB053BFB2BC249D5B00FC1B24 /* ViewController+MASAdditions.m */; };
 		098630ECDB64ED7B89F5F687C82B4AC3 /* NSArray+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 233F99479C34329E02343E496B6741AC /* NSArray+MASAdditions.m */; };
 		0AF1AD35706D90B1A91F291B899EF8C0 /* NSLayoutConstraint+MASDebugAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 2258B90D393A9C1E97FA24845BB97B68 /* NSLayoutConstraint+MASDebugAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1636E4C02978F74F980CCC8038B2D065 /* SJFullscreenPopGesture-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 930BAAC71B5F2CD728313F8DF2D9DD1E /* SJFullscreenPopGesture-dummy.m */; };
 		1972E85F0FCD0F3EAF28ED7CD036286E /* Masonry-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E0D0CE1B70AA4AAEEEF062425CF407F2 /* Masonry-dummy.m */; };
+		19771A7000AF6A7A6DE5CDA2F026F00C /* SJFullscreenPopGesture-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = E9A4B20CA7208DD97EF84FB5C84BB2CE /* SJFullscreenPopGesture-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1A1CFB452DCBC8921D2B5552DB2C9F6A /* SJUIFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A869A29898481AD394FF10EE662D83 /* SJUIFactory.m */; };
 		218B09DA1873C42F54C335B26DF88B11 /* SJAnimations.h in Headers */ = {isa = PBXBuildFile; fileRef = 533EB35C120131C4D2D37AC0C9078E26 /* SJAnimations.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		280D36330BAC5715615FF4A8B42D60D6 /* MASUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 64FD81A007E4275F395FF35FD3FBA0F1 /* MASUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		297A3627CF2F032CBFDC61D1A3786E63 /* MASViewAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 91C39635EFB321987D467C69F41580AF /* MASViewAttribute.m */; };
 		2B399CBD579D9C34AB8AADB0144307B7 /* SJScrollEntriesViewUserProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C3F7869DE5927CC06D608F582627EF8 /* SJScrollEntriesViewUserProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		316DF15678291F38FBE403FDE09315B6 /* SJTransitionAnimator-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 493108D76C7193470E85373E1CA564F0 /* SJTransitionAnimator-dummy.m */; };
+		319D1EB3DC84EB54DC454734AB66B19C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28147EF640D73DD5BE8B797CFD199606 /* Foundation.framework */; };
 		346080C0D1CA23399ADD739D722D7CEF /* Masonry.h in Headers */ = {isa = PBXBuildFile; fileRef = AAFC6AD1F16EF362815428375657E64B /* Masonry.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3C57DBB7FF31D01EF4AF51C555EC8818 /* SJScrollEntriesView-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 63CF316C16CB147ECC67BF69C37290F5 /* SJScrollEntriesView-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3DA5F1D8E51CDD102A871C2F37770C7B /* MASViewAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = D55ADD30CD51224ECE68104B681E44CA /* MASViewAttribute.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -30,13 +33,12 @@
 		56EF7275F94FDDF95EC8596FCCD3C599 /* SJScrollEntriesView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C82E74877E5CE7025980461A08B269B /* SJScrollEntriesView-dummy.m */; };
 		6A6AD3A5BBDBFD0B4AF936BD518EC0B1 /* Masonry-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = B60A47A98E7D1656ED8CE7D10A556226 /* Masonry-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		707EC905390BADC65D39E10B74DB056E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28147EF640D73DD5BE8B797CFD199606 /* Foundation.framework */; };
-		721E7C33F883B17FA1BB52B61F7DA16F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28147EF640D73DD5BE8B797CFD199606 /* Foundation.framework */; };
 		78B2727EE5D693F58D019DB098005101 /* MASConstraintMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 131C406C8F6D6C38FF3E0055C74424EE /* MASConstraintMaker.m */; };
 		7A439C3623453D8DCA018DA78D71FF51 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFF909907D9794E4C781DAC1693A7018 /* UIKit.framework */; };
 		7BFF65958F014760B6AC4742824892EB /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F69D97C1DC25934E9BE745B06D29F93 /* MASCompositeConstraint.m */; };
 		7D5AAB8EC9EF3AB96B53177F4A4B6AF6 /* UIView+SJUIFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D6A080B3AD3824D8091FC0F745E7833 /* UIView+SJUIFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7F0104E54024A8BA0DBA8C9346192CA6 /* SJFullscreenGestureInstaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9125599B1680442242F7CA57EB4029 /* SJFullscreenGestureInstaller.swift */; };
 		81D2415F70F5298D6A04FB7958DFE5D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFF909907D9794E4C781DAC1693A7018 /* UIKit.framework */; };
-		848C02305A89E26DE16014DC4D6433D9 /* SJFullscreenPopGesture-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 21E7EFF6C74CA9286B3B22E5CCCA3782 /* SJFullscreenPopGesture-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8539B851E01A58467BE49CA3FA77223C /* MASLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FD979E756FD4D4E2FD205E0FED80067 /* MASLayoutConstraint.m */; };
 		87418CD138916B75D2D3462A2367DDF2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28147EF640D73DD5BE8B797CFD199606 /* Foundation.framework */; };
 		88782F7FECAE54277CF8512FAEF9F580 /* Masonry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B28864E3F11E1DDE7AEF55AFFD8B0FE /* Masonry.framework */; };
@@ -46,8 +48,6 @@
 		9075E0AA09A0158F8F43A8FE351628E1 /* SJUIFactory-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 091D0C6F08A03F083A0AB3B227D395F9 /* SJUIFactory-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		940757A6AD90E58E0AB6C8E5A6DB5E4A /* UIImagePickerController+Extension.h in Headers */ = {isa = PBXBuildFile; fileRef = A3E405DA2FC8ABE453DAA17CB17DFC95 /* UIImagePickerController+Extension.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		941955A19C40899D275604E6E9C21A6D /* MASConstraint.h in Headers */ = {isa = PBXBuildFile; fileRef = 9168C3F1E40B9EFCD8F842163A309881 /* MASConstraint.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		99541D1338DB118D09C592DE6543BBAA /* SJFullscreenPopGesture.h in Headers */ = {isa = PBXBuildFile; fileRef = B0E57B90A13A0EBF5466CE69D69DB7E3 /* SJFullscreenPopGesture.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9CDB8BFE93F8561CFDC1ACFF283C96EE /* SJFullscreenPopGesture-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A0EA7C0023C3C1F8985D09C8392B1CDD /* SJFullscreenPopGesture-dummy.m */; };
 		9D546E1168C04B0B2EAE005D9275D18B /* MASConstraint+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 25AEDC6FCFB2B1388E0687483DCCA1B2 /* MASConstraint+Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9D90ED1557BC0BE4D4BD0587485380C8 /* SJAnimations.m in Sources */ = {isa = PBXBuildFile; fileRef = F8E73BD84AEAB169CC38B8527ED3D5E5 /* SJAnimations.m */; };
 		A35FBEEC7D088AEC05297E8292A32C77 /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = A4301E5FA343C16E6A828E33E64BCF8A /* View+MASAdditions.m */; };
@@ -61,7 +61,6 @@
 		CE93C54413259B4AC3683B6EB874D466 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFF909907D9794E4C781DAC1693A7018 /* UIKit.framework */; };
 		D31A0DBD4B5DC4CE9BFEA3B0F8EBB335 /* SJTransitionAnimator-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8460042DB0E006235F483DCF677C897B /* SJTransitionAnimator-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D7376FCB261B6E5BFBF38BFA0003DACC /* SJTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 753702197F56BF639E188DF6D0A4459F /* SJTransitionAnimator.m */; };
-		D80AB4AC2224320125B747534903FC96 /* SJFullscreenPopGesture.m in Sources */ = {isa = PBXBuildFile; fileRef = 234E586A7DCBAB584A634AFFFC53EF48 /* SJFullscreenPopGesture.m */; };
 		E42B9D6C43D235D36351C74278F7847C /* SJScrollEntriesView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CE27268D916F24CBCD13996DEC8A9B0 /* SJScrollEntriesView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E51F496BDC6ACADE04FDA059C6CB2342 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28147EF640D73DD5BE8B797CFD199606 /* Foundation.framework */; };
 		E53532921262D876849FF40FF6F7CF51 /* SJTransitionAnimator.h in Headers */ = {isa = PBXBuildFile; fileRef = CCEF8161886014649186737CBFE114C9 /* SJTransitionAnimator.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -118,32 +117,27 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		00909A7CA8BD9C73194118AE39496719 /* SJFullscreenPopGesture.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SJFullscreenPopGesture.xcconfig; sourceTree = "<group>"; };
 		00E4871771430584423CEEFE1D5E5999 /* MASViewConstraint.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASViewConstraint.h; path = Masonry/MASViewConstraint.h; sourceTree = "<group>"; };
 		091D0C6F08A03F083A0AB3B227D395F9 /* SJUIFactory-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SJUIFactory-umbrella.h"; sourceTree = "<group>"; };
+		0A2948D7330E5103A58CF286C149BAF8 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
 		0C9077C7DA216C2E0CA64F7BFD802B51 /* UIView+SJUIFactory.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIView+SJUIFactory.m"; path = "Classes/Category/UIView+SJUIFactory.m"; sourceTree = "<group>"; };
 		0CA0E9095379893CAB2C95CACB250211 /* NSArray+MASShorthandAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSArray+MASShorthandAdditions.h"; path = "Masonry/NSArray+MASShorthandAdditions.h"; sourceTree = "<group>"; };
 		0F74A1A9EDC168486BF7BFA28A898535 /* SJUIFactory-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SJUIFactory-dummy.m"; sourceTree = "<group>"; };
 		1188E1399505F6C549A942390FD242EB /* Pods-SJFullscreenPopGesture_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SJFullscreenPopGesture_Example-frameworks.sh"; sourceTree = "<group>"; };
 		131C406C8F6D6C38FF3E0055C74424EE /* MASConstraintMaker.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MASConstraintMaker.m; path = Masonry/MASConstraintMaker.m; sourceTree = "<group>"; };
 		13262E1E693E29D089D0078ABCC91D44 /* ViewController+MASAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "ViewController+MASAdditions.h"; path = "Masonry/ViewController+MASAdditions.h"; sourceTree = "<group>"; };
-		140AEA4AE80D91E9C7CB697E6AC8EDE9 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
-		15B9D19E0DA95A072E1D609744F477C7 /* SJFullscreenPopGesture-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SJFullscreenPopGesture-prefix.pch"; sourceTree = "<group>"; };
 		193297538E2FD50D0BE7200DBF52BC35 /* SJTransitionAnimator.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SJTransitionAnimator.modulemap; sourceTree = "<group>"; };
 		1C3F7869DE5927CC06D608F582627EF8 /* SJScrollEntriesViewUserProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SJScrollEntriesViewUserProtocol.h; path = SJScrollEntriesView/SJScrollEntriesViewUserProtocol.h; sourceTree = "<group>"; };
-		1CB1F6D154579B50A21D73C1D374D273 /* SJFullscreenPopGesture-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SJFullscreenPopGesture-Info.plist"; sourceTree = "<group>"; };
 		1E94A0A208F8BDE639BD362805E1183D /* SJUIFactory-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SJUIFactory-prefix.pch"; sourceTree = "<group>"; };
 		1FFED36A657123030ABB700256D73F15 /* Masonry.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Masonry.framework; path = Masonry.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		21603F075263A2BAB5A9BE8954EB8BC5 /* SJTransitionAnimator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SJTransitionAnimator.framework; path = SJTransitionAnimator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		21E7EFF6C74CA9286B3B22E5CCCA3782 /* SJFullscreenPopGesture-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SJFullscreenPopGesture-umbrella.h"; sourceTree = "<group>"; };
 		2258B90D393A9C1E97FA24845BB97B68 /* NSLayoutConstraint+MASDebugAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSLayoutConstraint+MASDebugAdditions.h"; path = "Masonry/NSLayoutConstraint+MASDebugAdditions.h"; sourceTree = "<group>"; };
 		22B56E5DB053BFB2BC249D5B00FC1B24 /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "ViewController+MASAdditions.m"; path = "Masonry/ViewController+MASAdditions.m"; sourceTree = "<group>"; };
 		233F99479C34329E02343E496B6741AC /* NSArray+MASAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSArray+MASAdditions.m"; path = "Masonry/NSArray+MASAdditions.m"; sourceTree = "<group>"; };
-		234E586A7DCBAB584A634AFFFC53EF48 /* SJFullscreenPopGesture.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SJFullscreenPopGesture.m; path = SJFullscreenPopGesture/ObjC/SJFullscreenPopGesture.m; sourceTree = "<group>"; };
 		25AEDC6FCFB2B1388E0687483DCCA1B2 /* MASConstraint+Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MASConstraint+Private.h"; path = "Masonry/MASConstraint+Private.h"; sourceTree = "<group>"; };
-		260ACD6E9A7194D467977B8EFFCECEB7 /* SJFullscreenPopGesture.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SJFullscreenPopGesture.modulemap; sourceTree = "<group>"; };
 		26857D6D13D1D77887CB5D660FD3ADD0 /* SJScrollEntriesView.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SJScrollEntriesView.xcconfig; sourceTree = "<group>"; };
 		28147EF640D73DD5BE8B797CFD199606 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		2A21BE4F85A8A9BD5E1EA66AC5C84067 /* SJFullscreenPopGesture.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SJFullscreenPopGesture.xcconfig; sourceTree = "<group>"; };
 		2E297667DFE714D1647EBBB78F7CB95A /* Pods-SJFullscreenPopGesture_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SJFullscreenPopGesture_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		309CEBB40F6B95BD62B2C953C61C0E6E /* UIImagePickerController+Extension.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImagePickerController+Extension.m"; path = "Classes/Category/UIImagePickerController+Extension.m"; sourceTree = "<group>"; };
 		33153DBE63B7F0601BCA5691E73516CC /* Masonry.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Masonry.xcconfig; sourceTree = "<group>"; };
@@ -155,13 +149,17 @@
 		422BF170359F096C9F61D06CB96CCDF3 /* MASViewConstraint.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MASViewConstraint.m; path = Masonry/MASViewConstraint.m; sourceTree = "<group>"; };
 		493108D76C7193470E85373E1CA564F0 /* SJTransitionAnimator-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SJTransitionAnimator-dummy.m"; sourceTree = "<group>"; };
 		4E4D9BE2CCA046324419A21B0EB6E46C /* SJUIFactory.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SJUIFactory.h; path = Classes/SJUIFactory.h; sourceTree = "<group>"; };
+		50D00A4659A1BB0A972A8947DA595807 /* SJFullscreenPopGesture-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SJFullscreenPopGesture-Info.plist"; sourceTree = "<group>"; };
 		533EB35C120131C4D2D37AC0C9078E26 /* SJAnimations.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SJAnimations.h; path = Classes/SJAnimations.h; sourceTree = "<group>"; };
+		5783F5088475EA2B04DDFD0B9EE5C707 /* SJFullscreenPopGesture.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = SJFullscreenPopGesture.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		5842ACB28A7891860A033AC3B8EDAA83 /* SJFullscreenPopGesture.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SJFullscreenPopGesture.framework; path = SJFullscreenPopGesture.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A689F36B450F276E2D0E617E3296DD6 /* SJTransitionAnimator-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SJTransitionAnimator-Info.plist"; sourceTree = "<group>"; };
+		5C9125599B1680442242F7CA57EB4029 /* SJFullscreenGestureInstaller.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SJFullscreenGestureInstaller.swift; path = SJFullscreenPopGesture/Swift/SJFullscreenGestureInstaller.swift; sourceTree = "<group>"; };
 		5D6A080B3AD3824D8091FC0F745E7833 /* UIView+SJUIFactory.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIView+SJUIFactory.h"; path = "Classes/Category/UIView+SJUIFactory.h"; sourceTree = "<group>"; };
 		626A6D8F58A9B93E72469C1E8519CB4D /* MASConstraintMaker.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASConstraintMaker.h; path = Masonry/MASConstraintMaker.h; sourceTree = "<group>"; };
 		63CF316C16CB147ECC67BF69C37290F5 /* SJScrollEntriesView-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SJScrollEntriesView-umbrella.h"; sourceTree = "<group>"; };
 		64FD81A007E4275F395FF35FD3FBA0F1 /* MASUtilities.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASUtilities.h; path = Masonry/MASUtilities.h; sourceTree = "<group>"; };
+		664067DE48DBF0DB3AAAC19693148D20 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
 		66E303BD9184DC64E5A2DB863E3D07C7 /* SJUIFactory.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SJUIFactory.framework; path = SJUIFactory.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		688CDF0BB73D8F2F0EC9851FB1750F83 /* Masonry-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Masonry-Info.plist"; sourceTree = "<group>"; };
 		6B28864E3F11E1DDE7AEF55AFFD8B0FE /* Masonry.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Masonry.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -169,7 +167,6 @@
 		6F1D3F21A54EECF5715F96637D24233C /* SJUIFactory-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SJUIFactory-Info.plist"; sourceTree = "<group>"; };
 		704252AD49894B9658F2304345E0E883 /* Masonry.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Masonry.modulemap; sourceTree = "<group>"; };
 		753702197F56BF639E188DF6D0A4459F /* SJTransitionAnimator.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SJTransitionAnimator.m; path = Classes/SJTransitionAnimator.m; sourceTree = "<group>"; };
-		790ED1E5F01B28BFFCAC763ACD6238A8 /* SJFullscreenPopGesture.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = SJFullscreenPopGesture.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		7E561BBD782AE1D8611A4EBBB8669E33 /* Pods-SJFullscreenPopGesture_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SJFullscreenPopGesture_Example-dummy.m"; sourceTree = "<group>"; };
 		7F69D97C1DC25934E9BE745B06D29F93 /* MASCompositeConstraint.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MASCompositeConstraint.m; path = Masonry/MASCompositeConstraint.m; sourceTree = "<group>"; };
 		805EEE1849F97E9692E91D4DA4E02FCF /* MASConstraint.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MASConstraint.m; path = Masonry/MASConstraint.m; sourceTree = "<group>"; };
@@ -180,29 +177,30 @@
 		8F88C933C1F02ACBC0E9B0CE17865FBE /* SJTransitionAnimator-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SJTransitionAnimator-prefix.pch"; sourceTree = "<group>"; };
 		9168C3F1E40B9EFCD8F842163A309881 /* MASConstraint.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASConstraint.h; path = Masonry/MASConstraint.h; sourceTree = "<group>"; };
 		91C39635EFB321987D467C69F41580AF /* MASViewAttribute.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MASViewAttribute.m; path = Masonry/MASViewAttribute.m; sourceTree = "<group>"; };
+		930BAAC71B5F2CD728313F8DF2D9DD1E /* SJFullscreenPopGesture-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SJFullscreenPopGesture-dummy.m"; sourceTree = "<group>"; };
 		93AB4621954D4E9A84FDAFBAA10A7BAA /* Pods-SJFullscreenPopGesture_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SJFullscreenPopGesture_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		9954671A353F3E45AE7C5A3F035B85CC /* MASCompositeConstraint.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASCompositeConstraint.h; path = Masonry/MASCompositeConstraint.h; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9FD979E756FD4D4E2FD205E0FED80067 /* MASLayoutConstraint.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MASLayoutConstraint.m; path = Masonry/MASLayoutConstraint.m; sourceTree = "<group>"; };
-		A0EA7C0023C3C1F8985D09C8392B1CDD /* SJFullscreenPopGesture-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SJFullscreenPopGesture-dummy.m"; sourceTree = "<group>"; };
 		A1A869A29898481AD394FF10EE662D83 /* SJUIFactory.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SJUIFactory.m; path = Classes/SJUIFactory.m; sourceTree = "<group>"; };
 		A3E405DA2FC8ABE453DAA17CB17DFC95 /* UIImagePickerController+Extension.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImagePickerController+Extension.h"; path = "Classes/Category/UIImagePickerController+Extension.h"; sourceTree = "<group>"; };
 		A4301E5FA343C16E6A828E33E64BCF8A /* View+MASAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "View+MASAdditions.m"; path = "Masonry/View+MASAdditions.m"; sourceTree = "<group>"; };
 		AA5A1EC0597C079F09DE1E7C11BA4F3A /* Pods-SJFullscreenPopGesture_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SJFullscreenPopGesture_Example.release.xcconfig"; sourceTree = "<group>"; };
 		AAFC6AD1F16EF362815428375657E64B /* Masonry.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Masonry.h; path = Masonry/Masonry.h; sourceTree = "<group>"; };
-		B0E57B90A13A0EBF5466CE69D69DB7E3 /* SJFullscreenPopGesture.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SJFullscreenPopGesture.h; path = SJFullscreenPopGesture/ObjC/SJFullscreenPopGesture.h; sourceTree = "<group>"; };
+		ACE3B772CB0A653503494DB15E6251FE /* SJFullscreenPopGesture-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SJFullscreenPopGesture-prefix.pch"; sourceTree = "<group>"; };
 		B60A47A98E7D1656ED8CE7D10A556226 /* Masonry-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Masonry-umbrella.h"; sourceTree = "<group>"; };
 		BB0E010FC5701EC0DC5B373939C10CCB /* Pods-SJFullscreenPopGesture_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SJFullscreenPopGesture_Example-Info.plist"; sourceTree = "<group>"; };
 		BEDED0CAFE5207F4B09227AF2DE7971C /* SJScrollEntriesView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SJScrollEntriesView.framework; path = SJScrollEntriesView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF4DF813432BB8BD45702122753B53C6 /* SJUIFactory.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SJUIFactory.xcconfig; sourceTree = "<group>"; };
 		C5179A56BE1B0DBA1DEB474C75CCAAFA /* Pods-SJFullscreenPopGesture_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SJFullscreenPopGesture_Example-umbrella.h"; sourceTree = "<group>"; };
+		C69AB1ED044026F2F5CA1C49E170320D /* SJFullscreenPopGesture.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SJFullscreenPopGesture.modulemap; sourceTree = "<group>"; };
 		C700A347B3BC8CB2289D15FCD36BF441 /* SJScrollEntriesView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SJScrollEntriesView.m; path = SJScrollEntriesView/SJScrollEntriesView.m; sourceTree = "<group>"; };
-		C8A82C3A2B30ACC8F31C89D89F44C159 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
 		CCEF8161886014649186737CBFE114C9 /* SJTransitionAnimator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SJTransitionAnimator.h; path = Classes/SJTransitionAnimator.h; sourceTree = "<group>"; };
 		D0176E14F9F309862A2DDDCDFF19D575 /* NSLayoutConstraint+MASDebugAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSLayoutConstraint+MASDebugAdditions.m"; path = "Masonry/NSLayoutConstraint+MASDebugAdditions.m"; sourceTree = "<group>"; };
 		D55ADD30CD51224ECE68104B681E44CA /* MASViewAttribute.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASViewAttribute.h; path = Masonry/MASViewAttribute.h; sourceTree = "<group>"; };
 		DD71DDC5F601EF046F7C4F3ADBCAB087 /* View+MASShorthandAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "View+MASShorthandAdditions.h"; path = "Masonry/View+MASShorthandAdditions.h"; sourceTree = "<group>"; };
 		E0D0CE1B70AA4AAEEEF062425CF407F2 /* Masonry-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Masonry-dummy.m"; sourceTree = "<group>"; };
+		E9A4B20CA7208DD97EF84FB5C84BB2CE /* SJFullscreenPopGesture-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SJFullscreenPopGesture-umbrella.h"; sourceTree = "<group>"; };
 		EAEC443215A7C11503A0CF63FFB3F98B /* SJTransitionAnimator.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SJTransitionAnimator.xcconfig; sourceTree = "<group>"; };
 		EFF909907D9794E4C781DAC1693A7018 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		F00AE058DA960EDE53AF6CB013E1D5DB /* NSArray+MASAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSArray+MASAdditions.h"; path = "Masonry/NSArray+MASAdditions.h"; sourceTree = "<group>"; };
@@ -233,6 +231,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		61AA77B6CF82A51DA840D4D40EA68256 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				319D1EB3DC84EB54DC454734AB66B19C /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		88DBBADF0CD696CF36525E388424548C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -255,14 +261,6 @@
 			files = (
 				B852533F7064025C18B24F7C03FEF46A /* Foundation.framework in Frameworks */,
 				7A439C3623453D8DCA018DA78D71FF51 /* UIKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F14B1B6AB25AE70E454F44E3EC3F5B84 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				721E7C33F883B17FA1BB52B61F7DA16F /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,14 +305,15 @@
 			path = "../Target Support Files/SJUIFactory";
 			sourceTree = "<group>";
 		};
-		5EB7683E990527C683C7F2905B3FD3B8 /* Pod */ = {
+		259F74FE4D2B200B8DC7B341FDDC5FCA /* SJFullscreenPopGesture */ = {
 			isa = PBXGroup;
 			children = (
-				C8A82C3A2B30ACC8F31C89D89F44C159 /* LICENSE */,
-				140AEA4AE80D91E9C7CB697E6AC8EDE9 /* README.md */,
-				790ED1E5F01B28BFFCAC763ACD6238A8 /* SJFullscreenPopGesture.podspec */,
+				756A25604D7CA8A13E1A9F6F010DEE7E /* Pod */,
+				B1A0066C411DC5B4327735E37A17C91D /* Support Files */,
+				DE4B8E95A6E65A3CCEDFE01AA8D94D55 /* Swift */,
 			);
-			name = Pod;
+			name = SJFullscreenPopGesture;
+			path = ../..;
 			sourceTree = "<group>";
 		};
 		5F817FF996ECF89C019D1DFFDCE2F85A /* Targets Support Files */ = {
@@ -400,6 +399,16 @@
 			path = SJTransitionAnimator;
 			sourceTree = "<group>";
 		};
+		756A25604D7CA8A13E1A9F6F010DEE7E /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				0A2948D7330E5103A58CF286C149BAF8 /* LICENSE */,
+				664067DE48DBF0DB3AAAC19693148D20 /* README.md */,
+				5783F5088475EA2B04DDFD0B9EE5C707 /* SJFullscreenPopGesture.podspec */,
+			);
+			name = Pod;
+			sourceTree = "<group>";
+		};
 		8D9FAD4918363CCD0D02B2E58673E03D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -411,23 +420,26 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		A2D4A74635EB7F9E7482B49216217820 /* SJFullscreenPopGesture */ = {
-			isa = PBXGroup;
-			children = (
-				E8B55F5189D8C91486A0231C08F18B29 /* ObjC */,
-				5EB7683E990527C683C7F2905B3FD3B8 /* Pod */,
-				EA2B8F702A965517AB1F00D86C92FDF2 /* Support Files */,
-			);
-			name = SJFullscreenPopGesture;
-			path = ../..;
-			sourceTree = "<group>";
-		};
 		B1218FB6B2256FB40941D368022FF283 /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				A2D4A74635EB7F9E7482B49216217820 /* SJFullscreenPopGesture */,
+				259F74FE4D2B200B8DC7B341FDDC5FCA /* SJFullscreenPopGesture */,
 			);
 			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		B1A0066C411DC5B4327735E37A17C91D /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				C69AB1ED044026F2F5CA1C49E170320D /* SJFullscreenPopGesture.modulemap */,
+				00909A7CA8BD9C73194118AE39496719 /* SJFullscreenPopGesture.xcconfig */,
+				930BAAC71B5F2CD728313F8DF2D9DD1E /* SJFullscreenPopGesture-dummy.m */,
+				50D00A4659A1BB0A972A8947DA595807 /* SJFullscreenPopGesture-Info.plist */,
+				ACE3B772CB0A653503494DB15E6251FE /* SJFullscreenPopGesture-prefix.pch */,
+				E9A4B20CA7208DD97EF84FB5C84BB2CE /* SJFullscreenPopGesture-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "Example/Pods/Target Support Files/SJFullscreenPopGesture";
 			sourceTree = "<group>";
 		};
 		B1A197A4EA4F26278A889805048A851C /* Support Files */ = {
@@ -495,6 +507,14 @@
 			path = "Target Support Files/Pods-SJFullscreenPopGesture_Example";
 			sourceTree = "<group>";
 		};
+		DE4B8E95A6E65A3CCEDFE01AA8D94D55 /* Swift */ = {
+			isa = PBXGroup;
+			children = (
+				5C9125599B1680442242F7CA57EB4029 /* SJFullscreenGestureInstaller.swift */,
+			);
+			name = Swift;
+			sourceTree = "<group>";
+		};
 		DF275781DF9628A2D5BF35F5D74F7BC1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -514,29 +534,6 @@
 			);
 			name = SJScrollEntriesView;
 			path = SJScrollEntriesView;
-			sourceTree = "<group>";
-		};
-		E8B55F5189D8C91486A0231C08F18B29 /* ObjC */ = {
-			isa = PBXGroup;
-			children = (
-				B0E57B90A13A0EBF5466CE69D69DB7E3 /* SJFullscreenPopGesture.h */,
-				234E586A7DCBAB584A634AFFFC53EF48 /* SJFullscreenPopGesture.m */,
-			);
-			name = ObjC;
-			sourceTree = "<group>";
-		};
-		EA2B8F702A965517AB1F00D86C92FDF2 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				260ACD6E9A7194D467977B8EFFCECEB7 /* SJFullscreenPopGesture.modulemap */,
-				2A21BE4F85A8A9BD5E1EA66AC5C84067 /* SJFullscreenPopGesture.xcconfig */,
-				A0EA7C0023C3C1F8985D09C8392B1CDD /* SJFullscreenPopGesture-dummy.m */,
-				1CB1F6D154579B50A21D73C1D374D273 /* SJFullscreenPopGesture-Info.plist */,
-				15B9D19E0DA95A072E1D609744F477C7 /* SJFullscreenPopGesture-prefix.pch */,
-				21E7EFF6C74CA9286B3B22E5CCCA3782 /* SJFullscreenPopGesture-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "Example/Pods/Target Support Files/SJFullscreenPopGesture";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -570,12 +567,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		67B8C518075E025EEF280632C94817C8 /* Headers */ = {
+		7039457214564D8706A5E7E7D48C312F /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				848C02305A89E26DE16014DC4D6433D9 /* SJFullscreenPopGesture-umbrella.h in Headers */,
-				99541D1338DB118D09C592DE6543BBAA /* SJFullscreenPopGesture.h in Headers */,
+				19771A7000AF6A7A6DE5CDA2F026F00C /* SJFullscreenPopGesture-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -697,12 +693,12 @@
 		};
 		A19FC1B5D5F291312B4944B9B7DBF0A0 /* SJFullscreenPopGesture */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F16102F619ACE4F6BD0FC52AD9D5D8DA /* Build configuration list for PBXNativeTarget "SJFullscreenPopGesture" */;
+			buildConfigurationList = 1663940A692021681124B98F3E3FEA9B /* Build configuration list for PBXNativeTarget "SJFullscreenPopGesture" */;
 			buildPhases = (
-				67B8C518075E025EEF280632C94817C8 /* Headers */,
-				A36A5D96F5E7EBC2B0F68C3F8316E235 /* Sources */,
-				F14B1B6AB25AE70E454F44E3EC3F5B84 /* Frameworks */,
-				42808B111ACC7A48BCD2FD890B56BE00 /* Resources */,
+				7039457214564D8706A5E7E7D48C312F /* Headers */,
+				FC9FB470DEE4A65A8E0A39CB37E69099 /* Sources */,
+				61AA77B6CF82A51DA840D4D40EA68256 /* Frameworks */,
+				D43FF72AA99A7D6D9584E38E6CB53DA4 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -763,13 +759,6 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		42808B111ACC7A48BCD2FD890B56BE00 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		4C8034A1FFBF30F5500FA0D5A9D2530D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -799,6 +788,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		B8A7FA95B9B8D2D7523C3996BBCC2877 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D43FF72AA99A7D6D9584E38E6CB53DA4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -856,20 +852,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A36A5D96F5E7EBC2B0F68C3F8316E235 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9CDB8BFE93F8561CFDC1ACFF283C96EE /* SJFullscreenPopGesture-dummy.m in Sources */,
-				D80AB4AC2224320125B747534903FC96 /* SJFullscreenPopGesture.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D9130D818A9FD0B78A6176CB6EFB5CC6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				00C9BE1DE09B86D56040FC2614928A5C /* Pods-SJFullscreenPopGesture_Example-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FC9FB470DEE4A65A8E0A39CB37E69099 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7F0104E54024A8BA0DBA8C9346192CA6 /* SJFullscreenGestureInstaller.swift in Sources */,
+				1636E4C02978F74F980CCC8038B2D065 /* SJFullscreenPopGesture-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1006,6 +1002,37 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		45D6A4D666DC19365AFF85F04D37597E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 00909A7CA8BD9C73194118AE39496719 /* SJFullscreenPopGesture.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SJFullscreenPopGesture/SJFullscreenPopGesture-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SJFullscreenPopGesture/SJFullscreenPopGesture-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SJFullscreenPopGesture/SJFullscreenPopGesture.modulemap";
+				PRODUCT_MODULE_NAME = SJFullscreenPopGesture;
+				PRODUCT_NAME = SJFullscreenPopGesture;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1295,37 +1322,6 @@
 			};
 			name = Debug;
 		};
-		94E2E73871B914F083758E3E7D219F6C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2A21BE4F85A8A9BD5E1EA66AC5C84067 /* SJFullscreenPopGesture.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/SJFullscreenPopGesture/SJFullscreenPopGesture-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SJFullscreenPopGesture/SJFullscreenPopGesture-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SJFullscreenPopGesture/SJFullscreenPopGesture.modulemap";
-				PRODUCT_MODULE_NAME = SJFullscreenPopGesture;
-				PRODUCT_NAME = SJFullscreenPopGesture;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 		A962564417ACE3E0ADF0465AD1863C60 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 26857D6D13D1D77887CB5D660FD3ADD0 /* SJScrollEntriesView.xcconfig */;
@@ -1389,9 +1385,9 @@
 			};
 			name = Release;
 		};
-		EBFBDD4E37D71BAC69E9196375F4475B /* Release */ = {
+		FC130037036CF6B688C4BB384D628BA4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2A21BE4F85A8A9BD5E1EA66AC5C84067 /* SJFullscreenPopGesture.xcconfig */;
+			baseConfigurationReference = 00909A7CA8BD9C73194118AE39496719 /* SJFullscreenPopGesture.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1433,6 +1429,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		1663940A692021681124B98F3E3FEA9B /* Build configuration list for PBXNativeTarget "SJFullscreenPopGesture" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				45D6A4D666DC19365AFF85F04D37597E /* Debug */,
+				FC130037036CF6B688C4BB384D628BA4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		33882A02F55E785F80313710F20423A7 /* Build configuration list for PBXNativeTarget "SJUIFactory" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1465,15 +1470,6 @@
 			buildConfigurations = (
 				743A57CFA61F84F09C1CBAC41E72CC94 /* Debug */,
 				0F1B5DA47E56B756927CDD9E9B6529F4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F16102F619ACE4F6BD0FC52AD9D5D8DA /* Build configuration list for PBXNativeTarget "SJFullscreenPopGesture" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				94E2E73871B914F083758E3E7D219F6C /* Debug */,
-				EBFBDD4E37D71BAC69E9196375F4475B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -216,10 +216,21 @@ NS_ASSUME_NONNULL_BEGIN
             case SJPreViewDisplayModeOrigin: {
                 if ( nav.isNavigationBarHidden == false ) {
                     CGRect rect = [nav.view convertRect:nav.navigationBar.frame toView:nav.view.window];
-                    rect.size.height += rect.origin.y;
+                    rect.size.height += rect.origin.y + 1;
                     rect.origin.y = 0;
                     UIView *navbarSnapshot = [nav.view.window resizableSnapshotViewFromRect:rect afterScreenUpdates:false withCapInsets:UIEdgeInsetsZero];
                     [_rootView addSubview:navbarSnapshot];
+                }
+                
+                
+                UITabBar *tabBar = nav.tabBarController.tabBar;
+                if ( tabBar.isHidden == false ) {
+                    CGRect rect = [tabBar convertRect:tabBar.bounds toView:nav.view.window];
+                    rect.origin.y -= 1;
+                    rect.size.height += 1;
+                    UIView *snapshot = [nav.view.window resizableSnapshotViewFromRect:rect afterScreenUpdates:false withCapInsets:UIEdgeInsetsZero];
+                    snapshot.frame = rect;
+                    [_rootView addSubview:snapshot];
                 }
             }
                 break;

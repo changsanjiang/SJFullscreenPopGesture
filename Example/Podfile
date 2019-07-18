@@ -3,7 +3,7 @@ use_frameworks!
 platform :ios, '8.0'
 
 target 'SJFullscreenPopGesture_Example' do
-  pod 'SJFullscreenPopGesture/ObjC', :path => '../'
+  pod 'SJFullscreenPopGesture/Swift', :path => '../'
 
   
   pod 'Masonry'

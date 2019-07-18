@@ -1,8 +1,10 @@
+ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
 FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Masonry" "${PODS_CONFIGURATION_BUILD_DIR}/SJFullscreenPopGesture" "${PODS_CONFIGURATION_BUILD_DIR}/SJScrollEntriesView" "${PODS_CONFIGURATION_BUILD_DIR}/SJTransitionAnimator" "${PODS_CONFIGURATION_BUILD_DIR}/SJUIFactory"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Masonry/Masonry.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/SJFullscreenPopGesture/SJFullscreenPopGesture.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/SJScrollEntriesView/SJScrollEntriesView.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/SJTransitionAnimator/SJTransitionAnimator.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/SJUIFactory/SJUIFactory.framework/Headers"
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
 OTHER_LDFLAGS = $(inherited) -framework "Foundation" -framework "Masonry" -framework "SJFullscreenPopGesture" -framework "SJScrollEntriesView" -framework "SJTransitionAnimator" -framework "SJUIFactory" -framework "UIKit"
+OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_PODFILE_DIR_PATH = ${SRCROOT}/.
