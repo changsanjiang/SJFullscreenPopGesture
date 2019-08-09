@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
     if ( nav == nil )
         return false;
     
-    if ( nav.childViewControllers.count < 1 )
+    if ( nav.childViewControllers.count <= 1 )
         return false;
     
     if ( [[nav valueForKey:@"isTransitioning"] boolValue] )

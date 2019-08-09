@@ -1,6 +1,6 @@
 {
   "name": "SJFullscreenPopGesture",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "summary": "fullscreen pop gestures.",
   "description": "https://github.com/changsanjiang/SJFullscreenPopGesture/blob/master/README.md",
   "homepage": "https://github.com/changsanjiang/SJFullscreenPopGesture",
@@ -16,7 +16,7 @@
   },
   "source": {
     "git": "https://github.com/changsanjiang/SJFullscreenPopGesture.git",
-    "tag": "v1.5.0"
+    "tag": "v1.5.1"
   },
   "requires_arc": true,
   "default_subspecs": "ObjC",
