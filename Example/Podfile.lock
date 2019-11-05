@@ -1,6 +1,6 @@
 PODS:
   - Masonry (1.1.0)
-  - SJFullscreenPopGesture/Swift (1.5.1)
+  - SJFullscreenPopGesture/Swift (1.5.2)
   - SJScrollEntriesView (1.1.0):
     - Masonry
   - SJTransitionAnimator (1.0.2)
@@ -28,7 +28,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  SJFullscreenPopGesture: b11a6ab2e28ee08679d4d810592dbd4d6d6e5ea9
+  SJFullscreenPopGesture: a22be80f7c981eed8443065ddaccebd927252efd
   SJScrollEntriesView: 2388fec9dbb6ab639f8966de036394eeb753617d
   SJTransitionAnimator: 531f43f1bf883e210f7392da79fab4d39753eec1
   SJUIFactory: b3e973c5e2ae08bc5a1bd2c68d94c00f81e01a0b

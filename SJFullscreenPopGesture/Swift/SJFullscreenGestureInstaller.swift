@@ -194,6 +194,7 @@ fileprivate extension UINavigationController {
         objc_setAssociatedObject(self, &SJAssociatedKeys.kSJTookOver, true, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         
         self.interactivePopGestureRecognizer?.isEnabled = false
+        self.view.clipsToBounds = false
         
         // shadow
         CATransaction.begin()
@@ -585,7 +586,7 @@ fileprivate class SJSnapshot {
         switch target.sj_displayMode {
         case .snapshot:
             // snapshaot
-            if let snapshot = nav.view.window?.snapshotView(afterScreenUpdates: false) {
+            if let snapshot = nav.view.superview?.snapshotView(afterScreenUpdates: false) {
                 rootView.addSubview(snapshot)
             }
         case .origin:
@@ -594,7 +595,7 @@ fileprivate class SJSnapshot {
                 var rect = nav.view.convert(nav.navigationBar.frame, to: nav.view.window)
                 rect.size.height += rect.origin.y + 1;
                 rect.origin.y = 0;
-                if let snapshot = nav.view.window?.resizableSnapshotView(from: rect, afterScreenUpdates: false, withCapInsets: UIEdgeInsets.zero) {
+                if let snapshot = nav.view.superview?.resizableSnapshotView(from: rect, afterScreenUpdates: false, withCapInsets: UIEdgeInsets.zero) {
                     snapshot.frame = rect
                     rootView.addSubview(snapshot)
                 }
