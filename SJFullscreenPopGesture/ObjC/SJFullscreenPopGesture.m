@@ -209,7 +209,8 @@ NS_ASSUME_NONNULL_BEGIN
         // snapshot
         switch ( target.sj_displayMode ) {
             case SJPreViewDisplayModeSnapshot: {
-                UIView *snapshot = [nav.view.superview snapshotViewAfterScreenUpdates:NO];
+                UIView *superview = nav.tabBarController != nil ? nav.tabBarController.view : nav.view;
+                UIView *snapshot = [superview snapshotViewAfterScreenUpdates:NO];
                 [_rootView addSubview:snapshot];
             }
                 break;

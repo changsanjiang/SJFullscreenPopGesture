@@ -586,8 +586,10 @@ fileprivate class SJSnapshot {
         switch target.sj_displayMode {
         case .snapshot:
             // snapshaot
-            if let snapshot = nav.view.superview?.snapshotView(afterScreenUpdates: false) {
-                rootView.addSubview(snapshot)
+            if let superview = nav.tabBarController != nil ? nav.tabBarController?.view : nav.view.superview {
+                if let snapshot = superview.snapshotView(afterScreenUpdates: false) {
+                    rootView.addSubview(snapshot)
+                }
             }
         case .origin:
             // nav bar snapshot

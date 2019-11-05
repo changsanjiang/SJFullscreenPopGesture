@@ -1,6 +1,6 @@
 PODS:
   - Masonry (1.1.0)
-  - SJFullscreenPopGesture/Swift (1.5.2)
+  - SJFullscreenPopGesture/Swift (1.5.3)
   - SJScrollEntriesView (1.1.0):
     - Masonry
   - SJTransitionAnimator (1.0.2)
@@ -16,7 +16,7 @@ DEPENDENCIES:
   - SJUIFactory
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - Masonry
     - SJScrollEntriesView
     - SJTransitionAnimator
@@ -28,11 +28,11 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  SJFullscreenPopGesture: a22be80f7c981eed8443065ddaccebd927252efd
+  SJFullscreenPopGesture: d4994917bc900e79cd686970866834b4c5883565
   SJScrollEntriesView: 2388fec9dbb6ab639f8966de036394eeb753617d
   SJTransitionAnimator: 531f43f1bf883e210f7392da79fab4d39753eec1
   SJUIFactory: b3e973c5e2ae08bc5a1bd2c68d94c00f81e01a0b
 
 PODFILE CHECKSUM: 67961dacee303341e8b9fdf45c0026db2aafc22c
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.8.4
