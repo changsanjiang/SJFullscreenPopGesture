@@ -10,6 +10,7 @@
 #endif
 #endif
 
+#import "SJFullscreenPopGesture.h"
 
 FOUNDATION_EXPORT double SJFullscreenPopGestureVersionNumber;
 FOUNDATION_EXPORT const unsigned char SJFullscreenPopGestureVersionString[];

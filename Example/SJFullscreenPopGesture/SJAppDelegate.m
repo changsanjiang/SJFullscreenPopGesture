@@ -15,8 +15,8 @@
 {
     
     SJFullscreenPopGesture.gestureType = SJFullscreenPopGestureTypeFull;
-    
-    [SJFullscreenPopGesture install];
+
+//    [SJFullscreenPopGesture install];
     
     // Override point for customization after application launch.
     return YES;
