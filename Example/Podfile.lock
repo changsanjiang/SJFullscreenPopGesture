@@ -1,6 +1,6 @@
 PODS:
   - Masonry (1.1.0)
-  - SJFullscreenPopGesture/Swift (1.5.3)
+  - SJFullscreenPopGesture/ObjC (1.5.3)
   - SJScrollEntriesView (1.1.0):
     - Masonry
   - SJTransitionAnimator (1.0.2)
@@ -10,7 +10,7 @@ PODS:
 
 DEPENDENCIES:
   - Masonry
-  - SJFullscreenPopGesture/Swift (from `../`)
+  - SJFullscreenPopGesture/ObjC (from `../`)
   - SJScrollEntriesView
   - SJTransitionAnimator
   - SJUIFactory
@@ -33,6 +33,6 @@ SPEC CHECKSUMS:
   SJTransitionAnimator: 531f43f1bf883e210f7392da79fab4d39753eec1
   SJUIFactory: b3e973c5e2ae08bc5a1bd2c68d94c00f81e01a0b
 
-PODFILE CHECKSUM: 67961dacee303341e8b9fdf45c0026db2aafc22c
+PODFILE CHECKSUM: 13bcbff10a32b4cf0cdc01374531d027208194d0
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.3

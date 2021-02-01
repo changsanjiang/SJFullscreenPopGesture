@@ -196,16 +196,6 @@ fileprivate extension UINavigationController {
         self.interactivePopGestureRecognizer?.isEnabled = false
         self.view.clipsToBounds = false
         
-        // shadow
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
-        view.layer.shadowOffset = CGSize.init(width: 0.5, height: 0)
-        view.layer.shadowColor = UIColor.init(white: 0.2, alpha: 1).cgColor
-        view.layer.shadowOpacity = 1
-        view.layer.shadowRadius = 2
-        view.layer.shadowPath = UIBezierPath.init(rect: view.bounds).cgPath
-        CATransaction.commit()
-        
         // gesture
         view.addGestureRecognizer(sj_fullscreenGesture)
     }
@@ -448,10 +438,31 @@ fileprivate class SJFullscreenPopGestureDelegate: NSObject, UIGestureRecognizerD
     }
 }
 
+fileprivate class SJTransitionBackgroundView : UIView {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        backgroundColor = .white
+        layer.shadowOffset = .init(width: 0.5, height: 0)
+        layer.shadowColor = UIColor(white: 0.2, alpha: 1).cgColor
+        layer.shadowOpacity = 1
+        layer.shadowRadius = 2
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: layer.shadowRadius).cgPath
+    }
+}
+
 fileprivate class SJTransitionHandler {
     static let shared: SJTransitionHandler = SJTransitionHandler.init()
     
     let shift: CGFloat = -UIScreen.main.bounds.width * 0.382
+    let backgroundView = SJTransitionBackgroundView.init(frame: .zero)
     
     func push(_ nav: UINavigationController, _ viewController: UIViewController) {
         if let last = nav.children.last {
@@ -468,6 +479,8 @@ fileprivate class SJTransitionHandler {
         // keyboard
         nav.view.endEditing(true)
         nav.view.superview?.insertSubview(snapshot.rootView, belowSubview: nav.view)
+        nav.view.insertSubview(backgroundView, at: 0)
+        backgroundView.frame = nav.view.bounds
         
         //
         snapshot.began()
@@ -551,6 +564,7 @@ fileprivate class SJTransitionHandler {
                 nav.view.transform = CGAffineTransform.identity
             }
         }) { (_) in
+            self.backgroundView.removeFromSuperview()
             snapshot.rootView.removeFromSuperview()
             snapshot.completed()
             
@@ -580,7 +594,7 @@ fileprivate class SJSnapshot {
         // nav
         let nav = target.navigationController!
         rootView = UIView.init(frame: nav.view.bounds)
-        rootView.backgroundColor = UIColor.white
+        rootView.backgroundColor = .clear
         
         // snapshot
         switch target.sj_displayMode {
