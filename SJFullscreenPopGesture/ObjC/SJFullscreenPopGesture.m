@@ -618,5 +618,12 @@ static CGFloat _maxOffsetToTriggerPop = 0.35;
 - (UIGestureRecognizerState)sj_fullscreenGestureState {
     return self.sj_fullscreenGesture.state;
 }
+- (void)sj_popViewController:(BOOL)animated {
+    [UIView animateWithDuration:0.3 animations:^{
+        [SJTransitionHandler.shared beganWithNav:self viewController:self.topViewController offset:self.view.frame.size.width];
+    }completion:^(BOOL finished) {
+        [SJTransitionHandler.shared completedWithNav:self viewController:self.topViewController offset:self.view.frame.size.width];
+    }];
+}
 @end
 NS_ASSUME_NONNULL_END
