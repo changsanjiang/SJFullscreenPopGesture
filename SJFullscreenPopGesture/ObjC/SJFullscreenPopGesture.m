@@ -157,7 +157,13 @@ NS_ASSUME_NONNULL_BEGIN
     return [self _rectContains:nav rect:rect point:point shouldConvertRect:NO];
 }
 
-- (BOOL)_blindAreaContains:(UINavigationController *)nav point:(CGPoint)point {
+- (BOOL)_blindAreaContains:(UINavigationController *)nav point:(CGPoint)point {    CGFloat navW = nav.view.bounds.size.width;
+    CGFloat navH = nav.view.bounds.size.height;
+    CGFloat defaultW = navW * 0.2;
+    CGRect defaultArea = CGRectMake(navW - defaultW, 0, defaultW, navH);
+    if ( [self _rectContains:nav rect:defaultArea point:point shouldConvertRect:NO] )
+        return true;
+
     for ( NSValue *rect in nav.topViewController.sj_blindArea ) {
         if ( [self _rectContains:nav rect:[rect CGRectValue] point:point shouldConvertRect:YES] )
             return true;
