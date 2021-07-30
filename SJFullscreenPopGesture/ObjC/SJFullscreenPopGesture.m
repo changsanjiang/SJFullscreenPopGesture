@@ -69,21 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
     if ( gestureRecognizer.state == UIGestureRecognizerStateFailed ||
          gestureRecognizer.state == UIGestureRecognizerStateCancelled )
         return false;
-    
-    switch ( gestureRecognizer.state ) {
-        case UIGestureRecognizerStatePossible:
-            break;
-        case UIGestureRecognizerStateBegan:
-        case UIGestureRecognizerStateChanged: {
-            [self _cancelGesture:otherGestureRecognizer];
-            return true;
-        }
-        case UIGestureRecognizerStateEnded:
-        case UIGestureRecognizerStateCancelled:
-        case UIGestureRecognizerStateFailed:
-            return false;
-    }
-    
+
     if ( SJFullscreenPopGesture.gestureType == SJFullscreenPopGestureTypeEdgeLeft ) {
         [self _cancelGesture:otherGestureRecognizer];
         return true;
@@ -113,6 +99,20 @@ NS_ASSUME_NONNULL_BEGIN
             return false;
     }
 
+    switch ( gestureRecognizer.state ) {
+        case UIGestureRecognizerStatePossible:
+            break;
+        case UIGestureRecognizerStateBegan:
+        case UIGestureRecognizerStateChanged: {
+            [self _cancelGesture:otherGestureRecognizer];
+            return true;
+        }
+        case UIGestureRecognizerStateEnded:
+        case UIGestureRecognizerStateCancelled:
+        case UIGestureRecognizerStateFailed:
+            return false;
+    }
+    
     if ( [otherGestureRecognizer isKindOfClass:UIPanGestureRecognizer.class] )
         return false;
 
