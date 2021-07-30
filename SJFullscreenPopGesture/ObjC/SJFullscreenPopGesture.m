@@ -70,6 +70,20 @@ NS_ASSUME_NONNULL_BEGIN
          gestureRecognizer.state == UIGestureRecognizerStateCancelled )
         return false;
     
+    switch ( gestureRecognizer.state ) {
+        case UIGestureRecognizerStatePossible:
+            break;
+        case UIGestureRecognizerStateBegan:
+        case UIGestureRecognizerStateChanged: {
+            [self _cancelGesture:otherGestureRecognizer];
+            return true;
+        }
+        case UIGestureRecognizerStateEnded:
+        case UIGestureRecognizerStateCancelled:
+        case UIGestureRecognizerStateFailed:
+            return false;
+    }
+    
     if ( SJFullscreenPopGesture.gestureType == SJFullscreenPopGestureTypeEdgeLeft ) {
         [self _cancelGesture:otherGestureRecognizer];
         return true;
