@@ -98,24 +98,10 @@ NS_ASSUME_NONNULL_BEGIN
         else
             return false;
     }
-
-    switch ( gestureRecognizer.state ) {
-        case UIGestureRecognizerStatePossible:
-            break;
-        case UIGestureRecognizerStateBegan:
-        case UIGestureRecognizerStateChanged: {
-            [self _cancelGesture:otherGestureRecognizer];
-            return true;
-        }
-        case UIGestureRecognizerStateEnded:
-        case UIGestureRecognizerStateCancelled:
-        case UIGestureRecognizerStateFailed:
-            return false;
-    }
     
     if ( [otherGestureRecognizer isKindOfClass:UIPanGestureRecognizer.class] )
         return false;
-
+ 
     return false;
 }
 
@@ -513,7 +499,7 @@ NS_ASSUME_NONNULL_BEGIN
         else {
             gesture = UIPanGestureRecognizer.alloc.init;
         }
-        
+        gesture.maximumNumberOfTouches = 1;
         gesture.delaysTouchesBegan = YES;
         gesture.delegate = SJFullscreenPopGestureDelegate.shared;
         [gesture addTarget:self action:@selector(sj_handleFullscreenGesture:)];
