@@ -46,5 +46,7 @@ typedef enum : NSUInteger {
 
 @interface UINavigationController (SJExtendedFullscreenPopGesture)
 @property (nonatomic, readonly) UIGestureRecognizerState sj_fullscreenGestureState;
+- (void)sj_popViewController:(BOOL)animated;
+
 @end
 NS_ASSUME_NONNULL_END
